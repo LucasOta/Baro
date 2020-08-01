@@ -1,0 +1,86 @@
+body{
+    margin: 0;
+    background-color: #EF4924;
+    font-family: 'Inter';
+    color: #fff;
+}
+
+.container{
+    height: 100vh;
+}
+.center{
+    text-align: center;
+}
+
+.p_50{
+    padding: 50px;
+}
+
+.p_20{
+    padding: 20px;
+}
+
+.watch {
+    height: 55vh;
+}
+.watch img{
+    margin-top: 10vh;
+    height: 70%;
+}
+
+.text{
+    height:20vh
+}
+
+.coming_soon {
+    margin-bottom: 1.7em;
+}
+.coming_soon h1{
+    font-weight: 100;
+    font-size: 3.5em;
+    letter-spacing: -4px;
+    margin: 0em;
+}
+
+.mail a {
+    color: #fff;
+    text-decoration: none;
+    border-bottom: solid 1px;
+    padding-bottom: 3px;
+}
+
+.logo{
+    height: 25vh;
+}
+.logo img{
+    margin: 4vh;
+    height: 1.5em;
+}
+
+
+/* Desktop */
+@media (min-width: 1025px ) {
+    .watch{
+        height: 50vh;
+    }
+    .text{
+        height: 25vh;
+    }
+    .coming_soon h1{
+        font-size: 5.5em;
+    }
+    .logo img {
+        margin: 10vh;
+        height: 2em;
+    }
+}
+
+/* Very Small screens */
+@media (max-width: 320px) {
+    .watch{
+        height: 45vh;
+    }
+    .text{
+        height: 35vh;
+    }
+}
