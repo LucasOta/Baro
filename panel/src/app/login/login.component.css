@@ -1,0 +1,11 @@
+.login-page {
+    background-image: linear-gradient(-45deg, #1aa1aecf, #f37b7b) !important;
+}
+
+.card {
+    border-radius: 20px !important;
+}
+
+.login-card-body {
+    border-radius: 20px !important;
+}
