@@ -25,7 +25,7 @@ userRoutes.post('/login', (req: Request, res: Response) => {
 
     User.findOne({ email: body.email }, (err, userDB) => {
 
-        if (err) throw err;
+        if (err) res.json({ ok: false, err });
 
         if (!userDB) {
             return res.json({
@@ -79,7 +79,7 @@ userRoutes.post('/create', (req: Request, res: Response) => {
 
     User.findOne({ email: req.body.email }, (err, userDB) => {
 
-        if (err) throw err;
+        if (err) res.json({ ok: false, err });
 
         if (userDB) {
             return res.json({
@@ -126,7 +126,7 @@ userRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
 
     User.findByIdAndUpdate(req.user._id, user, { new: true }, (err, userDB) => {
 
-        if (err) throw err;
+        if (err) res.json({ ok: false, err });
 
         if (!userDB) {
             return res.json({

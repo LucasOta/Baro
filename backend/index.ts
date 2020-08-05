@@ -34,7 +34,7 @@ server.app.use('/category', categoryRoutes);
 // Conectar DB
 mongoose.connect('mongodb://localhost/barobranding',
     // mongoose.connect('mongodb+srv://admin:admin@comments-y6qqv.mongodb.net/test?retryWrites=true&w=majority',
-    { useNewUrlParser: true, useCreateIndex: true }, (err) => {
+    { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, (err) => {
 
         if (err) throw err;
 

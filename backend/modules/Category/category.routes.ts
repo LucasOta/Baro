@@ -5,14 +5,12 @@ import Methods from '../../classes/methods';
 
 const categoryRoutes = Router();
 
-
-
 // Crear una categoría (fala el verificar token según nivel)
 categoryRoutes.post('/create', (req: Request, res: Response) => {
     let errors:string[] = [];
     if (!req.body.name) errors.push('nombre');
     
-    if (errors.length){
+    if (errors){
         return res.json({
             ok: false,
             desc: Methods.emptyFieldsMsg(errors)
@@ -21,7 +19,7 @@ categoryRoutes.post('/create', (req: Request, res: Response) => {
 
     Category.findOne({ name: req.body.name }, (err, categoryDB) => {
 
-        if (err) throw err;
+        if (err) res.json({ ok: false, err });
 
         if (categoryDB) {
             return res.json({
@@ -31,8 +29,10 @@ categoryRoutes.post('/create', (req: Request, res: Response) => {
         } else {
             const category = {
                 name: req.body.name,
-                // Falta ver el tema con las subCategories
+                subCategories: []
             };
+
+            if (req.body.subCategories) category.subCategories = req.body.subCategories;            
 
             Category
                 .create(category)
@@ -49,19 +49,32 @@ categoryRoutes.post('/create', (req: Request, res: Response) => {
 
 // Actualizar una categoría (fala el verificar token según nivel)
 categoryRoutes.patch('/update', (req: any, res: Response) => {
+    let errors:string[] = [];
+    if (!req.body._id) errors.push('ID'); 
+    
+    if (errors.length){
+        return res.json({
+            ok: false,
+            desc: Methods.emptyFieldsMsg(errors)
+        });
+    }
 
     let category = <ICategory>{
-        // Falta ver el tema con las supCategories
         // Falta ver el tema con las imgs
         modified: new Date()
     }
 
     if (req.body.name) category.name = req.body.name;
+    if (req.body.subCategories){
+        category.subCategories = req.body.subCategories;
+    } else {
+        category.subCategories = [];
+    }
 
     Category
         .findByIdAndUpdate(req.body._id, category, { new: true }, (err, categoryDB) => {
 
-            if (err) throw err;
+            if (err) res.json({ ok: false, err });
 
             if (!categoryDB) {
                 return res.json({
@@ -82,16 +95,22 @@ categoryRoutes.patch('/update', (req: any, res: Response) => {
 });
 
 
-// categoryRoutes.get('/', [verifyToken], (req: any, res: Response) => {
+categoryRoutes.get ('/', async (req: any, res: Response) => {
 
-//     const user = req.user;
+    const categories = await Category.find()
+        .sort({ _id: -1 })
+        .populate('subCategories')
+        // .select('+password') //in case is needed a field with select:false
+        .exec();
 
-//     res.json({
-//         ok: true,
-//         user
-//     });
+    res.json({
+        ok: true,
+        categories
+    });
 
-// });
+});
+
+
 
 // Falta el Get de mains y el de las categorías relacionadas
 
