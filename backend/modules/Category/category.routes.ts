@@ -10,7 +10,7 @@ categoryRoutes.post('/create', (req: Request, res: Response) => {
     let errors:string[] = [];
     if (!req.body.name) errors.push('nombre');
     
-    if (errors){
+    if (errors.length){
         return res.json({
             ok: false,
             desc: Methods.emptyFieldsMsg(errors)
@@ -42,7 +42,7 @@ categoryRoutes.post('/create', (req: Request, res: Response) => {
                 .catch(err => res.json({ ok: false, err }));
         }
 
-    })
+    }).catch(err => res.json({ ok: false, err }));
 
 });
 
@@ -65,11 +65,7 @@ categoryRoutes.patch('/update', (req: any, res: Response) => {
     }
 
     if (req.body.name) category.name = req.body.name;
-    if (req.body.subCategories){
-        category.subCategories = req.body.subCategories;
-    } else {
-        category.subCategories = [];
-    }
+    req.body.subCategories ? category.subCategories = req.body.subCategories : category.subCategories = [];
 
     Category
         .findByIdAndUpdate(req.body._id, category, { new: true }, (err, categoryDB) => {
@@ -94,14 +90,15 @@ categoryRoutes.patch('/update', (req: any, res: Response) => {
 
 });
 
-
+// Get All
 categoryRoutes.get ('/', async (req: any, res: Response) => {
 
-    const categories = await Category.find()
+    const categories = await Category
+        .find()
         .sort({ _id: -1 })
         .populate('subCategories')
-        // .select('+password') //in case is needed a field with select:false
-        .exec();
+        .exec()
+        .catch(err => res.json({ ok: false, err }));
 
     res.json({
         ok: true,
@@ -110,8 +107,42 @@ categoryRoutes.get ('/', async (req: any, res: Response) => {
 
 });
 
+// Get ById
+categoryRoutes.get ('/:categoryid', async (req: any, res: Response) => {
+    const id = req.params.categoryid;
+
+    const categories = await Category
+        .findById(id)
+        .exists('deleted', false)
+        .sort({ _id: -1 })
+        .populate('subCategories', )
+        .exec()
+        .catch(err => res.json({ ok: false, err }));
+    
+    if (!categories) res.json({ok:true, desc: 'No category found'});
+
+    res.json({
+        ok: true,
+        categories
+    });
+
+});
+
+// Delete
+categoryRoutes.delete ('/:categoryid', async (req: any, res: Response) => {
+    const id = req.params.categoryid;
+    await Category
+        .findByIdAndDelete(id)
+        .catch(err => res.json({ ok: false, err }));;
+
+    // TODO: Erase category references
+    res.json({
+        ok: true,
+        desc: 'Category deleted'
+    });
+})
 
 
-// Falta el Get de mains y el de las categorías relacionadas
+// Falta el Get de mains
 
 export default categoryRoutes;

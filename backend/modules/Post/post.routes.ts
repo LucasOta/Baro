@@ -21,7 +21,8 @@ postRoutes.get('/', async (req: any, res: Response) => {
         .skip(skip)
         .limit(10)
         .populate('user', '-password')
-        .exec();
+        .exec()
+        .catch(err => res.json({ ok: false, err }));;
 
     res.json({
         ok: true,
@@ -50,7 +51,7 @@ postRoutes.post('/', [verifyToken], (req: any, res: Response) => {
             res.json({ ok: true, post: postDB });
 
         })
-        .catch(err => res.json(err));
+        .catch(err => res.json({ ok: false, err }));
 
 });
 
