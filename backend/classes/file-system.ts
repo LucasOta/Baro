@@ -8,111 +8,147 @@ export default class FileSystem {
 
     constructor() { };
 
-    guardarImagenTemporal(file: FileUpload, userId: string) {
+    saveTempImage(file: FileUpload, userId: string) {
+        return new Promise((resolve, reject, ) => {
 
-        return new Promise((resolve, reject) => {
+            const path = this.createUserFolder(userId);
+            const fileName = this.generateUniqueName(file.name);
 
-            // Crear carpetas
-            const path = this.crearCarpetaUser(userId);
-
-            // Nombre archivo
-            const nombreArchivo = this.generarNombreUnico(file.name);
-
-            // Mover el archivo del Temp a nuestra carpeta
-            file.mv(`${path}/${nombreArchivo}`, (err: any) => {
+            // Move the file from Temp to our folder
+            file.mv(`${path}/${fileName}`, (err: any) => {
 
                 if (err) {
                     reject(err);
                 } else {
-                    resolve();
+                    resolve(fileName);
                 }
 
             });
 
         });
+    }    
 
+    deleteTempImage(userId: string, fileName: string) {
+        return new Promise((resolve, reject, ) => {
 
+            const path = this.createUserFolder(userId) ;
 
+            try {
+                fs.unlinkSync(`${path}/${fileName}`);
+                resolve();
+              } catch(err) {
+                reject(err);
+              }
 
-    }
+        });
+    }    
+    
+    deleteImage(moduleName: string, elementID: string, img: string) {
+        const pathFile = path.resolve(__dirname, '../uploads', moduleName, elementID, img);
 
-    private generarNombreUnico(nombreOriginal: string) {
-        // 6.copy.jpg
-        const nombreArr = nombreOriginal.split('.');
-        const extension = nombreArr[nombreArr.length - 1];
+        return new Promise((resolve, reject, ) => {
 
-        const idUnico = uniqid();
+            try {
+                fs.unlinkSync(pathFile);
+                resolve();
+              } catch(err) {
+                reject(err);
+              }
 
+        });
+    }    
+    
+    deleteImagesNotIncludedIn(moduleName: string, elementID: string, imgsIncluded: string[]) {
+        
+        const folderPath = path.resolve(__dirname, '../uploads', moduleName, elementID);        
+        
+        fs.readdir(folderPath, function (err, files) {
 
-        return `${idUnico}.${extension}`;
-    }
+            if (err) {
+                return console.log('Unable to scan directory: ' + err);
+            }
 
+            const imgsToBeDeleted = files.filter(imgName => imgsIncluded.indexOf(imgName) == -1);
+        
+            imgsToBeDeleted.forEach(img => {
+                let pathFile = path.resolve(folderPath, img);
+                try {
+                    fs.unlinkSync(pathFile);
+                } catch(err) {
+                    console.error(err);
+                }
+                
+            });
+        });
 
-    private crearCarpetaUser(userId: string) {
+    }    
 
-        const pathUser = path.resolve(__dirname, '../uploads/', userId);
-        const pathUserTemp = pathUser + '/temp';
-        // console.log(pathUser);
-
-        const existe = fs.existsSync(pathUser);
-
-        if (!existe) {
-            fs.mkdirSync(pathUser);
-            fs.mkdirSync(pathUserTemp);
-        }
-
-        return pathUserTemp;
-
-    }
-
-    imagenesDeTempHaciaPost(userId: string) {
-
-        const pathTemp = path.resolve(__dirname, '../uploads/', userId, 'temp');
-        const pathPost = path.resolve(__dirname, '../uploads/', userId, 'posts');
+    filesFromTempToFolder(userId: string, moduleName: string, elementID: string) {
+        const pathTemp = path.resolve(__dirname, '../uploads/', userId, 'temp');        
+        const pathPost = path.resolve(__dirname, '../uploads/', moduleName, elementID);
 
         if (!fs.existsSync(pathTemp)) {
             return [];
         }
 
         if (!fs.existsSync(pathPost)) {
-            fs.mkdirSync(pathPost);
+            this.checkPath(['../uploads/', moduleName, elementID]);
         }
 
-        const imagenesTemp = this.obtenerImagenesEnTemp(userId);
+        const imagenesTemp = this.getTempFiles(userId);
 
         imagenesTemp.forEach(imagen => {
             fs.renameSync(`${pathTemp}/${imagen}`, `${pathPost}/${imagen}`)
         });
 
         return imagenesTemp;
-
     }
 
-    private obtenerImagenesEnTemp(userId: string) {
+    getFileUrl(moduleName: string, elementID: string, img: string) {
+        const pathFile = path.resolve(__dirname, '../uploads', moduleName, elementID, img);
 
-        const pathTemp = path.resolve(__dirname, '../uploads/', userId, 'temp');
-
-        return fs.readdirSync(pathTemp) || [];
-
+        // If there is no image
+        if (!fs.existsSync(pathFile)) return path.resolve(__dirname, '../assets/400x250.jpg');
+        
+        return pathFile;
     }
 
 
-    getFotoUrl(userId: string, img: string) {
+    private generateUniqueName(originalName: string) {
+        const arrName = originalName.split('.');
+        const extension = arrName[arrName.length - 1];
 
-        // Path POSTs
-        const pathFoto = path.resolve(__dirname, '../uploads', userId, 'posts', img);
+        const uniqueId = uniqid();
 
-
-        // Si la imagen existe
-        const existe = fs.existsSync(pathFoto);
-        if (!existe) {
-            return path.resolve(__dirname, '../assets/400x250.jpg');
-        }
-
-
-        return pathFoto;
-
+        return `${uniqueId}.${extension}`;
     }
 
+
+    private createUserFolder(userId: string) {
+        const userPath = path.resolve(__dirname, '../uploads/', userId);
+        const tempUserPath = userPath + '/temp';
+        
+        this.checkPath(['../uploads/', userId, 'temp']);
+
+        return tempUserPath;
+    }
+
+    private getTempFiles(userId: string) {
+        const tempPath = path.resolve(__dirname, '../uploads/', userId, 'temp');
+
+        return fs.readdirSync(tempPath) || [];
+    }
+
+    private checkPath(pPath: string[]){
+        let partialPath = path.resolve(__dirname);
+        
+        pPath.forEach(subPath => {
+            partialPath = path.resolve(partialPath, subPath);
+                        
+            if (!fs.existsSync(partialPath)) {
+                fs.mkdirSync(partialPath);
+            }
+        });
+    }
 
 }

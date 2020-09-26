@@ -1,5 +1,5 @@
 import { Router, Response } from 'express';
-import { verifyToken } from '../../middlewares/autenticacion';
+import { verifyToken } from '../../middlewares/authentication';
 import { Post } from './post.model';
 import { FileUpload } from '../../interfaces/file-upload';
 import FileSystem from '../../classes/file-system';
@@ -38,8 +38,8 @@ postRoutes.post('/', [verifyToken], (req: any, res: Response) => {
     const body = req.body;
     body.user = req.user._id;
 
-    const imagenes = fileSystem.imagenesDeTempHaciaPost(req.user._id);
-    body.imgs = imagenes;
+    // const imagenes = fileSystem.filesFromTempToFolder(req.user._id, 'posts', PostId);
+    // body.imgs = imagenes;
 
 
     Post
@@ -82,7 +82,7 @@ postRoutes.post('/upload', [verifyToken], async (req: any, res: Response) => {
         });
     }
 
-    await fileSystem.guardarImagenTemporal(file, req.user._id);
+    await fileSystem.saveTempImage(file, req.user._id);
 
     res.json({
         ok: true,
@@ -97,7 +97,7 @@ postRoutes.get('/imagen/:userid/:img', (req: any, res: Response) => {
     const userId = req.params.userid;
     const img = req.params.img;
 
-    const pathFoto = fileSystem.getFotoUrl(userId, img);
+    const pathFoto = fileSystem.getFileUrl('posts', userId, img);
 
     res.sendFile(pathFoto);
 

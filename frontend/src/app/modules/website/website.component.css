@@ -1,0 +1,25 @@
+/*Google Fonts*/
+@import "https://fonts.googleapis.com/css?family=Nunito:400,700%7cPlayball%7cPT+Serif:700i";
+
+/*Bootstrap*/
+@import "../../../assets/mimilism/vendor/bootstrap/dist/css/bootstrap.min.css";
+
+/*Font Awesome*/
+@import "../../../assets/mimilism/vendor/@fortawesome/fontawesome-free/css/brands.css";
+@import "../../../assets/mimilism/vendor/@fortawesome/fontawesome-free/css/solid.css";
+@import "../../../assets/mimilism/vendor/@fortawesome/fontawesome-free/css/fontawesome.css";
+
+/*Pe icon 7 stroke*/
+@import "../../../assets/mimilism/vendor/pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
+
+/*Lightgallery*/
+@import "../../../assets/mimilism/vendor/lightgallery/dist/css/lightgallery.min.css";
+
+/*Swiper*/
+@import "../../../assets/mimilism/vendor/swiper/dist/css/swiper.min.css";
+
+/*Mimilism*/
+@import "../../../assets/mimilism/css/mimilism.css";
+
+/*Custom Styles*/
+@import "../../../assets/mimilism/css/custom.css";

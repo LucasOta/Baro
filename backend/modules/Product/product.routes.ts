@@ -1,5 +1,5 @@
 import { Router, Response } from 'express';
-import { verifyToken } from '../../middlewares/autenticacion';
+import { verifyToken } from '../../middlewares/authentication';
 import { Product } from './product.model';
 import { FileUpload } from '../../interfaces/file-upload';
 import FileSystem from '../../classes/file-system';
@@ -36,13 +36,13 @@ const fileSystem = new FileSystem();
 // Crear PRODUCT
 productRoutes.post('/create', [verifyToken], (req: any, res: Response) => {
 
-    const imagenes = fileSystem.imagenesDeTempHaciaPost(req.user._id);
+    // const imagenes = fileSystem.filesFromTempToFolder(req.user._id);
 
     const product = {
         name: req.body.name,
         description: req.body.description,
         user: req.user._id, //mmm, a esto no le tengo fe
-        imgs: imagenes //a esto tampoco
+        // imgs: imagenes //a esto tampoco
     };
 
     Product
@@ -85,7 +85,7 @@ productRoutes.post('/create', [verifyToken], (req: any, res: Response) => {
 //         });
 //     }
 
-//     await fileSystem.guardarImagenTemporal(file, req.user._id);
+//     await fileSystem.saveTempImage(file, req.user._id);
 
 //     res.json({
 //         ok: true,
@@ -101,7 +101,7 @@ productRoutes.post('/create', [verifyToken], (req: any, res: Response) => {
 //     const userId = req.params.userid;
 //     const img = req.params.img;
 
-//     const pathFoto = fileSystem.getFotoUrl(userId, img);
+//     const pathFoto = fileSystem.getFileUrl(userId, img);
 
 //     res.sendFile(pathFoto);
 

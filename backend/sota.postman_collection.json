@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "f00bc9ed-a668-4672-8903-3876c508b468",
+		"name": "sota",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Lucas",
+							"description": "*",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "admin@admin.com",
+							"description": "*",
+							"type": "text"
+						},
+						{
+							"key": "level",
+							"value": "1",
+							"description": "0- Client, 1-User, 2- Admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/user/create",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category/create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVmMzk0YTc2M2QzODNiMDg4OGNjNmVlZSIsIm5hbWUiOiJMdWNhcyIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIn0sImlhdCI6MTYwMDkxODI3OSwiZXhwIjoxNjAzNTEwMjc5fQ.XqfecLFbyAVwNva6WJGKuh33gBgg_ub6Apsx-cbH5nU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":[\r\n        {\r\n            \"language\": \"en\",\r\n            \"quote\": \"Brand Identity\"\r\n        },\r\n        {\r\n            \"language\": \"es\",\r\n            \"quote\": \"Identidad de Marca\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/category/create",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"category",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category/getAll",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "es",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/category/5f6fa8225487ae027c72773c",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"category",
+						"5f6fa8225487ae027c72773c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category/update",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVmMzk0YTc2M2QzODNiMDg4OGNjNmVlZSIsIm5hbWUiOiJMdWNhcyIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIn0sImlhdCI6MTYwMDkxODI3OSwiZXhwIjoxNjAzNTEwMjc5fQ.XqfecLFbyAVwNva6WJGKuh33gBgg_ub6Apsx-cbH5nU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"5f6c19a15811c75be06139fa\",\r\n    \"name\":{\r\n        \"translations\":[\r\n        {\r\n            \"language\": \"en\",\r\n            \"quote\": \"Brand Identities\"\r\n        },\r\n        {\r\n            \"language\": \"es\",\r\n            \"quote\": \"Identidad de Marcas\"\r\n        }\r\n    ]\r\n    } \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/category/update",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"category",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "file/imagen",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/file/image/categories/5f50812c6b45664914e59ee3/3vunskqefokemdoesf.jpg",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file",
+						"image",
+						"categories",
+						"5f50812c6b45664914e59ee3",
+						"3vunskqefokemdoesf.jpg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "admin@admin.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

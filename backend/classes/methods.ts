@@ -1,3 +1,5 @@
+import { Translation } from "./translation";
+
 export default class Methods {
 
     constructor() { };
@@ -14,6 +16,22 @@ export default class Methods {
       }
       return msg;
      }
+    }
+
+    static filterByLanguage(field: Translation[], language: string){
+        
+        let defTranslation = new Translation();
+        let result = new Translation();
+        field.forEach(t => {
+
+            if (t.language == language && t.quote != '') result = t;           
+            if (t.language == 'en') defTranslation = t;
+
+        });
+        
+        if (result.quote == '') result = defTranslation;
+        
+        return result;
     }
 
 }

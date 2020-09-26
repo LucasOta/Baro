@@ -16,25 +16,12 @@ export default class Token {
     }
 
     static checkToken(userToken: string) {
-
         return new Promise((resolve, reject) => {
-
             jwt.verify(userToken, this.seed, (err, decoded) => {
-
-                if (err) {
-                    reject();
-                } else {
-                    resolve(decoded);
-                }
-
-
+                err ? reject() : resolve(decoded);
             })
-
         });
-
-
     }
-
 
 }
 

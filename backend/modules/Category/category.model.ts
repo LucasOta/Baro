@@ -1,19 +1,23 @@
 import { Schema, Document, model } from 'mongoose';
+import { Translation } from "../../classes/translation";
 
 const categorySchema = new Schema({
 
-    name: {
-        type: String,
-        required: [true, 'El nombre es necesario']
-    },
+    name: [
+        {
+            _id:false,
+            language: String,
+            quote: String,
+        }
+    ],
     img: {
         type: String,
         default: 'category_def.jpg'
     },
-    subCategories: [{
+    parent: {
         type: Schema.Types.ObjectId,
         ref: 'Category'
-    }],
+    },
 
     created: {
         type: Date
@@ -33,9 +37,9 @@ categorySchema.pre<ICategory>('save', function (next) {
 });
 
 export interface ICategory extends Document {
-    name: string;
+    name: Translation[];
     img?: string;
-    subCategories?: string[];
+    parent?: string;
 
     created?: Date;
     modified?: Date;
