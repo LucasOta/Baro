@@ -7,6 +7,7 @@ import fileUpload from 'express-fileupload';
 import userRoutes from './modules/User/user.routes';
 import postRoutes from './modules/Post/post.routes';
 import categoryRoutes from './modules/Category/category.routes';
+import industryRoutes from './modules/Industry/industry.routes';
 import fileRoutes from './modules/File/file.routes';
 
 import cors from 'cors';
@@ -30,6 +31,7 @@ server.app.use(cors({ origin: true, credentials: true }));
 server.app.use('/user', userRoutes);
 server.app.use('/posts', postRoutes);
 server.app.use('/category', categoryRoutes);
+server.app.use('/industry', industryRoutes);
 server.app.use('/file', fileRoutes);
 
 
@@ -45,5 +47,5 @@ mongoose.connect('mongodb://localhost/barobranding',
 
 // Levantar express
 server.start(() => {
-    console.log(`Servidor corriendo en puerto ${server.port}`);
+    console.log(`Server running on port ${server.port}`);
 });
