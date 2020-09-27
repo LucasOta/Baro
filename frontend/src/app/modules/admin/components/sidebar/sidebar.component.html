@@ -28,15 +28,15 @@
           <li class="nav-item">
             <a [routerLink]="'dashboard'" routerLinkActive="active" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Dashboard</p>
+              <p>{{ 'Dashboard' | translate }}</p>
             </a>
           </li>
-          <li class="nav-header">Modules</li>
+          <li class="nav-header">{{ 'Modules' | translate }}</li>
           <li class="nav-item">
             <a [routerLink]="'categories'" routerLinkActive="active" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
-                Categories
+                {{ 'Categories' | translate }}
               </p>
             </a>
           </li>
@@ -44,7 +44,7 @@
             <a [routerLink]="'users'" routerLinkActive="active" class="nav-link">
               <i class="nav-icon far fa-user"></i>
               <p>
-                Users
+                {{ 'Users' | translate }}                
               </p>
             </a>
           </li>
@@ -52,7 +52,7 @@
             <a [routerLink]="'posts'" routerLinkActive="active" class="nav-link">
               <i class="nav-icon far fa-address-card"></i>
               <p>
-                Posts
+                {{ 'Posts' | translate }}                
               </p>
             </a>
           </li>

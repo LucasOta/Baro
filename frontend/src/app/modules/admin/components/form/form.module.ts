@@ -5,6 +5,7 @@ import { PipesModule } from "../../../../shared/pipes/pipes.module";
 import { TextInputComponent } from './text-input/text-input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MultilanguageTextInputComponent } from './multilanguage-text-input/multilanguage-text-input.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -14,7 +15,8 @@ import { MultilanguageTextInputComponent } from './multilanguage-text-input/mult
   imports: [
     CommonModule,
     PipesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class FormModule { }
