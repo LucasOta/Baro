@@ -13,6 +13,8 @@ import { PostsComponent } from './pages/posts/posts.component';
 import { UsersComponent } from './pages/users/users.component';
 import { ComponentsModule } from "../../shared/components/components.module";
 
+import { SharedModule } from "../../shared/shared.module";
+
 @NgModule({
   declarations: [
     AdminComponent,
@@ -27,7 +29,8 @@ import { ComponentsModule } from "../../shared/components/components.module";
   imports: [
     CommonModule,
     ComponentsModule,
-    AdminRoutingModule    
+    AdminRoutingModule,
+    SharedModule
   ]
 })
 export class AdminModule { }

@@ -13,7 +13,7 @@ export class ListComponent implements OnInit {
   constructor(private categoryService: CategoryService, private router: Router) { }
 
   ngOnInit(): void {
-    this.categoryService.get(true).subscribe((res)=>{
+    this.categoryService.get().subscribe((res)=>{
       this.categories = res.categories;
     });
     

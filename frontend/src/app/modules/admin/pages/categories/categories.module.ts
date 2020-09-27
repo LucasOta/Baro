@@ -8,6 +8,7 @@ import { FormComponent } from './form/form.component';
 
 import { FormModule } from "../../components/form/form.module";
 import { ComponentsModule } from "../../../../shared/components/components.module";
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ComponentsModule } from "../../../../shared/components/components.modul
     CategoriesRoutingModule,
     ReactiveFormsModule,
     FormModule,
-    ComponentsModule
+    ComponentsModule,
+    SharedModule
   ]
 })
 export class CategoriesModule { }

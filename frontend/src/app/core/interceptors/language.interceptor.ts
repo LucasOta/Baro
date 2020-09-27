@@ -18,22 +18,16 @@ export class LanguageInterceptor implements HttpInterceptor {
     const lang = this.languageService.getLanguage().value;
     
     if (request.headers.has(InterceptorSkipHeaderStr)) {
-      
-      
       const headers = request.headers.delete(InterceptorSkipHeaderStr);
       request = request.clone({ headers });
       request = request.clone({
-        setHeaders:{
-          'accept-language': ''
-        }
+        setHeaders:{ 'accept-language': '' }
       });
       return next.handle(request);
     }
     
     request = request.clone({
-      setHeaders:{
-        'accept-language': lang
-      }
+      setHeaders:{ 'accept-language': lang }
     });
 
     return next.handle(request);
