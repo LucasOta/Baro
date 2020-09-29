@@ -10,6 +10,7 @@ const routes: Routes = [
     path: '', component: AdminComponent, children: [
       { path: '', component: DashboardComponent },
       { path: 'categories', loadChildren: () => import(`./pages/categories/categories.module`).then(m => m.CategoriesModule) },
+      { path: 'industries', loadChildren: () => import(`./pages/industries/industries.module`).then(m => m.IndustriesModule) },
       { path: 'posts', loadChildren: () => import(`./pages/posts/posts.module`).then(m => m.PostsModule) },
       { path: 'users', component: UsersComponent },
       { path: 'dashboard', redirectTo: '', pathMatch: 'full' },

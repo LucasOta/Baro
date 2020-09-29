@@ -1,6 +1,7 @@
 {
     "Dashboard": "Dashboard",
     "Categories": "Categories",
+    "Industries": "Industries",
     "Users": "Users",
     "Posts": "Posts",
 
@@ -13,6 +14,7 @@
 
     "New": "New",
     "Category": "Category",
+    "Industry": "Industry",
 
     "Name": "Name",
     "Created": "Created",

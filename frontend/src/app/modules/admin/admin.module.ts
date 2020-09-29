@@ -14,6 +14,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { ComponentsModule } from "../../shared/components/components.module";
 
 import { SharedModule } from "../../shared/shared.module";
+import { IndustriesComponent } from './pages/industries/industries.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SharedModule } from "../../shared/shared.module";
     SidebarComponent,
     DashboardComponent,
     PostsComponent,
-    UsersComponent    
+    UsersComponent,
+    IndustriesComponent    
   ],
   imports: [
     CommonModule,
