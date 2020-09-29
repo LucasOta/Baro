@@ -83,7 +83,6 @@ export class FormComponent implements OnInit {
         .subscribe(
           data => { 
             if (data.ok){
-              this.alertService.success('Industry edited');
               this.goToList();
             } else {
               this.alertService.error(data.err);
@@ -95,9 +94,8 @@ export class FormComponent implements OnInit {
       this.industryService.create(this.industry)
         .pipe(first())
         .subscribe(
-          data => { 
+          data => {            
             if (data.ok){
-              this.alertService.success('Industry created');
               this.goToList();
             } else {
               this.alertService.error(data.err);

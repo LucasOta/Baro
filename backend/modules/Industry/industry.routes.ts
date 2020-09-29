@@ -36,7 +36,8 @@ industryRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
             Industry
                 .create(industry)
                 .then(industryDB => {
-                    return res.json({ ok: true, industry: industryDB });
+                    res.status(201);
+                    return res.json({ ok: true, desc: 'Industry', industry: industryDB });
                 })
                 .catch(err => { return res.json({ ok: false, err }) } );
         }
@@ -69,7 +70,8 @@ industryRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
 
             if (!industryDB)  return res.json({ ok: false, desc: 'There is no industry with that ID' });
 
-            return res.json({ ok: true, industry: industryDB });
+            res.status(200);
+            return res.json({ ok: true, desc:'Industry updated', industry: industryDB });
 
         })
         .catch(err => { return res.json({ ok: false, err }) } );
