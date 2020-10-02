@@ -2,9 +2,9 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { IndustryService } from 'src/app/core/http/industry/industry.service';
+import { DisciplineService } from 'src/app/core/http/discipline/discipline.service';
 import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
-import { Industry } from 'src/app/shared/models/industry';
+import { Discipline } from 'src/app/shared/models/discipline';
 import { MultilanguageTextInputComponent, MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 
@@ -16,12 +16,12 @@ import { CardFooterConfig } from '../../../components/cards/card-footer/card-foo
 export class FormComponent implements OnInit {
   @ViewChild(MultilanguageTextInputComponent, {static: true}) nameMultilanguageForm: MultilanguageTextInputComponent;
 
-  moduleName = 'industries'; 
+  moduleName = 'disciplines'; 
 
-  title = 'New Industry';
+  title = 'New Discipline';
   createForm: FormGroup;
-  industry = new Industry();
-  industries: Industry[] = [];
+  discipline = new Discipline();
+  disciplines: Discipline[] = [];
   submitted = false;
   state: any;
   id: any;
@@ -34,7 +34,7 @@ export class FormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private industryService: IndustryService,
+    private disciplineService: DisciplineService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,    
     private route: ActivatedRoute) { 
@@ -51,11 +51,11 @@ export class FormComponent implements OnInit {
     
 
     if (this.id) {
-      this.title = 'Edit Industry'
+      this.title = 'Edit Discipline'
 
-      this.industryService.get(true, this.id).subscribe((res)=>{
-        this.industry = res.industries;
-        this.nameMultilanguageForm.setValue(this.industry.name);
+      this.disciplineService.get(true, this.id).subscribe((res)=>{
+        this.discipline = res.disciplines;
+        this.nameMultilanguageForm.setValue(this.discipline.name);
       });   
     }
     
@@ -71,16 +71,16 @@ export class FormComponent implements OnInit {
       return;
     }
     
-    this.industry.name = this.nameMultilanguageForm.getValue();
+    this.discipline.name = this.nameMultilanguageForm.getValue();
     
     if (! this.id) { 
-      this.industryService.create(this.industry)
+      this.disciplineService.create(this.discipline)
         .pipe(first())
         .subscribe(
           data => { if (data.ok) this.goToList(); }
         );      
     } else {
-      this.industryService.update(this.industry)
+      this.disciplineService.update(this.discipline)
         .pipe(first())
         .subscribe(
           data => { if (data.ok) this.goToList(); } 
@@ -90,7 +90,7 @@ export class FormComponent implements OnInit {
 
   onDelete(){
     // TODO: show alert asking if sure
-    this.industryService.delete(this.id)
+    this.disciplineService.delete(this.id)
     .pipe(first())
     .subscribe(
       data => { if (data.ok) this.goToList(); }
@@ -121,6 +121,6 @@ export class FormComponent implements OnInit {
   }
 
   goToList(){
-    this.router.navigate(['admin/industries/list']);
+    this.router.navigate(['admin/disciplines/list']);
   }
 }

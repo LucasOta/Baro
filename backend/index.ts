@@ -8,6 +8,7 @@ import userRoutes from './modules/User/user.routes';
 import postRoutes from './modules/Post/post.routes';
 import categoryRoutes from './modules/Category/category.routes';
 import industryRoutes from './modules/Industry/industry.routes';
+import disciplineRoutes from './modules/Discipline/discipline.routes';
 import fileRoutes from './modules/File/file.routes';
 
 import cors from 'cors';
@@ -32,6 +33,7 @@ server.app.use('/user', userRoutes);
 server.app.use('/posts', postRoutes);
 server.app.use('/category', categoryRoutes);
 server.app.use('/industry', industryRoutes);
+server.app.use('/discipline', disciplineRoutes);
 server.app.use('/file', fileRoutes);
 
 
