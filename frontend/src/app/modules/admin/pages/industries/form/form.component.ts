@@ -7,6 +7,7 @@ import { LanguageSelectorConfig } from 'src/app/shared/components/language-selec
 import { Industry } from 'src/app/shared/models/industry';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { MultilanguageTextInputComponent, MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
+import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 
 @Component({
   selector: 'app-form',
@@ -16,10 +17,9 @@ import { MultilanguageTextInputComponent, MultilanguageTextInputConfig } from '.
 export class FormComponent implements OnInit {
   @ViewChild(MultilanguageTextInputComponent, {static: true}) nameMultilanguageForm: MultilanguageTextInputComponent;
 
-  moduleName = 'industries';
+  moduleName = 'industries'; 
 
   title = 'New Industry';
-  submitText = 'Create'
   createForm: FormGroup;
   industry = new Industry();
   industries: Industry[] = [];
@@ -29,6 +29,8 @@ export class FormComponent implements OnInit {
 
   nameMultilanguageInputConfig = new MultilanguageTextInputConfig();
   languageSelectorConfig = new LanguageSelectorConfig();
+
+  cardFooterConfig = new CardFooterConfig();
   
 
   constructor(
@@ -51,7 +53,6 @@ export class FormComponent implements OnInit {
 
     if (this.id) {
       this.title = 'Edit Industry'
-      this.submitText = 'Edit'
 
       this.industryService.get(true, this.id).subscribe((res)=>{
         this.industry = res.industries;
@@ -88,7 +89,7 @@ export class FormComponent implements OnInit {
     }    
   }
 
-  delete(){
+  onDelete(){
     // TODO: show alert asking if sure
     this.industryService.delete(this.id)
     .pipe(first())
@@ -103,13 +104,17 @@ export class FormComponent implements OnInit {
   }
 
   private initializeComponents(){
+    let scope = this;
 
     this.nameMultilanguageInputConfig.fieldName = 'Name';
     this.nameMultilanguageInputConfig.required = true;
     this.nameMultilanguageInputConfig.placeholder = 'Name';
     this.nameMultilanguageInputConfig.selectedLanguage = this.languageSelectorConfig.selectedLanguage.value;
 
-    var scope = this
+    this.cardFooterConfig.cancelAction = function() { scope.goToList(); };
+    this.cardFooterConfig.deleteAction = function() { scope.onDelete(); };
+    this.cardFooterConfig.id = this.id;
+
     this.languageSelectorConfig.onChange= function(value){
       scope.changeDetectorRef.detectChanges();
       scope.nameMultilanguageInputConfig.selectedLanguage = value.value;

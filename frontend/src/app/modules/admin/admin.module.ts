@@ -26,7 +26,7 @@ import { IndustriesComponent } from './pages/industries/industries.component';
     DashboardComponent,
     PostsComponent,
     UsersComponent,
-    IndustriesComponent    
+    IndustriesComponent
   ],
   imports: [
     CommonModule,
