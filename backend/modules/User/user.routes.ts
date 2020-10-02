@@ -67,7 +67,7 @@ userRoutes.post('/create', (req: Request, res: Response) => {
     let errors:string[] = [];
     if (!req.body.name)      errors.push('nombre');
     if (!req.body.email)     errors.push('email');
-    if (!req.body.level)     errors.push('nivel');
+    // if (!req.body.level)     errors.push('nivel');
     if (!req.body.password)  errors.push('contraseña');
     
     if (errors.length){
@@ -90,7 +90,8 @@ userRoutes.post('/create', (req: Request, res: Response) => {
             const user = {
                 name: req.body.name,
                 email: req.body.email,
-                level: req.body.level,
+                // level: req.body.level,
+                level: 1,
                 password: bcrypt.hashSync(req.body.password, 10)
             };
 
