@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { ClientService } from 'src/app/core/http/client/client.service';
-import { Client } from 'src/app/shared/models/client';
+import { UserService } from 'src/app/core/http/user/user.service';
+import { User } from 'src/app/shared/models/user';
 import { TextInputConfig } from '../../../components/form/text-input/text-input.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 
@@ -13,24 +13,25 @@ import { CardFooterConfig } from '../../../components/cards/card-footer/card-foo
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-  moduleName = 'clients'; 
+  moduleName = 'users'; 
 
-  title = 'New Client';
+  title = 'New User';
   createForm: FormGroup;
-  client = new Client();
+  user = new User();
   submitted = false;
   state: any;
   id: any;
 
   nameTextInputConfig = new TextInputConfig();
-  websiteTextInputConfig = new TextInputConfig();
+  emailTextInputConfig = new TextInputConfig();
+  passwordTextInputConfig = new TextInputConfig();
 
   cardFooterConfig = new CardFooterConfig();
   
 
   constructor(
     private formBuilder: FormBuilder,
-    private clientService: ClientService,
+    private userService: UserService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,    
     private route: ActivatedRoute) { 
@@ -43,19 +44,23 @@ export class FormComponent implements OnInit {
 
     this.createForm = this.formBuilder.group({
       name: ['', Validators.required],
-      website: [''],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
     });
     this.nameTextInputConfig.formControl = this.createForm.get('name') as FormControl;
-    this.websiteTextInputConfig.formControl = this.createForm.get('website') as FormControl;    
+    this.emailTextInputConfig.formControl = this.createForm.get('email') as FormControl;
+    this.passwordTextInputConfig.formControl = this.createForm.get('password') as FormControl;
 
     if (this.id) {
       this.title = 'Edit Discipline'
 
-      this.clientService.get(this.id).subscribe((res)=>{
-        this.client = res.clients;
+      this.userService.get(this.id).subscribe((res)=>{
+        this.user = res.users;
 
-        this.f.name.setValue(this.client.name);
-        if (this.client.website) this.f.website.setValue(this.client.website);
+        this.f.name.setValue(this.user.name);
+        if (this.user.email) this.f.email.setValue(this.user.email);
+        
+        // if (res.users.password) this.f.password.setValue(this.user.password);
       });   
     }
 
@@ -70,18 +75,19 @@ export class FormComponent implements OnInit {
       return;
     }
     
-    this.client.name = this.f.name.value;
-    this.client.website = this.f.website.value;
+    this.user.name = this.f.name.value;
+    this.user.email = this.f.email.value;
+    this.user.password = this.f.password.value;
     
     
     if (! this.id) { 
-      this.clientService.create(this.client)
+      this.userService.create(this.user)
         .pipe(first())
         .subscribe(
           data => { if (data.ok) this.goToList(); }
         );      
     } else {
-      this.clientService.update(this.client)
+      this.userService.update(this.user)
         .pipe(first())
         .subscribe(
           data => { if (data.ok) this.goToList(); } 
@@ -91,7 +97,7 @@ export class FormComponent implements OnInit {
 
   onDelete(){
     // TODO: show alert asking if sure
-    this.clientService.delete(this.id)
+    this.userService.delete(this.id)
     .pipe(first())
     .subscribe(
       data => { if (data.ok) this.goToList(); }
@@ -108,12 +114,16 @@ export class FormComponent implements OnInit {
 
     this.nameTextInputConfig.fieldName = 'Name';
     this.nameTextInputConfig.required = true;
-    this.nameTextInputConfig.placeholder = 'Client Name';
+    this.nameTextInputConfig.placeholder = 'User Name';
     this.nameTextInputConfig.formSubmitted = this.submitted;
     
-    this.websiteTextInputConfig.fieldName = 'Website';
-    this.websiteTextInputConfig.required = false;
-    this.websiteTextInputConfig.placeholder = 'Client Website';
+    this.emailTextInputConfig.fieldName = 'Email';
+    this.emailTextInputConfig.required = false;
+    this.emailTextInputConfig.placeholder = 'User Email';
+    
+    this.passwordTextInputConfig.fieldName = 'Password';
+    this.passwordTextInputConfig.required = false;
+    this.passwordTextInputConfig.placeholder = 'User Password';
 
 
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };
@@ -123,7 +133,7 @@ export class FormComponent implements OnInit {
   }
 
   goToList(){
-    this.router.navigate(['admin/clients/list']);
+    this.router.navigate(['admin/users/list']);
   }
 
 }

@@ -7,12 +7,12 @@ const userSchema = new Schema({
 
     name: {
         type: String,
-        required: [true, 'El nombre es necesario']
+        required: [true, 'Name is required']
     },
     email: {
         type: String,
         unique: true,
-        required: [true, 'El correo es necesario']
+        required: [true, 'Email is required']
     },
     level: { // 0- Client, 1-User, 2- Admin
         type: Number,
@@ -20,7 +20,7 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: [true, 'La contraseña es necesaria'],
+        required: [true, 'Password is required'],
         select: false
     },
 

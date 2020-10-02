@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { User } from "../../shared/models/user.model";
+import { User } from "../../shared/models/user";
 import { UserService } from "../http/user/user.service";
 
 import { Router } from "@angular/router";
