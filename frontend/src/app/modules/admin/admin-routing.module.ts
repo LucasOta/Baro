@@ -12,6 +12,7 @@ const routes: Routes = [
       { path: 'categories', loadChildren: () => import(`./pages/categories/categories.module`).then(m => m.CategoriesModule) },
       { path: 'industries', loadChildren: () => import(`./pages/industries/industries.module`).then(m => m.IndustriesModule) },
       { path: 'disciplines', loadChildren: () => import(`./pages/disciplines/disciplines.module`).then(m => m.DisciplinesModule) },
+      { path: 'clients', loadChildren: () => import(`./pages/clients/clients.module`).then(m => m.ClientsModule) },
       { path: 'posts', loadChildren: () => import(`./pages/posts/posts.module`).then(m => m.PostsModule) },
       { path: 'users', component: UsersComponent },
       { path: 'dashboard', redirectTo: '', pathMatch: 'full' },

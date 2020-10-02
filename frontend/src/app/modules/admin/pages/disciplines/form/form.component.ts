@@ -21,7 +21,6 @@ export class FormComponent implements OnInit {
   title = 'New Discipline';
   createForm: FormGroup;
   discipline = new Discipline();
-  disciplines: Discipline[] = [];
   submitted = false;
   state: any;
   id: any;
