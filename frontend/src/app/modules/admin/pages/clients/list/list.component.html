@@ -19,11 +19,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let c of clients; trackBy: trackByFn" (click)='edit(c._id)' class="pointer">
-                  <td>{{c.name}}</td>
-                  <td>{{c.website}}</td>
-                  <td>{{c.created}}</td>
-                  <td>{{c.modified}}</td>
+                <tr *ngFor="let c of clients; trackBy: trackByFn" class="pointer">
+                  <td (click)='edit(c._id)'>{{c.name}}</td>
+                  <td (click)='edit(c._id)' *ngIf="!c.website"><i>No website assigned</i></td>
+                  <td *ngIf="c.website"><a href="http://{{c.website}}" target="_blank" rel="noopener noreferrer">{{c.website}}</a></td>
+                  <td (click)='edit(c._id)'>{{c.created}}</td>
+                  <td (click)='edit(c._id)'>{{c.modified}}</td>
                 </tr>
             </tbody>
           </table>
