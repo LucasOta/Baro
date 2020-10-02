@@ -1,4 +1,5 @@
 import { Translation } from "./translation";
+import { Response } from 'express';
 
 export default class Methods {
 
@@ -32,6 +33,11 @@ export default class Methods {
         if (result.quote == '') result = defTranslation;
         
         return result;
+    }
+    
+    static sendErr(res: Response, err: any){    
+        res.status(500);
+        res.json({ ok: false, err })
     }
 
 }

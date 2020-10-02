@@ -34,7 +34,6 @@ export class FormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private industryService: IndustryService,
-    private alertService: AlertService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,    
     private route: ActivatedRoute) { 
@@ -55,9 +54,7 @@ export class FormComponent implements OnInit {
       this.submitText = 'Edit'
 
       this.industryService.get(true, this.id).subscribe((res)=>{
-        // TODO: handle errors
         this.industry = res.industries;
-
         this.nameMultilanguageForm.setValue(this.industry.name);
       });   
     }
@@ -76,32 +73,17 @@ export class FormComponent implements OnInit {
     
     this.industry.name = this.nameMultilanguageForm.getValue();
     
-    if (this.id) { 
-
-      this.industryService.update(this.industry)
-        .pipe(first())
-        .subscribe(
-          data => { 
-            if (data.ok){
-              this.goToList();
-            } else {
-              this.alertService.error(data.err);
-            }            
-          },
-          error => { this.alertService.error(error); }
-        );
-    } else {
+    if (! this.id) { 
       this.industryService.create(this.industry)
         .pipe(first())
         .subscribe(
-          data => {            
-            if (data.ok){
-              this.goToList();
-            } else {
-              this.alertService.error(data.err);
-            }
-          },
-          error => { this.alertService.error(error); }
+          data => { if (data.ok) this.goToList(); }
+        );      
+    } else {
+      this.industryService.update(this.industry)
+        .pipe(first())
+        .subscribe(
+          data => { if (data.ok) this.goToList(); } 
         );
     }    
   }
@@ -111,15 +93,7 @@ export class FormComponent implements OnInit {
     this.industryService.delete(this.id)
     .pipe(first())
     .subscribe(
-      data => { 
-        if (data.ok){
-          this.alertService.success('Industry deleted');
-          this.goToList();
-        } else {
-          this.alertService.error(data.desc);
-        }
-      },
-      error => { this.alertService.error(error); }
+      data => { if (data.ok) this.goToList(); }
     );
   }
 

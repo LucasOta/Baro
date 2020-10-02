@@ -3,16 +3,38 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor, 
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(private alertService: AlertService) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(request)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.log(1);
+          
+          if (error.error instanceof ErrorEvent) {
+            this.error(`Client Error: ${error.error.message}`)
+          }
+          else {
+            this.error(`Server Error Code: ${error.status},  Message: ${error.message}`);
+          }
+
+          return next.handle(request);
+
+        })
+      )
+  }
+
+  private error(msg: string){
+    this.alertService.error( msg );
   }
 }

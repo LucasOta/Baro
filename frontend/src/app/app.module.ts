@@ -13,7 +13,8 @@ import { AppComponent } from './app.component';
 import { NotFoundComponent } from './shared/components/pages/not-found/not-found.component';
 import { AuthInterceptor } from "./core/interceptors/auth.interceptor";
 import { LanguageInterceptor } from "./core/interceptors/language.interceptor";
-import { SuccessInterceptor } from "./core/interceptors/success.interceptor";
+import { AlertInterceptor } from "./core/interceptors/alert.interceptor";
+import { ErrorInterceptor } from "./core/interceptors/error.interceptor";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -55,7 +56,12 @@ export function createTranslateLoader(http: HttpClient) {
   },
   {
     provide : HTTP_INTERCEPTORS,
-    useClass: SuccessInterceptor,
+    useClass: AlertInterceptor,
+    multi   : true,
+  },
+  {
+    provide : HTTP_INTERCEPTORS,
+    useClass: ErrorInterceptor,
     multi   : true,
   }],
   bootstrap: [AppComponent]
