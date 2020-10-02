@@ -15,6 +15,7 @@ import { ComponentsModule } from "../../shared/components/components.module";
 
 import { SharedModule } from "../../shared/shared.module";
 import { IndustriesComponent } from './pages/industries/industries.component';
+import { DisciplinesComponent } from './pages/disciplines/disciplines.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { IndustriesComponent } from './pages/industries/industries.component';
     DashboardComponent,
     PostsComponent,
     UsersComponent,
-    IndustriesComponent
+    IndustriesComponent,
+    DisciplinesComponent
   ],
   imports: [
     CommonModule,
