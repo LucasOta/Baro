@@ -43,12 +43,7 @@ fileRoutes.post('/upload', [verifyToken], async (req: any, res: Response) => {
                 }
             });
         },
-        error => {
-            res.json({
-                ok: true,
-                file: file.mimetype
-            });
-        }
+        error => { Methods.sendErr(res, error) }
     );   
 
 });
@@ -78,12 +73,7 @@ fileRoutes.delete('/:modulename/:elementid/:img', (req: any, res: Response) => {
                 desc: 'Temp Img deleted.'
             });
         },
-        error => {
-            res.json({
-                ok: true,
-                desc: error
-            });
-        }
+        error => { Methods.sendErr(res, error) }
     );
 
 });
@@ -97,12 +87,7 @@ fileRoutes.delete('/deleteTemp/:imgName', [verifyToken], async (req: any, res: R
                 desc: 'Temp Img deleted.'
             });
         },
-        error => {
-            res.json({
-                ok: true,
-                desc: error
-            });
-        }
+        error => { Methods.sendErr(res, error) }
     );   
 
 });

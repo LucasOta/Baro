@@ -24,7 +24,7 @@ industryRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
 
     Industry.findOne({"name": industry.name[0]}, (err, industryDB) => {
 
-        if (err) res.json({ ok: false, err });
+        if (err) Methods.sendErr(res, err);
 
         if (industryDB) {
             return res.json({
@@ -32,16 +32,16 @@ industryRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
                 desc: 'A industry with that name already exists.'
             });
         } else {
-
             Industry
                 .create(industry)
                 .then(industryDB => {
-                    return res.json({ ok: true, industry: industryDB });
+                    res.status(201);
+                    return res.json({ ok: true, desc: 'Industry created', industry: industryDB });
                 })
-                .catch(err => { return res.json({ ok: false, err }) } );
+                .catch(err =>  Methods.sendErr(res, err) );
         }
 
-    }).catch(err => { return res.json({ ok: false, err }) } );
+    }).catch(err => Methods.sendErr(res, err) );
 
 });
 
@@ -65,14 +65,14 @@ industryRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
     Industry
         .findByIdAndUpdate(req.body._id, industry, { new: true }, (err, industryDB) => {
 
-            if (err) return res.json({ ok: false, err });
+            if (err) return Methods.sendErr(res, err);
 
             if (!industryDB)  return res.json({ ok: false, desc: 'There is no industry with that ID' });
 
-            return res.json({ ok: true, industry: industryDB });
+            return res.json({ ok: true, desc:'Industry updated', industry: industryDB });
 
         })
-        .catch(err => { return res.json({ ok: false, err }) } );
+        .catch(err => Methods.sendErr(res, err) );
 
 });
 
@@ -85,7 +85,7 @@ industryRoutes.get ('/', async (req: any, res: Response) => {
         .sort({ _id: -1 })
         .populate('parent')
         .exec()
-        .catch(err => res.json({ ok: false, err }));
+        .catch(err => Methods.sendErr(res, err) );
 
     if (lang != '' && industries) {
         // @ts-ignore
@@ -110,7 +110,7 @@ industryRoutes.get ('/:industryid', async (req: any, res: Response) => {
         .sort({ _id: -1 })
         .populate('parent', )
         .exec()
-        .catch(err => res.json({ ok: false, err }));
+        .catch(err => Methods.sendErr(res, err) );
     
     if (!industries) return res.json({ok:true, desc: 'No industry found'});
 
@@ -128,11 +128,13 @@ industryRoutes.delete ('/:industryid', [verifyToken], async (req: any, res: Resp
     const id = req.params.industryid;
     await Industry
         .findByIdAndDelete(id)
-        .catch(err => res.json({ ok: false, err }));;
+        .catch(err => Methods.sendErr(res, err) );
 
     // TODO: Erase industry references
     res.json({ ok: true, desc: 'Industry deleted' });
 })
+
+
 
 
 export default industryRoutes;
