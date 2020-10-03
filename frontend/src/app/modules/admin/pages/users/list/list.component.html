@@ -12,6 +12,7 @@
             <table id="users" class="table table-hover">
             <thead>
                 <tr>
+                    <th></th>
                     <th>{{ 'Name' | translate }}</th>
                     <th>{{ 'Email' | translate }}</th>
                     <th>{{ 'Created' | translate }}</th>
@@ -20,6 +21,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let c of users; trackBy: trackByFn" (click)='edit(c._id)' class="pointer">
+                    <td>
+                        <div class="table-img img-circle elevation-2" [style]=" '../../../../../../assets/img/cristian.jpg' | domSanitizer "></div>
+                    </td>
                     <td>{{c.name}}</td>
                     <td>{{c.email}}</td>
                     <td>{{c.created}}</td>

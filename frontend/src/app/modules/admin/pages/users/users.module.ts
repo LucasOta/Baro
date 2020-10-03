@@ -9,6 +9,7 @@ import { FormModule } from '../../components/form/form.module';
 import { CardsModule } from '../../components/cards/cards.module';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormModule,
     CardsModule,
     ComponentsModule,
-    SharedModule
+    SharedModule,    
+    PipesModule
   ]
 })
 export class UsersModule { }
