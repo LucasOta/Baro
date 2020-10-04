@@ -35,9 +35,17 @@ export default class Methods {
         return result;
     }
     
-    static sendErr(res: Response, err: any){    
+    static sendErr(res: Response, message: any){    
         res.status(500);
-        res.json({ ok: false, err })
+        res.json({ ok: false, message })
+    }
+
+    static prettyMongooseErr(error: any){
+        if (error.code) {
+            if (error.code==11000) return `The value ${JSON.stringify(error.keyValue)} already exists on the database.`
+        }
+
+        return error;
     }
 
 }

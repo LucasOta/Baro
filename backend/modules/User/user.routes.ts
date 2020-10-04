@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { User } from './user.model';
+import { User, IUser } from './user.model';
 import bcrypt from 'bcrypt';
 import Token from '../../classes/token';
 import Methods from '../../classes/methods';
@@ -117,18 +117,26 @@ userRoutes.post('/create', (req: Request, res: Response) => {
 
 // Update User
 userRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
-
-    const user = {
-        name: req.body.name || req.user.name,
-        email: req.body.email || req.user.email,
-        level: req.body.level || req.user.level,
-        modified: new Date()
+    let errors:string[] = [];
+    if (!req.body._id) errors.push('id');
+    
+    if (errors.length){
+        return res.json({
+            ok: false,
+            desc: Methods.emptyFieldsMsg(errors)
+        });
     }
 
-    User.findByIdAndUpdate(req.user._id, user, { new: true }, (err, userDB) => {
+    let user = <IUser>{ _id: req.body._id, modified: new Date() }
 
-        if (err) res.json({ ok: false, err });
+    if (req.body.name) user.name = req.body.name;
+    if (req.body.email) user.email = req.body.email;
+    
 
+    User.findByIdAndUpdate(user._id, user, { new: true }, (err, userDB) => {
+        //TODO: Update password
+        if (err) return Methods.sendErr(res, Methods.prettyMongooseErr(err));
+        
         if (!userDB) {
             return res.json({
                 ok: false,
@@ -136,23 +144,39 @@ userRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
             });
         }
 
-        const tokenUser = Token.getJwtToken({
-            _id: userDB._id,
-            name: userDB.name,
-            email: userDB.email
-        });
-
-        res.json({
-            ok: true,
-            token: tokenUser
-        });
-
-
+        if (req.user._id == user._id) { //The logged user is updating is own profile
+            const tokenUser = Token.getJwtToken({
+                _id: userDB._id,
+                name: userDB.name,
+                email: userDB.email
+            });
+            res.json({ ok: true, token: tokenUser });
+        } else {
+            res.json({ ok: true, token: '' });
+        }
     });
 
 });
 
 
+// Get ById
+userRoutes.get ('/:userid', async (req: any, res: Response) => {
+    const id = req.params.userid;
+
+    let users = await User
+        .findById(id)
+        .exists('deleted', false)
+        .sort({ _id: -1 })
+        .populate('user', '-password')
+        .exec()
+        .catch(err => Methods.sendErr(res, err) );
+    
+    if (!users) return res.json({ok:true, desc: 'No user found'});
+
+    return res.json({ ok: true, users });
+}); 
+
+// Get All Users
 userRoutes.get('/', [verifyToken], async (req: any, res: Response) => {
 
     const users = await User.find()

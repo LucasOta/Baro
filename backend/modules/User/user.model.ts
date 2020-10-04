@@ -54,7 +54,7 @@ userSchema.pre<IUser>('save', function (next) {
 
 
 
-interface IUser extends Document {
+export interface IUser extends Document {
     name: string;
     email: string;
     level: number;

@@ -19,13 +19,12 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          console.log(1);
           
           if (error.error instanceof ErrorEvent) {
             this.error(`Client Error: ${error.error.message}`)
           }
           else {
-            this.error(`Server Error Code: ${error.status},  Message: ${error.message}`);
+            this.error(`Server Error Code: ${error.status},  Message: ${error.error.message}`);
           }
 
           return next.handle(request);

@@ -40,6 +40,7 @@ server.app.use('/file', fileRoutes);
 
 
 // Conectar DB
+mongoose.set('useFindAndModify', false);
 mongoose.connect('mongodb://localhost/barobranding',
     // mongoose.connect('mongodb+srv://admin:admin@comments-y6qqv.mongodb.net/test?retryWrites=true&w=majority',
     { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, (err) => {

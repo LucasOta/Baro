@@ -58,9 +58,7 @@ export class FormComponent implements OnInit {
         this.user = res.users;
 
         this.f.name.setValue(this.user.name);
-        if (this.user.email) this.f.email.setValue(this.user.email);
-        
-        // if (res.users.password) this.f.password.setValue(this.user.password);
+        this.f.email.setValue(this.user.email);
       });   
     }
 
@@ -71,7 +69,7 @@ export class FormComponent implements OnInit {
   onSubmit() {
     this.setSubmitted();
 
-    if (this.createForm.invalid) {       
+    if (this.createForm.invalid) {
       return;
     }
     
@@ -87,6 +85,8 @@ export class FormComponent implements OnInit {
           data => { if (data.ok) this.goToList(); }
         );      
     } else {
+      this.user._id = this.id;
+      
       this.userService.update(this.user)
         .pipe(first())
         .subscribe(
@@ -107,6 +107,8 @@ export class FormComponent implements OnInit {
   setSubmitted(){
     this.submitted = true;
     this.nameTextInputConfig.formSubmitted = this.submitted;
+    this.emailTextInputConfig.formSubmitted = this.submitted;
+    this.passwordTextInputConfig.formSubmitted = this.submitted;
   }
 
   private initializeComponents(){
@@ -118,12 +120,14 @@ export class FormComponent implements OnInit {
     this.nameTextInputConfig.formSubmitted = this.submitted;
     
     this.emailTextInputConfig.fieldName = 'Email';
-    this.emailTextInputConfig.required = false;
+    this.emailTextInputConfig.required = true;
     this.emailTextInputConfig.placeholder = 'User Email';
+    this.emailTextInputConfig.formSubmitted = this.submitted;
     
     this.passwordTextInputConfig.fieldName = 'Password';
-    this.passwordTextInputConfig.required = false;
+    this.passwordTextInputConfig.required = true;
     this.passwordTextInputConfig.placeholder = 'User Password';
+    this.passwordTextInputConfig.formSubmitted = this.submitted;
 
 
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };
