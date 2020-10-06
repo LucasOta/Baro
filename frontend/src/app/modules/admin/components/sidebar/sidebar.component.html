@@ -12,7 +12,9 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="../../../../../assets/img/cristian.jpg" class="img-circle elevation-2" alt="User Image">
+          <div class="div_img_circle img-circle elevation-2" [style]=" (currentUser.img | image : 'users' : currentUser._id ) | domSanitizer "></div>
+<!--           
+          <img src="../../../../../assets/img/cristian.jpg" class="img-circle elevation-2" alt="User Image"> -->
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ currentUser.name }}</a>

@@ -56,8 +56,6 @@ export class FormComponent implements OnInit {
 
         this.f.name.setValue(this.client.name);
         if (this.client.website) this.f.website.setValue(this.client.website);
-        
-        if (res.clients.website) this.f['website'].setValue(this.client.website);
       });   
     }
 

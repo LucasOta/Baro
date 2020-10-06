@@ -34,7 +34,9 @@ export default class FileSystem {
             const path = this.createUserFolder(userId) ;
 
             try {
-                fs.unlinkSync(`${path}/${fileName}`);
+                if (fs.existsSync(`${path}/${fileName}`)) {
+                    fs.unlinkSync(`${path}/${fileName}`);
+                }
                 resolve();
               } catch(err) {
                 reject(err);
@@ -56,6 +58,13 @@ export default class FileSystem {
               }
 
         });
+    }  
+
+    // TODO: delete folder when a element is deleted
+    deleteFolder(moduleName: string, elementID: string, img: string) {
+        const pathFile = path.resolve(__dirname, '../uploads', moduleName, elementID, img);
+
+        //TODO
     }    
     
     deleteImagesNotIncludedIn(moduleName: string, elementID: string, imgsIncluded: string[]) {

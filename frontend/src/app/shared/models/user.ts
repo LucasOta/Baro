@@ -1,9 +1,10 @@
 export class User {
-    id: number;
+    _id: number;
     name: string;
     email: string;
     level: number;
     password: string;
+    img?: string;
 
     created: Date;
     modified: Date;
