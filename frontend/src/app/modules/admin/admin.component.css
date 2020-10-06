@@ -37,3 +37,12 @@
 
 /*Google Font: Source Sans Pro*/
 @import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700";
+
+
+.div_img_circle{
+    height: 2em;
+    width: 2em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

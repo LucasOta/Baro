@@ -17,6 +17,7 @@ import { SharedModule } from "../../shared/shared.module";
 import { IndustriesComponent } from './pages/industries/industries.component';
 import { DisciplinesComponent } from './pages/disciplines/disciplines.component';
 import { ClientsComponent } from './pages/clients/clients.component';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ClientsComponent } from './pages/clients/clients.component';
     CommonModule,
     ComponentsModule,
     AdminRoutingModule,
-    SharedModule
+    SharedModule,
+    PipesModule
   ]
 })
 export class AdminModule { }
