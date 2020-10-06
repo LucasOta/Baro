@@ -70,7 +70,7 @@ fileRoutes.delete('/:modulename/:elementid/:img', (req: any, res: Response) => {
         result => {
             res.json({
                 ok: true,
-                desc: 'Temp Img deleted.'
+                // desc: 'Temp Img deleted.'
             });
         },
         error => { Methods.sendErr(res, error) }
@@ -84,7 +84,7 @@ fileRoutes.delete('/deleteTemp/:imgName', [verifyToken], async (req: any, res: R
         result => {
             res.json({
                 ok: true,
-                desc: 'Temp Img deleted.'
+                // desc: 'Temp Img deleted.'
             });
         },
         error => { Methods.sendErr(res, error) }

@@ -9,6 +9,7 @@ import { User } from 'src/app/shared/models/user';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
+  moduleName = 'users'; 
 
   users: User[] = [];
 

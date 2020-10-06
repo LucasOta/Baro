@@ -34,7 +34,9 @@ export default class FileSystem {
             const path = this.createUserFolder(userId) ;
 
             try {
-                fs.unlinkSync(`${path}/${fileName}`);
+                if (fs.existsSync(`${path}/${fileName}`)) {
+                    fs.unlinkSync(`${path}/${fileName}`);
+                }
                 resolve();
               } catch(err) {
                 reject(err);

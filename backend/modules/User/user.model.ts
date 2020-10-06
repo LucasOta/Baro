@@ -23,6 +23,10 @@ const userSchema = new Schema({
         required: [true, 'Password is required'],
         select: false
     },
+    img: {
+        type: String,
+        default: 'user_def.jpg'
+    },
 
     created: {
         type: Date
@@ -59,6 +63,7 @@ export interface IUser extends Document {
     email: string;
     level: number;
     password: string;
+    img?: string;
 
     created?: Date;
     modified?: Date;

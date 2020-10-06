@@ -4,8 +4,10 @@ import bcrypt from 'bcrypt';
 import Token from '../../classes/token';
 import Methods from '../../classes/methods';
 import { verifyToken } from '../../middlewares/authentication';
+import FileSystem from '../../classes/file-system';
 
 const userRoutes = Router();
+const fileSystem = new FileSystem();
 
 // Login
 userRoutes.post('/login', (req: Request, res: Response) => {
@@ -63,12 +65,11 @@ userRoutes.post('/login', (req: Request, res: Response) => {
 
 
 // Create an User
-userRoutes.post('/create', (req: Request, res: Response) => {
+userRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
     let errors:string[] = [];
-    if (!req.body.name)      errors.push('nombre');
+    if (!req.body.name)      errors.push('name');
     if (!req.body.email)     errors.push('email');
-    // if (!req.body.level)     errors.push('nivel');
-    if (!req.body.password)  errors.push('contraseña');
+    if (!req.body.password)  errors.push('password');
     
     if (errors.length){
         return res.json({
@@ -84,16 +85,14 @@ userRoutes.post('/create', (req: Request, res: Response) => {
         if (userDB) {
             return res.json({
                 ok: false,
-                desc: 'Ya existe un usuario registrado con ese email.'
+                desc: 'An user with that name already exists.'
             });
         } else {
-            const user = {
-                name: req.body.name,
-                email: req.body.email,
-                // level: req.body.level,
-                level: 1,
-                password: bcrypt.hashSync(req.body.password, 10)
-            };
+            let user = new User();
+            user.name = req.body.name;
+            user.email = req.body.email;
+            user.level = 1;
+            user.password = bcrypt.hashSync(req.body.password, 10);
 
             User
                 .create(user)
@@ -102,9 +101,19 @@ userRoutes.post('/create', (req: Request, res: Response) => {
                         _id: userDB._id,
                         name: userDB.name,
                         email: userDB.email,
-                        level: userDB.level,
-                    });
+                        level: userDB.level, 
+                    });                   
+                    
+                    // @ts-ignore
+                    const images = fileSystem.filesFromTempToFolder(req.user._id, 'users', userDB._id.toString());
 
+                    // Now that we have the ID, we can store the Images
+                    if (images) {
+                        userDB.img = images[0];
+                        User.findByIdAndUpdate(userDB._id, userDB, { new: true }, (err, updatedUserDB) => {});
+                    }
+                    
+                    res.status(201);
                     res.json({ ok: true, token: tokenUser });
                 })
                 .catch(err => res.json({ ok: false, err }));
@@ -131,7 +140,12 @@ userRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
 
     if (req.body.name) user.name = req.body.name;
     if (req.body.email) user.email = req.body.email;
-    
+    if (req.body.img){
+        req.body.img == 'empty' ? user.img = 'category_def.jpg' : user.img = req.body.img;
+        fileSystem.filesFromTempToFolder(req.user._id, 'users', req.body._id.toString());
+        let currentImages :string[] = [user.img || ''];
+        fileSystem.deleteImagesNotIncludedIn('users', req.body._id, currentImages);
+    }
 
     User.findByIdAndUpdate(user._id, user, { new: true }, (err, userDB) => {
         //TODO: Update password

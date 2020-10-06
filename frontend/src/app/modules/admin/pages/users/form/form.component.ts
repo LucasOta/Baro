@@ -6,6 +6,8 @@ import { UserService } from 'src/app/core/http/user/user.service';
 import { User } from 'src/app/shared/models/user';
 import { TextInputConfig } from '../../../components/form/text-input/text-input.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
+import { ImgPickerConfig } from '../../../components/form/image-picker/image-picker.component';
+import { FileService } from 'src/app/core/http/file/file.service';
 
 @Component({
   selector: 'app-form',
@@ -22,6 +24,7 @@ export class FormComponent implements OnInit {
   state: any;
   id: any;
 
+  imgPickerConfig = new ImgPickerConfig();
   nameTextInputConfig = new TextInputConfig();
   emailTextInputConfig = new TextInputConfig();
   passwordTextInputConfig = new TextInputConfig();
@@ -32,6 +35,7 @@ export class FormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private fileService: FileService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,    
     private route: ActivatedRoute) { 
@@ -59,6 +63,7 @@ export class FormComponent implements OnInit {
 
         this.f.name.setValue(this.user.name);
         this.f.email.setValue(this.user.email);
+        this.imgPickerConfig.imgs.push({name: this.user.img})
       });   
     }
 
@@ -86,6 +91,10 @@ export class FormComponent implements OnInit {
         );      
     } else {
       this.user._id = this.id;
+
+      if (this.imgPickerConfig.imgsChanged) {
+        this.imgPickerConfig.imgs[0] ? this.user.img = this.imgPickerConfig.imgs[0].name : this.user.img = 'empty';
+      }
       
       this.userService.update(this.user)
         .pipe(first())
@@ -129,6 +138,12 @@ export class FormComponent implements OnInit {
     this.passwordTextInputConfig.placeholder = 'User Password';
     this.passwordTextInputConfig.formSubmitted = this.submitted;
 
+    this.imgPickerConfig.fieldName = 'Image';
+    this.imgPickerConfig.moduleNameFrom = this.moduleName;
+    this.imgPickerConfig.elementIdFrom = this.id;
+    this.imgPickerConfig.maxImgs = 1;
+    this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;
+
 
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };
     this.cardFooterConfig.deleteAction = function() { scope.onDelete(); };
@@ -137,6 +152,7 @@ export class FormComponent implements OnInit {
   }
 
   goToList(){
+    this.imgPickerConfig.deleteTemps(this.fileService);
     this.router.navigate(['admin/users/list']);
   }
 

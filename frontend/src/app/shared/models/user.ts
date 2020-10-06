@@ -4,6 +4,7 @@ export class User {
     email: string;
     level: number;
     password: string;
+    img?: string;
 
     created: Date;
     modified: Date;
