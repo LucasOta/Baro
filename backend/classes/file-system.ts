@@ -58,6 +58,13 @@ export default class FileSystem {
               }
 
         });
+    }  
+
+    // TODO: delete folder when a element is deleted
+    deleteFolder(moduleName: string, elementID: string, img: string) {
+        const pathFile = path.resolve(__dirname, '../uploads', moduleName, elementID, img);
+
+        //TODO
     }    
     
     deleteImagesNotIncludedIn(moduleName: string, elementID: string, imgsIncluded: string[]) {

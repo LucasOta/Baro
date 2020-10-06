@@ -112,7 +112,7 @@ userRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
                         userDB.img = images[0];
                         User.findByIdAndUpdate(userDB._id, userDB, { new: true }, (err, updatedUserDB) => {});
                     }
-                    
+
                     res.status(201);
                     res.json({ ok: true, token: tokenUser });
                 })
@@ -206,5 +206,15 @@ userRoutes.get('/', [verifyToken], async (req: any, res: Response) => {
 
 });
 
+// Delete
+userRoutes.delete ('/:userid', [verifyToken], async (req: any, res: Response) => {
+    const id = req.params.userid;
+    await User
+        .findByIdAndDelete(id)
+        .catch(err => Methods.sendErr(res, err) );
+
+    // TODO: Erase user references and call fs.deleteFolder
+    res.json({ ok: true, desc: 'User deleted' });
+})
 
 export default userRoutes;

@@ -26,7 +26,7 @@ export class UserService {
   }
 
   delete(id?: string){
-    return this.api.http.delete<any>(`${this.api.URL}/user/${id}`, {}); //TODO on Backend
+    return this.api.http.delete<any>(`${this.api.URL}/user/${id}`, {});
   }
 
   uploadFile(img: File ){
