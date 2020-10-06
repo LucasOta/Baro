@@ -11,7 +11,9 @@
 
                     <app-text-input [textInputConfig]="nameTextInputConfig"></app-text-input>
                     <app-text-input [textInputConfig]="emailTextInputConfig"></app-text-input>
-                    <app-text-input [textInputConfig]="passwordTextInputConfig"></app-text-input>
+                    <ng-container *ngIf="!this.id">
+                        <app-text-input [textInputConfig]="passwordTextInputConfig"></app-text-input>
+                    </ng-container>
                     <app-image-picker [imgPickerConfig]="imgPickerConfig"></app-image-picker>
 
                 </div>

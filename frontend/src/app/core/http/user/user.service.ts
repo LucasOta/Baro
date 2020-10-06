@@ -12,7 +12,7 @@ export class UserService {
 
   get(id?: string) {
     if (id) {
-      return this.api.http.get<any>(`${this.api.URL}/user/${id}`, {}); //TODO on Backend
+      return this.api.http.get<any>(`${this.api.URL}/user/${id}`, {});
     }
     return this.api.http.get<any>(`${this.api.URL}/user`, {});
   }

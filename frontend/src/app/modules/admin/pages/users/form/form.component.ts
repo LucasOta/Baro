@@ -48,12 +48,11 @@ export class FormComponent implements OnInit {
 
     this.createForm = this.formBuilder.group({
       name: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      email: ['', Validators.required]
     });
+    
     this.nameTextInputConfig.formControl = this.createForm.get('name') as FormControl;
     this.emailTextInputConfig.formControl = this.createForm.get('email') as FormControl;
-    this.passwordTextInputConfig.formControl = this.createForm.get('password') as FormControl;
 
     if (this.id) {
       this.title = 'Edit Discipline'
@@ -65,6 +64,9 @@ export class FormComponent implements OnInit {
         this.f.email.setValue(this.user.email);
         this.imgPickerConfig.imgs.push({name: this.user.img})
       });   
+    } else {
+      this.createForm.addControl('password', new FormControl('', Validators.required));
+      this.passwordTextInputConfig.formControl = this.createForm.get('password') as FormControl;
     }
 
   }
@@ -80,10 +82,10 @@ export class FormComponent implements OnInit {
     
     this.user.name = this.f.name.value;
     this.user.email = this.f.email.value;
-    this.user.password = this.f.password.value;
-    
     
     if (! this.id) { 
+      this.user.password = this.f.password.value;
+
       this.userService.create(this.user)
         .pipe(first())
         .subscribe(
@@ -117,7 +119,7 @@ export class FormComponent implements OnInit {
     this.submitted = true;
     this.nameTextInputConfig.formSubmitted = this.submitted;
     this.emailTextInputConfig.formSubmitted = this.submitted;
-    this.passwordTextInputConfig.formSubmitted = this.submitted;
+    if (!this.id) this.passwordTextInputConfig.formSubmitted = this.submitted;
   }
 
   private initializeComponents(){
@@ -133,10 +135,12 @@ export class FormComponent implements OnInit {
     this.emailTextInputConfig.placeholder = 'User Email';
     this.emailTextInputConfig.formSubmitted = this.submitted;
     
-    this.passwordTextInputConfig.fieldName = 'Password';
-    this.passwordTextInputConfig.required = true;
-    this.passwordTextInputConfig.placeholder = 'User Password';
-    this.passwordTextInputConfig.formSubmitted = this.submitted;
+    if (!this.id) {
+      this.passwordTextInputConfig.fieldName = 'Password';
+      this.passwordTextInputConfig.required = true;
+      this.passwordTextInputConfig.placeholder = 'User Password';
+      this.passwordTextInputConfig.formSubmitted = this.submitted;
+    }
 
     this.imgPickerConfig.fieldName = 'Image';
     this.imgPickerConfig.moduleNameFrom = this.moduleName;
