@@ -63,4 +63,10 @@ export class AuthenticationService {
     this.tokenSubject.next(null);
     this.router.navigate(["/login"]);
   }
+
+  updateUser(){
+    this.userService.get(JSON.parse(localStorage.getItem("currentUser")).id).subscribe((res)=>{
+      localStorage.setItem("currentUser", JSON.stringify(res.users[0]));
+    }); 
+  }
 }
