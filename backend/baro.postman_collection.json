@@ -259,6 +259,36 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "project/delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"type": "text",
+						"value": "en"
+					},
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVmN2JlZDI4YWIzZjAwNWJjODZkZGNmOCIsIm5hbWUiOiJMdWNhcyIsImVtYWlsIjoiYWRtaW4ifSwiaWF0IjoxNjAyODE4NTI3LCJleHAiOjE2MDU0MTA1Mjd9.gHdukPVTyJkieSFPGZWyMUOVIdG0AkpCWLuAufL-kBs",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/project/5f891437e30ff65a680c5816",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"project",
+						"5f891437e30ff65a680c5816"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

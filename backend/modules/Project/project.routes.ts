@@ -194,15 +194,15 @@ projectRoutes.get('/', async (req: any, res: Response) => {
     return res.json({ ok: true, projects });
 });
 
-// // Delete
-// projectRoutes.delete ('/:projectid', [verifyToken], async (req: any, res: Response) => {
-//     const id = req.params.projectid;
-//     await Project
-//         .findByIdAndDelete(id)
-//         .catch(err => Methods.sendErr(res, err) );
+// Delete
+projectRoutes.delete ('/:projectid', [verifyToken], async (req: any, res: Response) => {
+    const id = req.params.projectid;
+    await Project
+        .findByIdAndDelete(id)
+        .catch(err => Methods.sendErr(res, err) );
 
-//     // TODO: Erase project references and call fs.deleteFolder
-//     res.json({ ok: true, desc: 'Project deleted' });
-// })
+    res.json({ ok: true, desc: 'Project deleted' });
+    // TODO: Delete Images
+})
 
 export default projectRoutes;
