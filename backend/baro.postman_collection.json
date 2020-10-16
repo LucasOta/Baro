@@ -234,6 +234,31 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "project/get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"type": "text",
+						"value": "en"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/project/5f891437e30ff65a680c5816",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"project",
+						"5f891437e30ff65a680c5816"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

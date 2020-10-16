@@ -5,6 +5,8 @@ import Token from '../../classes/token';
 import Methods from '../../classes/methods';
 import { verifyToken } from '../../middlewares/authentication';
 import FileSystem from '../../classes/file-system';
+import { IIndustry } from '../Industry/industry.model';
+import { IDiscipline } from '../Discipline/discipline.model';
 
 const projectRoutes = Router();
 const fileSystem = new FileSystem();
@@ -114,38 +116,83 @@ projectRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
 // });
 
 
-// // Get ById
-// projectRoutes.get ('/:projectid', async (req: any, res: Response) => {
-//     const id = req.params.projectid;
+// Get ById
+projectRoutes.get ('/:projectid', async (req: any, res: Response) => {
+    const id = req.params.projectid;
+    const lang = req.get('Accept-Language');
 
-//     let projects = await Project
-//         .findById(id)
-//         .exists('deleted', false)
-//         .sort({ _id: -1 })
-//         .populate('project', '-password')
-//         .exec()
-//         .catch(err => Methods.sendErr(res, err) );
+    let projects = await Project
+        .findById(id)
+        .exists('deleted', false)
+        .populate('clients')
+        .populate('industries')
+        .populate('disciplines')
+        .exec()
+        .catch(err => Methods.sendErr(res, err) );
     
-//     if (!projects) return res.json({ok:true, desc: 'No project found'});
+    if (!projects) return res.json({ok:true, desc: 'No project found'});
 
-//     return res.json({ ok: true, projects });
-// }); 
+    if (lang != '' && projects) {
+        // @ts-ignore
+        projects.title =       [Methods.filterByLanguage(projects.title, lang)];
+        // @ts-ignore
+        // @ts-ignore
+        projects.description = [Methods.filterByLanguage(projects.description, lang)];
+        projects.industries.forEach( e => {
+            // @ts-ignore
+            e.name =  Methods.filterByLanguage(e.name, lang);
+        });
+        projects.disciplines.forEach( e => {
+            // @ts-ignore
+            e.name =  Methods.filterByLanguage(e.name, lang);
+        });
+        
+        // Filter Blocks content 
+        // project.blocks;
+    }
 
-// // Get All Projects
-// projectRoutes.get('/', [verifyToken], async (req: any, res: Response) => {
+    return res.json({ ok: true, projects });
+}); 
 
-//     const projects = await Project.find()
-//         .sort({ _id: -1 })
-//         .populate('project', '-password')
-//         // .select('+password') //in case is needed a field with select:false
-//         .exec();
+// Get All Projects
+projectRoutes.get('/', async (req: any, res: Response) => {
+    const lang = req.get('Accept-Language');
 
-//     res.json({
-//         ok: true,
-//         projects
-//     });
+    let projects = await Project
+        .find()
+        .sort({ _id: -1 })
+        .exists('deleted', false)
+        .populate('clients')
+        .populate('industries')
+        .populate('disciplines')
+        .exec()
+        .catch(err => Methods.sendErr(res, err) );
+    
+    if (!projects) return res.json({ok:true, desc: 'No project found'});
 
-// });
+    if (lang != '' && projects) {
+        // @ts-ignore
+        projects.forEach(p => {
+            // @ts-ignore
+            p.title =       [Methods.filterByLanguage(p.title, lang)];
+            // @ts-ignore
+            p.description = [Methods.filterByLanguage(p.description, lang)];
+            p.industries.forEach( e => {
+                // @ts-ignore
+                e.name =  Methods.filterByLanguage(e.name, lang);
+            });
+            p.disciplines.forEach( e => {
+                // @ts-ignore
+                e.name =  Methods.filterByLanguage(e.name, lang);
+            });
+            
+            // Filter Blocks content
+            // project.blocks;
+        });
+    }
+
+    return res.json({ ok: true, projects });
+});
 
 // // Delete
 // projectRoutes.delete ('/:projectid', [verifyToken], async (req: any, res: Response) => {

@@ -114,15 +114,15 @@ const projectSchema = new Schema({
 
     clients: [{
         type: Schema.Types.ObjectId,
-        ref: 'client'
+        ref: 'Client'
     }],
     industries: [{
         type: Schema.Types.ObjectId,
-        ref: 'industry'
+        ref: 'Industry'
     }],
     disciplines: [{
         type: Schema.Types.ObjectId,
-        ref: 'discipline'
+        ref: 'Discipline'
     }],
 
     created: {
