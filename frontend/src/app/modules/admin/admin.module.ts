@@ -18,6 +18,7 @@ import { IndustriesComponent } from './pages/industries/industries.component';
 import { DisciplinesComponent } from './pages/disciplines/disciplines.component';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
+import { ProjectsComponent } from './pages/projects/projects.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PipesModule } from 'src/app/shared/pipes/pipes.module';
     UsersComponent,
     IndustriesComponent,
     DisciplinesComponent,
-    ClientsComponent
+    ClientsComponent,
+    ProjectsComponent
   ],
   imports: [
     CommonModule,
