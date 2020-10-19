@@ -1,1 +1,34 @@
-<p>list works!</p>
+<div class="row">
+    <div class="col-12">
+        <button [routerLink]="'../create'" type="button" class="btn btn-outline-success" style="margin-bottom: 1rem">{{ 'Add' | translate }}</button>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+          
+        <div class="card-body">
+          <table id="projects" class="table table-hover">
+            <thead>
+                <tr>
+                  <th>{{ 'Title' | translate }}</th>
+                  <th>{{ 'Description' | translate }}</th>
+                  <th>{{ 'Created' | translate }}</th>
+                  <th>{{ 'Modified' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of projects; trackBy: trackByFn" (click)='edit(c._id)' class="pointer">
+                  <td>{{c.title[0].quote}}</td>
+                  <td>{{c.description[0].quote}}</td>
+                  <td>{{c.created}}</td>
+                  <td>{{c.modified}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </div>

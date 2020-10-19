@@ -6,30 +6,29 @@ import { Project } from "../../../shared/models/project";
 @Injectable({
   providedIn: 'root'
 })
-const ROUTE = 'project';
 
 export class ProjectService {
-
+  ROUTE = 'project';
   constructor(private api: ApiService) { }
 
   get(avoidLangIntercep = false, id?: string) {
     var headers;
     avoidLangIntercep ? headers = InterceptorSkipHeader : headers = {};
     if (id) {
-      return this.api.http.get<any>(`${this.api.URL}/${ROUTE}/${id}`, {headers});
+      return this.api.http.get<any>(`${this.api.URL}/${this.ROUTE}/${id}`, {headers});
     }
-    return this.api.http.get<any>(`${this.api.URL}/${ROUTE}`, {headers});
+    return this.api.http.get<any>(`${this.api.URL}/${this.ROUTE}`, {headers});
   }
   
   create(project: Project) {
-    return this.api.http.post<any>(`${this.api.URL}/${ROUTE}/create`, project);
+    return this.api.http.post<any>(`${this.api.URL}/${this.ROUTE}/create`, project);
   }
   
   update(project: Project) {
-    return this.api.http.patch<any>(`${this.api.URL}/${ROUTE}/update`, project);
+    return this.api.http.patch<any>(`${this.api.URL}/${this.ROUTE}/update`, project);
   }
 
   delete(id?: string){
-    return this.api.http.delete<any>(`${this.api.URL}/${ROUTE}/${id}`, {});
+    return this.api.http.delete<any>(`${this.api.URL}/${this.ROUTE}/${id}`, {});
   }
 }
