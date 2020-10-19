@@ -1,1 +1,23 @@
-<p>form works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">{{title}}</h3>
+
+                <app-language-selector [languageSelectorConfig]="languageSelectorConfig"></app-language-selector>
+
+            </div>
+            <form class="form-horizontal" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+                <div class="card-body">
+
+                    <app-multilanguage-text-input [multilanguageTextInputConfig]="titleMultilanguageInputConfig"></app-multilanguage-text-input>
+                    <app-multilanguage-text-input [multilanguageTextInputConfig]="descMultilanguageInputConfig"></app-multilanguage-text-input>
+
+                </div>
+                
+                <app-card-footer [cardFooterConfig]="cardFooterConfig"></app-card-footer>
+                
+            </form>
+        </div>
+    </div>
+</div>
