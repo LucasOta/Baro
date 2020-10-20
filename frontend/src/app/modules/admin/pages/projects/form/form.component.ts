@@ -86,8 +86,15 @@ export class FormComponent implements OnInit {
 
       this.projectService.get(true, this.id).subscribe((res)=>{
         this.project = res.projects;
+
         this.titleMultilanguageForm.setValue(this.project.title);
         this.descMultilanguageForm.setValue(this.project.description);
+
+        this.f.playground.setValue(this.project.playground);
+        this.f.featured.setValue(this.project.featured);
+        this.f.clients.setValue(this.getIdArray(this.project.clients));
+        this.f.industries.setValue(this.getIdArray(this.project.industries));
+        this.f.disciplines.setValue(this.getIdArray(this.project.disciplines));
       });   
     }
     
@@ -95,6 +102,14 @@ export class FormComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() { return this.createForm.controls; }
+
+  getIdArray(obj: any[]){
+    let ids = [];
+    obj.forEach(o => ids.push(o._id) );
+    console.log(ids);
+    
+    return ids;
+  }
 
   onSubmit() {
     this.setSubmitted();
@@ -112,6 +127,9 @@ export class FormComponent implements OnInit {
     this.project.clients = this.f.clients.value;
     this.project.industries = this.f.industries.value;
     this.project.disciplines = this.f.disciplines.value;
+
+    console.log('this.project.clients', this.project.clients)
+    console.log('this.project.clients', typeof(this.project.clients))
     
 
     // TODO: erase this harcorded code

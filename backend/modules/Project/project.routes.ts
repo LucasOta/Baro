@@ -72,48 +72,49 @@ projectRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
 
 
 // Update Project
-// projectRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
-//     let errors:string[] = [];
-//     if (!req.body._id) errors.push('id');
+projectRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
+    let errors:string[] = [];
+    if (!req.body._id) errors.push('id');
     
-//     if (errors.length){
-//         return res.json({
-//             ok: false,
-//             desc: Methods.emptyFieldsMsg(errors)
-//         });
-//     }
+    if (errors.length){
+        return res.json({
+            ok: false,
+            desc: Methods.emptyFieldsMsg(errors)
+        });
+    }
 
-//     let project = <IProject>{ _id: req.body._id, modified: new Date() }
+    let project = <IProject>{ _id: req.body._id, modified: new Date() }
 
-//     if (req.body.name) project.name = req.body.name;
-//     if (req.body.email) project.email = req.body.email;
-//     if (req.body.img){
-//         req.body.img == 'empty' ? project.img = 'category_def.jpg' : project.img = req.body.img;
-//         fileSystem.filesFromTempToFolder(req.project._id, 'projects', req.body._id.toString());
-//         let currentImages :string[] = [project.img || ''];
-//         fileSystem.deleteImagesNotIncludedIn('projects', req.body._id, currentImages);
-//     }
 
-//     Project.findByIdAndUpdate(project._id, project, { new: true }, (err, projectDB) => {
-//         //TODO: Update password
-//         if (err) return Methods.sendErr(res, Methods.prettyMongooseErr(err));
+    if (req.body.title)         project.title = req.body.title;
+    if (req.body.description)   project.description = req.body.description;
+    if (req.body.clients)       project.clients = req.body.clients;
+    if (req.body.industries)    project.industries = req.body.industries;
+    if (req.body.disciplines)   project.disciplines = req.body.disciplines;
+    if (req.body.blocks)        project.blocks = req.body.blocks;
+    project.featured = req.body.featured;
+    project.playground = req.body.playground;
+    // if (req.body.img){
+    //     req.body.img == 'empty' ? project.img = 'category_def.jpg' : project.img = req.body.img;
+    //     fileSystem.filesFromTempToFolder(req.project._id, 'projects', req.body._id.toString());
+    //     let currentImages :string[] = [project.img || ''];
+    //     fileSystem.deleteImagesNotIncludedIn('projects', req.body._id, currentImages);
+    // }
+
+    Project.findByIdAndUpdate(project._id, project, { new: true }, (err, projectDB) => {
+        if (err) return Methods.sendErr(res, Methods.prettyMongooseErr(err));
         
-//         if (!projectDB) {
-//             return res.json({
-//                 ok: false,
-//                 desc: 'No existe un usuario con ese ID'
-//             });
-//         }
+        if (!projectDB) {
+            return res.json({
+                ok: false,
+                desc: 'There isn\'t a project with that ID.'
+            });
+        }
 
-//         if (req.project._id == project._id) { //The logged project is updating is own profile
+        return res.json({ ok: true, desc:'Project updated'});
+    });
 
-//             res.json({ ok: true, });
-//         } else {
-//             res.json({ ok: true, token: '' });
-//         }
-//     });
-
-// });
+});
 
 
 // Get ById
