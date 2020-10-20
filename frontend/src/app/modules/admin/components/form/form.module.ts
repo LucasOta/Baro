@@ -6,12 +6,14 @@ import { TextInputComponent } from './text-input/text-input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MultilanguageTextInputComponent } from './multilanguage-text-input/multilanguage-text-input.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CheckboxComponent } from './checkbox/checkbox.component';
+import { DropDownListComponent } from './drop-down-list/drop-down-list.component';
 
 
 
 @NgModule({
-  declarations: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent],
-  exports: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent],
+  declarations: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent],
+  exports: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent],
   imports: [
     CommonModule,
     PipesModule,

@@ -1,12 +1,20 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+
 import { ProjectService } from 'src/app/core/http/project/project.service';
-import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
+import { ClientService } from 'src/app/core/http/client/client.service';
+import { IndustryService } from 'src/app/core/http/industry/industry.service';
+import { DisciplineService } from 'src/app/core/http/discipline/discipline.service';
+
 import { Project } from 'src/app/shared/models/project';
+
+import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 import { MultilanguageTextInputComponent, MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
+import { DropDownListInputConfig } from '../../../components/form/drop-down-list/drop-down-list.component';
+import { CheckboxConfig } from '../../../components/form/checkbox/checkbox.component';
 
 @Component({
   selector: 'app-form',
@@ -15,8 +23,8 @@ import { MultilanguageTextInputComponent, MultilanguageTextInputConfig } from '.
 })
 export class FormComponent implements OnInit {
 
-  @ViewChild(MultilanguageTextInputComponent, {static: true}) titleMultilanguageForm: MultilanguageTextInputComponent;
-  @ViewChild(MultilanguageTextInputComponent, {static: true}) descMultilanguageForm: MultilanguageTextInputComponent;
+  @ViewChild('title', {static: true}) titleMultilanguageForm: MultilanguageTextInputComponent;
+  @ViewChild('desc', {static: true}) descMultilanguageForm: MultilanguageTextInputComponent;
 
   moduleName = 'projects'; 
 
@@ -32,12 +40,21 @@ export class FormComponent implements OnInit {
   descMultilanguageInputConfig = new MultilanguageTextInputConfig();
   languageSelectorConfig = new LanguageSelectorConfig();
 
+  playgroundCheckboxConfig = new CheckboxConfig();
+  featuredCheckboxConfig = new CheckboxConfig();
+  clientsDropDownListInputConfig = new DropDownListInputConfig();
+  industriesDropDownListInputConfig = new DropDownListInputConfig();
+  disciplinesDropDownListInputConfig = new DropDownListInputConfig();
+
   cardFooterConfig = new CardFooterConfig();
   
 
   constructor(
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
+    private clientService: ClientService,
+    private industryService: IndustryService,
+    private disciplineService: DisciplineService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,    
     private route: ActivatedRoute) { 
@@ -50,8 +67,18 @@ export class FormComponent implements OnInit {
     
     this.createForm = this.formBuilder.group({
       title: this.titleMultilanguageForm.getGroup(),
-      description: this.descMultilanguageForm.getGroup()
+      description: this.descMultilanguageForm.getGroup(),
+      playground: [false],
+      featured: [false],
+      clients: ['', Validators.required],
+      industries: ['', Validators.required],
+      disciplines: ['', Validators.required],
     });
+    this.playgroundCheckboxConfig.formControl = this.createForm.get('playground') as FormControl;
+    this.featuredCheckboxConfig.formControl = this.createForm.get('featured') as FormControl;
+    this.clientsDropDownListInputConfig.formControl = this.createForm.get('clients') as FormControl;
+    this.industriesDropDownListInputConfig.formControl = this.createForm.get('industries') as FormControl;
+    this.disciplinesDropDownListInputConfig.formControl = this.createForm.get('disciplines') as FormControl;
     
 
     if (this.id) {
@@ -78,6 +105,17 @@ export class FormComponent implements OnInit {
     
     this.project.title = this.titleMultilanguageForm.getValue();
     this.project.description = this.descMultilanguageForm.getValue();
+
+    this.project.playground = this.f.playground.value;
+    this.project.featured = this.f.featured.value;
+
+    this.project.clients = this.f.clients.value;
+    this.project.industries = this.f.industries.value;
+    this.project.disciplines = this.f.disciplines.value;
+    
+
+    // TODO: erase this harcorded code
+    this.project.blocks = [];
     
     if (! this.id) { 
       this.projectService.create(this.project)
@@ -107,6 +145,10 @@ export class FormComponent implements OnInit {
     this.submitted = true;
     this.titleMultilanguageForm.setSubmitted(true);
     this.descMultilanguageForm.setSubmitted(true);
+
+    this.clientsDropDownListInputConfig.submitted = true;
+    this.industriesDropDownListInputConfig.submitted = true;
+    this.disciplinesDropDownListInputConfig.submitted = true;
   }
 
   private initializeComponents(){
@@ -121,6 +163,38 @@ export class FormComponent implements OnInit {
     this.descMultilanguageInputConfig.required = true;
     this.descMultilanguageInputConfig.placeholder = 'Description';
     this.descMultilanguageInputConfig.selectedLanguage = this.languageSelectorConfig.selectedLanguage.value;
+    
+
+    this.playgroundCheckboxConfig.fieldName = 'Playground';
+    this.featuredCheckboxConfig.fieldName = 'Featured';
+
+    this.clientsDropDownListInputConfig.fieldName = 'Clients';
+    this.clientsDropDownListInputConfig.required = true;
+    this.clientsDropDownListInputConfig.options = [];
+    this.clientService.get().subscribe((res)=>{
+      res.clients.forEach(c => {
+        this.clientsDropDownListInputConfig.options.push({key: c.name, value: c._id});
+      });
+    });
+
+    this.industriesDropDownListInputConfig.fieldName = 'Industries';
+    this.industriesDropDownListInputConfig.required = true;
+    this.industriesDropDownListInputConfig.options = [];
+    this.industryService.get().subscribe((res)=>{
+      res.industries.forEach(i => {
+        this.industriesDropDownListInputConfig.options.push({key: i.name[0].quote, value: i._id});
+      });
+    });
+
+    this.disciplinesDropDownListInputConfig.fieldName = 'Disciplines';
+    this.disciplinesDropDownListInputConfig.required = true;
+    this.disciplinesDropDownListInputConfig.options = [];
+    this.disciplineService.get().subscribe((res)=>{
+      res.disciplines.forEach(d => {
+        this.disciplinesDropDownListInputConfig.options.push({key: d.name[0].quote, value: d._id});
+      });
+    });
+
 
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };
     this.cardFooterConfig.deleteAction = function() { scope.onDelete(); };
