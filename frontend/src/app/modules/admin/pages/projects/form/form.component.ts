@@ -28,7 +28,7 @@ export class FormComponent implements OnInit {
 
   moduleName = 'projects'; 
 
-  title = 'New Project';
+  pageTitle = 'New Project';
   createForm: FormGroup;
   project = new Project();
   projects: Project[] = [];
@@ -82,7 +82,7 @@ export class FormComponent implements OnInit {
     
 
     if (this.id) {
-      this.title = 'Edit Project'
+      this.pageTitle = 'Edit Project'
 
       this.projectService.get(true, this.id).subscribe((res)=>{
         this.project = res.projects;
