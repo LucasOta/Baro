@@ -1,0 +1,23 @@
+.square {
+    width: 100%;
+}
+
+.square:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+.img{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.project_title, .project_clients {
+    font-family: 'Inter', sans-serif;
+    font-size: 1em !important;
+    margin-bottom: 0 !important;
+}
+.project_clients {
+    font-weight: 300 !important;
+}

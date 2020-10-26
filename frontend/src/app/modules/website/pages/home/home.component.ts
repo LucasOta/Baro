@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from 'src/app/core/http/category/category.service';
-import { Category } from 'src/app/shared/models/category';
+import { ProjectService } from 'src/app/core/http/project/project.service';
+import { Project } from 'src/app/shared/models/project';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +8,12 @@ import { Category } from 'src/app/shared/models/category';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  categories: Category[] = [];
+  projects: Project[] = [];
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private projectService: ProjectService) { }
   ngOnInit(): void {
-    this.categoryService.get().subscribe((res)=>{
-      this.categories = res.categories;
+    this.projectService.get().subscribe((res)=>{
+      this.projects = res.projects;
     });
   }
 
