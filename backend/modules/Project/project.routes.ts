@@ -49,16 +49,30 @@ projectRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
 
             Project
                 .create(project)
-                .then(projectDB => {                
-                    
+                .then(projectDB => { 
                     // @ts-ignore
-                    // const images = fileSystem.filesFromTempToFolder(req.project._id, 'projects', projectDB._id.toString());
+                    const images = fileSystem.filesFromTempToFolder(req.user._id, 'projects', projectDB._id.toString());
 
                     // Now that we have the ID, we can store the Images
-                    // if (images) {
-                    //     projectDB.img = images[0];
-                    //     Project.findByIdAndUpdate(projectDB._id, projectDB, { new: true }, (err, updatedProjectDB) => {});
-                    // }
+                    if (images) {                        
+                        images.forEach(img => {
+                            var prefix = img.split("_")[0];
+                            switch (prefix) {
+                                case 'thumb':
+                                    projectDB.thumbnail = img;
+                                    break;
+                                
+                                case 'cover':
+                                    projectDB.coverImg = img;
+                                    break;
+                            
+                                default:
+                                    break;
+                            }
+                        });
+
+                        Project.findByIdAndUpdate(projectDB._id, projectDB, { new: true }, (err, updatedProjectDB) => {});
+                    }
 
                     res.status(201);
                     res.json({ ok: true, project: projectDB });
@@ -94,12 +108,23 @@ projectRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
     if (req.body.blocks)        project.blocks = req.body.blocks;
     project.featured = req.body.featured;
     project.playground = req.body.playground;
-    // if (req.body.img){
-    //     req.body.img == 'empty' ? project.img = 'category_def.jpg' : project.img = req.body.img;
-    //     fileSystem.filesFromTempToFolder(req.project._id, 'projects', req.body._id.toString());
-    //     let currentImages :string[] = [project.img || ''];
-    //     fileSystem.deleteImagesNotIncludedIn('projects', req.body._id, currentImages);
-    // }
+
+    if (req.body.thumbnail || req.body.coverImg){
+        let currentImages :string[] = [];
+
+        if (req.body.coverImg) {
+            req.body.coverImg == 'empty' ? project.coverImg = 'project_def.jpg' : project.coverImg = req.body.coverImg;
+            currentImages.push(project.coverImg || '')
+        }
+        if (req.body.thumbnail) {
+            req.body.thumbnail == 'empty' ? project.thumbnail = 'project_def.jpg' : project.thumbnail = req.body.thumbnail;
+            currentImages.push(project.thumbnail || '')
+        }
+
+        fileSystem.filesFromTempToFolder(req.user._id, 'projects', req.body._id.toString());
+        fileSystem.deleteImagesNotIncludedIn('projects', req.body._id, currentImages);
+
+    }
 
     Project.findByIdAndUpdate(project._id, project, { new: true }, (err, projectDB) => {
         if (err) return Methods.sendErr(res, Methods.prettyMongooseErr(err));

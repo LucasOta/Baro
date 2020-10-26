@@ -15,6 +15,8 @@ import { CardFooterConfig } from '../../../components/cards/card-footer/card-foo
 import { MultilanguageTextInputComponent, MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
 import { DropDownListInputConfig } from '../../../components/form/drop-down-list/drop-down-list.component';
 import { CheckboxConfig } from '../../../components/form/checkbox/checkbox.component';
+import { ImgPickerConfig } from '../../../components/form/image-picker/image-picker.component';
+import { FileService } from 'src/app/core/http/file/file.service';
 
 @Component({
   selector: 'app-form',
@@ -45,6 +47,9 @@ export class FormComponent implements OnInit {
   clientsDropDownListInputConfig = new DropDownListInputConfig();
   industriesDropDownListInputConfig = new DropDownListInputConfig();
   disciplinesDropDownListInputConfig = new DropDownListInputConfig();
+  
+  coverImgPickerConfig = new ImgPickerConfig();
+  thumbImgPickerConfig = new ImgPickerConfig();
 
   cardFooterConfig = new CardFooterConfig();
   
@@ -56,6 +61,7 @@ export class FormComponent implements OnInit {
     private industryService: IndustryService,
     private disciplineService: DisciplineService,
     private changeDetectorRef: ChangeDetectorRef,
+    private fileService: FileService,
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
@@ -95,6 +101,9 @@ export class FormComponent implements OnInit {
         this.f.clients.setValue(this.getIdArray(this.project.clients));
         this.f.industries.setValue(this.getIdArray(this.project.industries));
         this.f.disciplines.setValue(this.getIdArray(this.project.disciplines));
+        
+        this.coverImgPickerConfig.imgs.push({name: this.project.coverImg})
+        this.thumbImgPickerConfig.imgs.push({name: this.project.thumbnail})
       });   
     }
     
@@ -142,6 +151,15 @@ export class FormComponent implements OnInit {
           data => { if (data.ok) this.goToList(); }
         );      
     } else {
+      
+      if (this.coverImgPickerConfig.imgsChanged) {
+        this.coverImgPickerConfig.imgs[0] ? this.project.coverImg = this.coverImgPickerConfig.imgs[0].name : this.project.coverImg = 'empty';
+      }
+      
+      if (this.thumbImgPickerConfig.imgsChanged) {
+        this.thumbImgPickerConfig.imgs[0] ? this.project.thumbnail = this.thumbImgPickerConfig.imgs[0].name : this.project.thumbnail = 'empty';
+      }
+
       this.projectService.update(this.project)
         .pipe(first())
         .subscribe(
@@ -214,6 +232,22 @@ export class FormComponent implements OnInit {
     });
 
 
+    this.coverImgPickerConfig.fieldName = 'Cover';
+    this.coverImgPickerConfig.prefix = 'cover';
+    this.coverImgPickerConfig.moduleNameFrom = this.moduleName;
+    this.coverImgPickerConfig.elementIdFrom = this.id;
+    this.coverImgPickerConfig.maxImgs = 1;
+    this.coverImgPickerConfig.note = `You can only select up to ${this.coverImgPickerConfig.maxImgs} image`;
+    
+    this.thumbImgPickerConfig.fieldName = 'Thumbnail';
+    this.thumbImgPickerConfig.prefix = 'thumb';
+    this.thumbImgPickerConfig.moduleNameFrom = this.moduleName;
+    this.thumbImgPickerConfig.elementIdFrom = this.id;
+    this.thumbImgPickerConfig.maxImgs = 1;
+    this.thumbImgPickerConfig.note = `You can only select up to ${this.thumbImgPickerConfig.maxImgs} image`;
+
+
+
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };
     this.cardFooterConfig.deleteAction = function() { scope.onDelete(); };
     this.cardFooterConfig.id = this.id;
@@ -225,7 +259,9 @@ export class FormComponent implements OnInit {
     }
   }
 
-  goToList(){
+  goToList(){    
+    this.coverImgPickerConfig.deleteTemps(this.fileService);
+    this.thumbImgPickerConfig.deleteTemps(this.fileService);
     this.router.navigate(['admin/projects/list']);
   }
 }

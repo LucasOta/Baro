@@ -8,11 +8,12 @@ export default class FileSystem {
 
     constructor() { };
 
-    saveTempImage(file: FileUpload, userId: string) {
+    saveTempImage(file: FileUpload, userId: string, prefix?: string) {
         return new Promise((resolve, reject, ) => {
 
             const path = this.createUserFolder(userId);
-            const fileName = this.generateUniqueName(file.name);
+            let fileName = this.generateUniqueName(file.name);
+            if (prefix) fileName = `${prefix}_${fileName}`;
 
             // Move the file from Temp to our folder
             file.mv(`${path}/${fileName}`, (err: any) => {

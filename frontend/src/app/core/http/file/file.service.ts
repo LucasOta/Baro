@@ -13,9 +13,10 @@ export class FileService {
     return this.api.http.get<any>(`${this.api.URL}/file/image/${moduleName}/${elementId}/${fileName}`, {});
   }
 
-  uploadFile(img: File ){
+  uploadFile(img: File, prefix?: string ){
     const fd = new FormData();
     fd.append('image', img, img.name);
+    if (prefix) fd.append('prefix', prefix);
     return this.api.http.post<any>(`${this.api.URL}/file/upload`, fd);
   }
 
