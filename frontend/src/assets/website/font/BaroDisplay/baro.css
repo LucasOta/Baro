@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'Baro';
+  font-style:  normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("BaroDisplay-Hairline.otf") format("otf");
+}
+@font-face {
+  font-family: 'Baro';
+  font-style:  italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url("BaroDisplay-HairlineI.otf") format("otf");
+}
+
+
+/* Black */
+@font-face {
+  font-family: 'BaroBlack';
+  font-style:  normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("BaroDisplay-Black.otf") format("otf");
+}
+@font-face {
+  font-family: 'BaroBlack';
+  font-style:  italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url("BaroDisplay-BlackIta.otf") format("otf");
+}
+@font-face {
+  font-family: 'BaroBlack';
+  font-style:  normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("BaroDisplay-ExtBlk.otf") format("otf");
+}
+@font-face {
+  font-family: 'BaroBlack';
+  font-style:  italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url("BaroDisplay-ExtBlkIta.otf") format("otf");
+}
+

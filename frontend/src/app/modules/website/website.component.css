@@ -23,3 +23,17 @@
 
 /*Custom Styles*/
 @import "../../../assets/mimilism/css/custom.css";
+
+
+/*Custom Fonts*/
+@import "../../../assets/website/font/InterWeb/inter.css";
+@import "../../../assets/website/font/BaroDisplay/baro.css";
+
+body{
+    font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'BaroBlack', sans-serif;
+    font-weight: 900;
+}
