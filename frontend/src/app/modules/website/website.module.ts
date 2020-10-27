@@ -11,10 +11,11 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { WorkPreviewComponent } from './components/work-preview/work-preview.component';
 import { PipesModule } from "../../shared/pipes/pipes.module";
+import { WorkViewComponent } from './pages/work-view/work-view.component';
 
 
 @NgModule({
-  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent],
+  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent, WorkViewComponent],
   imports: [
     CommonModule,
     WebsiteRoutingModule,
