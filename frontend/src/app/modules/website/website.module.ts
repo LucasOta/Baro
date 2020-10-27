@@ -9,12 +9,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { WorkComponent } from './pages/work/work.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
-import { HomeWorkPreviewComponent } from './components/home-work-preview/home-work-preview.component';
+import { WorkPreviewComponent } from './components/work-preview/work-preview.component';
 import { PipesModule } from "../../shared/pipes/pipes.module";
 
 
 @NgModule({
-  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, HomeWorkPreviewComponent],
+  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent],
   imports: [
     CommonModule,
     WebsiteRoutingModule,
