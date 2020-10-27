@@ -1,0 +1,22 @@
+li strong{
+    color: var(--primary);
+}
+
+input{
+    border: none !important;
+    border-bottom: 1px solid var(--primary) !important;
+}
+textarea{
+    border: 1px solid var(--primary) !important;
+}
+
+.dk-btn{
+    font-family: 'Baro', sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+    text-transform: unset;
+    background-color: var(--primary);
+}
+.dk-btn:hover{
+    background-color: var(--light-primary);
+}
