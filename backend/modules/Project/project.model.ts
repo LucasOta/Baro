@@ -3,6 +3,11 @@ import { Translation } from "../../classes/translation";
 
 
 const itemSchema = new Schema({
+    timestamp: {
+        type: String
+        // This ID will be the timestamp of when the user create the Item
+        // we will use this to relate the images
+    },
     order: {
         type: Number
     },
@@ -143,14 +148,14 @@ projectSchema.pre<IProject>('save', function (next) {
 });
 
 export interface IProject extends Document {
-    title: [string];
-    description: [string];
+    title: Translation[];
+    description: Translation[];
     coverImg: string;
     thumbnail: string;
     featured: boolean;
     playground: boolean;
     
-    blocks: [typeof blockSchema],
+    blocks: [IBlock],
 
     clients: [string],
     industries: [string],
@@ -159,6 +164,27 @@ export interface IProject extends Document {
     created?: Date;
     modified?: Date;
     deleted?: Date;
+}
+interface IBlock {    
+    order: number,
+    bgColor: string,
+    fontColor: string,
+    items: IItem[]
+}
+export interface IItem {
+    timestamp: string,
+    order: number,
+    typeOfItem: number,
+    title?: Translation[],
+    description?: Translation[],
+    video?: string,
+    img?: string[],
+    fullWidth?: boolean,
+    testimonial?:{
+        name: string,
+        quote: Translation[],
+        jobTitle: Translation[],
+    }
 }
 
 
