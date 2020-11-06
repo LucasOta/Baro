@@ -1,0 +1,8 @@
+.block{
+    padding: 1.5rem;
+    vertical-align: middle;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    box-shadow: 5px 5px 18px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+}

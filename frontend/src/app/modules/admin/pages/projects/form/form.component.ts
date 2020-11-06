@@ -79,6 +79,7 @@ export class FormComponent implements OnInit {
       clients: ['', Validators.required],
       industries: ['', Validators.required],
       disciplines: ['', Validators.required],
+      blocks: this.formBuilder.array([]),
     });
     this.playgroundCheckboxConfig.formControl = this.createForm.get('playground') as FormControl;
     this.featuredCheckboxConfig.formControl = this.createForm.get('featured') as FormControl;
@@ -101,6 +102,15 @@ export class FormComponent implements OnInit {
         this.f.clients.setValue(this.getIdArray(this.project.clients));
         this.f.industries.setValue(this.getIdArray(this.project.industries));
         this.f.disciplines.setValue(this.getIdArray(this.project.disciplines));
+        // this.f.blocks.setValue(this.project.blocks); //Acá quedé, seguir este LINK: https://netbasal.com/angular-reactive-forms-the-ultimate-guide-to-formarray-3adbe6b0b61a
+        const blocks = this.formBuilder.array([]);
+        this.project.blocks.forEach(block => {
+          blocks.push(new FormGroup({
+            bgColor: new FormControl(block.bgColor),
+            fontColor: new FormControl(block.fontColor)
+          }));
+        });
+        this.f.blocks = blocks;
         
         this.coverImgPickerConfig.imgs.push({name: this.project.coverImg})
         this.thumbImgPickerConfig.imgs.push({name: this.project.thumbnail})
@@ -115,17 +125,18 @@ export class FormComponent implements OnInit {
   getIdArray(obj: any[]){
     let ids = [];
     obj.forEach(o => ids.push(o._id) );
-    console.log(ids);
     
     return ids;
   }
 
   onSubmit() {
     this.setSubmitted();
-
-    if (this.createForm.invalid) {       
+    console.log('this.createForm', this.createForm)
+    if (this.createForm.invalid) { 
+      console.log('invalid');            
       return;
     }
+    console.log('valid');
     
     this.project.title = this.titleMultilanguageForm.getValue();
     this.project.description = this.descMultilanguageForm.getValue();
@@ -135,14 +146,10 @@ export class FormComponent implements OnInit {
 
     this.project.clients = this.f.clients.value;
     this.project.industries = this.f.industries.value;
-    this.project.disciplines = this.f.disciplines.value;
-
-    console.log('this.project.clients', this.project.clients)
-    console.log('this.project.clients', typeof(this.project.clients))
-    
+    this.project.disciplines = this.f.disciplines.value;    
 
     // TODO: erase this harcorded code
-    this.project.blocks = [];
+    this.project.blocks = this.f.blocks.value;
     
     if (! this.id) { 
       this.projectService.create(this.project)

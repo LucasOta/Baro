@@ -8,12 +8,15 @@ import { MultilanguageTextInputComponent } from './multilanguage-text-input/mult
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { DropDownListComponent } from './drop-down-list/drop-down-list.component';
+import { BlocksComponent } from './blocks/blocks.component';
+import { BlockComponent } from './blocks/block/block.component';
+import { ItemComponent } from './blocks/item/item.component';
 
 
 
 @NgModule({
-  declarations: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent],
-  exports: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent],
+  declarations: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent, BlocksComponent, BlockComponent, ItemComponent],
+  exports: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent, BlocksComponent],
   imports: [
     CommonModule,
     PipesModule,

@@ -1,0 +1,6 @@
+<h3>Blocks</h3>
+<button (click)="addBlock()" type="button" class="btn btn-outline-success" style="margin-bottom: 1rem">{{ 'Add' | translate }}</button>
+
+<ng-container *ngFor="let block of blocks.controls">
+    <app-block [block]="block"></app-block>
+</ng-container>
