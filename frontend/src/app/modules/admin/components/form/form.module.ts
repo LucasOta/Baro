@@ -11,6 +11,7 @@ import { DropDownListComponent } from './drop-down-list/drop-down-list.component
 import { BlocksComponent } from './blocks/blocks.component';
 import { BlockComponent } from './blocks/block/block.component';
 import { ItemComponent } from './blocks/item/item.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
@@ -21,7 +22,8 @@ import { ItemComponent } from './blocks/item/item.component';
     CommonModule,
     PipesModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    DragDropModule 
   ]
 })
 export class FormModule { }

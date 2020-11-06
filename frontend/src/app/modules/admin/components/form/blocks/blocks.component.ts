@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
@@ -21,6 +22,12 @@ export class BlocksComponent implements OnInit {
         fontColor: new FormControl('#000')
       })
     )
+  }
+
+  drop(event: CdkDragDrop<FormGroup[]>){
+    const auxBlock = this.blocks.at(event.previousIndex);
+    this.blocks.removeAt(event.previousIndex)
+    this.blocks.insert(event.currentIndex, auxBlock);    
   }
 
 }

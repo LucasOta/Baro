@@ -1,6 +1,12 @@
 <h3>Blocks</h3>
 <button (click)="addBlock()" type="button" class="btn btn-outline-success" style="margin-bottom: 1rem">{{ 'Add' | translate }}</button>
 
-<ng-container *ngFor="let block of blocks.controls">
-    <app-block [block]="block"></app-block>
-</ng-container>
+<div cdkDropList (cdkDropListDropped)="drop($event)" class="blocks-list">
+    <div cdkDrag *ngFor="let block of blocks.controls" class="block-box">
+        <div cdkDragHandle ><i class="fas fa-bars"></i></div>
+        <div class="block-container">
+            <div class="block-custom-placeholder" *cdkDragPlaceholder></div>
+            <app-block [block]="block"></app-block>
+        </div>
+    </div>
+</div>
