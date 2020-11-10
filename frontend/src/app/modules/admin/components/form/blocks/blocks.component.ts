@@ -23,6 +23,10 @@ export class BlocksComponent implements OnInit {
       })
     )
   }
+  
+  deleteBlock(index: number){
+    this.blocks.removeAt(index);
+  }
 
   drop(event: CdkDragDrop<FormGroup[]>){
     const auxBlock = this.blocks.at(event.previousIndex);

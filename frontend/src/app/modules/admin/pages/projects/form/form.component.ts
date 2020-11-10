@@ -102,7 +102,7 @@ export class FormComponent implements OnInit {
         this.f.clients.setValue(this.getIdArray(this.project.clients));
         this.f.industries.setValue(this.getIdArray(this.project.industries));
         this.f.disciplines.setValue(this.getIdArray(this.project.disciplines));
-        // this.f.blocks.setValue(this.project.blocks); //Acá quedé, seguir este LINK: https://netbasal.com/angular-reactive-forms-the-ultimate-guide-to-formarray-3adbe6b0b61a
+        
         const blocks = this.formBuilder.array([]);
         this.project.blocks.forEach(block => {
           blocks.push(new FormGroup({
@@ -131,13 +131,9 @@ export class FormComponent implements OnInit {
 
   onSubmit() {
     this.setSubmitted();
-    console.log('this.createForm', this.createForm)
-    if (this.createForm.invalid) { 
-      console.log('invalid');            
+    if (this.createForm.invalid) {     
       return;
     }
-    console.log('valid');
-    
     this.project.title = this.titleMultilanguageForm.getValue();
     this.project.description = this.descMultilanguageForm.getValue();
 
