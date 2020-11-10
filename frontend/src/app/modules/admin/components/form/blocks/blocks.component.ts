@@ -19,7 +19,8 @@ export class BlocksComponent implements OnInit {
     this.blocks.push(
       new FormGroup({
         bgColor: new FormControl('#FFF'),
-        fontColor: new FormControl('#000')
+        fontColor: new FormControl('#000'),
+        items: new FormArray([])
       })
     )
   }

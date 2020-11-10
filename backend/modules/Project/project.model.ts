@@ -14,7 +14,7 @@ const itemSchema = new Schema({
     typeOfItem: {
         type: Number
         // 01 - Title
-        // 02 - Description
+        // 02 - Text
         // 03 - Video
         // 04 - Image
         // 05 - Image Group
@@ -22,6 +22,13 @@ const itemSchema = new Schema({
         // 07 - Text + Image
     },
     title: [
+        {
+            _id:false,
+            language: String,
+            quote: String,
+        }
+    ],
+    subtitle: [
         {
             _id:false,
             language: String,
