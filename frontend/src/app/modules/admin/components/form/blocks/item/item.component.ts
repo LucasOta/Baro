@@ -13,11 +13,13 @@ export class ItemComponent implements OnInit {
   itemTypes = ItemTypes;
   itemElements = ItemElements;
   timestampTextInputConfig = new TextInputConfig();
+  properties = [];
 
-  constructor() { } 
+  constructor() {} 
 
   ngOnInit(): void {
     this.initializeComponents();
+    this.setProperties();    
   }
 
   private initializeComponents(){
@@ -31,42 +33,36 @@ export class ItemComponent implements OnInit {
   }
 
   show(el: number){
-    let properties = []; 
-    switch (this.item.get('typeOfItem').value) {
-      case ItemTypes.Title:
-        properties = [ItemElements.Title];
-        break;
-    
-      case ItemTypes.Text:
-        properties = [ItemElements.Title, ItemElements.Subtitle, ItemElements.Description];        
-        break;
-      
-      case ItemTypes.Video:
-        properties = [ItemElements.Video];  
-        break;
-    
-      case ItemTypes.Image: case ItemTypes.ImageGroup:
-        properties = [ItemElements.Image];
-        break;
-      
-      case ItemTypes.Testimonial:
-        properties = [ItemElements.Testimonial];
-        break;
-      
-      case ItemTypes.TextImage:
-        properties = [ItemElements.Title, ItemElements.Subtitle, ItemElements.Description, ItemElements.Image];
-        break;
-    
-      default:
-        return false;
-    }
-    
-    if (properties.includes(el)) return true; 
+    if (this.properties.includes(el)) return true; 
     return false;
   }
 
-}
+  setProperties(){
+    switch (this.item.get('typeOfItem').value) {
+      case ItemTypes.Title:
+        this.properties = [ItemElements.Title];
+        break;
+    
+      case ItemTypes.Text:
+        this.properties = [ItemElements.Title, ItemElements.Subtitle, ItemElements.Description];        
+        break;
+      
+      case ItemTypes.Video:
+        this.properties = [ItemElements.Video];  
+        break;
+    
+      case ItemTypes.Image: case ItemTypes.ImageGroup:
+        this.properties = [ItemElements.Image];
+        break;
+      
+      case ItemTypes.Testimonial:
+        this.properties = [ItemElements.Testimonial];
+        break;
+      
+      case ItemTypes.TextImage:
+        this.properties = [ItemElements.Title, ItemElements.Subtitle, ItemElements.Description, ItemElements.Image];
+        break;
+    }
+  }
 
-// export class ItemConfig {
-//   type: number;
-// }
+}
