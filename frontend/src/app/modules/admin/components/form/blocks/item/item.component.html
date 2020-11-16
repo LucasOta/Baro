@@ -1,5 +1,24 @@
 <div class="item">    
     <div class="row">
-        <div class="col-12"> <app-text-input [textInputConfig]="timestampTextInputConfig"></app-text-input> </div>
+        
+        <!-- Title -->
+        <!-- <div *ngIf="show(itemConfig.)" class="col-12"> <app-text-input [textInputConfig]="timestampTextInputConfig"></app-text-input></div> -->
+        <div *ngIf="show(itemElements.Title)" class="col-12">Title</div>
+        
+        <!-- Subtitle -->
+        <div *ngIf="show(itemElements.Subtitle)" class="col-12">Subtitle</div>
+        
+        <!-- Description -->
+        <div *ngIf="show(itemElements.Description)" class="col-12">Description</div>
+        
+        <!-- Video -->
+        <div *ngIf="show(itemElements.Video)" class="col-12">Video</div>
+        
+        <!-- Image -->
+        <div *ngIf="show(itemElements.Image)" class="col-12">Image</div>
+        
+        <!-- Testimonial -->
+        <div *ngIf="show(itemElements.Testimonial)" class="col-12">Testimonial</div>
+
     </div>  
 </div>  

@@ -7,3 +7,13 @@ export enum ItemTypes {
     Testimonial = 6,
     TextImage = 7
 }
+
+export enum ItemElements {
+    Title = 1,
+    Subtitle = 2,
+    Description = 3,
+    Video = 4,
+    Image = 5,
+    FullWidth = 6,
+    Testimonial = 7
+}

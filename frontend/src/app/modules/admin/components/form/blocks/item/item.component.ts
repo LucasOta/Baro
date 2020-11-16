@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ItemTypes, ItemElements } from 'src/app/shared/enums/item';
 import { TextInputConfig } from '../../text-input/text-input.component';
 
 @Component({
@@ -8,9 +9,12 @@ import { TextInputConfig } from '../../text-input/text-input.component';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
+  @Input() item: FormGroup;
+  itemTypes = ItemTypes;
+  itemElements = ItemElements;
   timestampTextInputConfig = new TextInputConfig();
 
-  constructor() { }
+  constructor() { } 
 
   ngOnInit(): void {
     this.initializeComponents();
@@ -26,4 +30,43 @@ export class ItemComponent implements OnInit {
 
   }
 
+  show(el: number){
+    let properties = []; 
+    switch (this.item.get('typeOfItem').value) {
+      case ItemTypes.Title:
+        properties = [ItemElements.Title];
+        break;
+    
+      case ItemTypes.Text:
+        properties = [ItemElements.Title, ItemElements.Subtitle, ItemElements.Description];        
+        break;
+      
+      case ItemTypes.Video:
+        properties = [ItemElements.Video];  
+        break;
+    
+      case ItemTypes.Image: case ItemTypes.ImageGroup:
+        properties = [ItemElements.Image];
+        break;
+      
+      case ItemTypes.Testimonial:
+        properties = [ItemElements.Testimonial];
+        break;
+      
+      case ItemTypes.TextImage:
+        properties = [ItemElements.Title, ItemElements.Subtitle, ItemElements.Description, ItemElements.Image];
+        break;
+    
+      default:
+        return false;
+    }
+    
+    if (properties.includes(el)) return true; 
+    return false;
+  }
+
 }
+
+// export class ItemConfig {
+//   type: number;
+// }
