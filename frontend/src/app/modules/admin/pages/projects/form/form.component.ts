@@ -88,35 +88,60 @@ export class FormComponent implements OnInit {
     this.disciplinesDropDownListInputConfig.formControl = this.createForm.get('disciplines') as FormControl;
     
 
-    if (this.id) {
-      this.pageTitle = 'Edit Project'
-
-      this.projectService.get(true, this.id).subscribe((res)=>{
-        this.project = res.projects;
-
-        this.titleMultilanguageForm.setValue(this.project.title);
-        this.descMultilanguageForm.setValue(this.project.description);
-
-        this.f.playground.setValue(this.project.playground);
-        this.f.featured.setValue(this.project.featured);
-        this.f.clients.setValue(this.getIdArray(this.project.clients));
-        this.f.industries.setValue(this.getIdArray(this.project.industries));
-        this.f.disciplines.setValue(this.getIdArray(this.project.disciplines));
-        
-        const blocks = this.formBuilder.array([]);
-        this.project.blocks.forEach(block => {
-          blocks.push(new FormGroup({
-            bgColor: new FormControl(block.bgColor),
-            fontColor: new FormControl(block.fontColor)
-          }));
-        });
-        this.f.blocks = blocks;
-        
-        this.coverImgPickerConfig.imgs.push({name: this.project.coverImg})
-        this.thumbImgPickerConfig.imgs.push({name: this.project.thumbnail})
-      });   
-    }
+    if (this.id) this.setProject();
     
+  }
+
+  setProject(){
+    this.pageTitle = 'Edit Project'
+
+    this.projectService.get(true, this.id).subscribe((res)=>{
+      this.project = res.projects;
+
+      this.titleMultilanguageForm.setValue(this.project.title);
+      this.descMultilanguageForm.setValue(this.project.description);
+
+      this.f.playground.setValue(this.project.playground);
+      this.f.featured.setValue(this.project.featured);
+      this.f.clients.setValue(this.getIdArray(this.project.clients));
+      this.f.industries.setValue(this.getIdArray(this.project.industries));
+      this.f.disciplines.setValue(this.getIdArray(this.project.disciplines));
+      
+      this.setBlocks();      
+      
+      this.coverImgPickerConfig.imgs.push({name: this.project.coverImg})
+      this.thumbImgPickerConfig.imgs.push({name: this.project.thumbnail})
+    }); 
+  }
+
+  setBlocks(){
+    const blocks = this.formBuilder.array([]);
+    this.project.blocks.forEach(block => {
+      blocks.push(new FormGroup({
+        bgColor: new FormControl(block.bgColor),
+        fontColor: new FormControl(block.fontColor),
+        items: this.setItems(block.items)
+      }));
+    });
+    this.f.blocks = blocks;
+  }
+
+  setItems(items: any[]){
+    const itemsForm = this.formBuilder.array([]);
+    items.forEach(item => {
+      itemsForm.push(new FormGroup({
+        typeOfItem: new FormControl(item.typeOfItem),
+        timestamp: new FormControl(item.timestamp),
+        title: new FormControl(item.title || ''),
+        subtitle: new FormControl(item.subtitle || ''),
+        description: new FormControl(item.description || ''),
+        video: new FormControl(item.video || ''),
+        img: new FormControl(item.img || ''),
+        fullWidth: new FormControl(item.fullWidth || false),
+        testimonial: new FormControl(item.testimonial || ''),
+      }));
+    });
+    return itemsForm;
   }
 
   // convenience getter for easy access to form fields
