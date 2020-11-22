@@ -3,25 +3,33 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { FormModuleConfig } from '../form.config';
 import { TextInputConfig } from '../text-input/text-input.component';
 import { Translation } from "../../../../../shared/models/translation";
+import { Observable } from 'rxjs';
+import { Language } from 'src/app/shared/models/language';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
 
 @Component({
   selector: 'app-multilanguage-text-input',
   template: `
-    <app-text-input *ngIf="multilanguageTextInputConfig.selectedLanguage == 'en'" [textInputConfig]="textInputConfigEn"></app-text-input>
-    <app-text-input *ngIf="multilanguageTextInputConfig.selectedLanguage == 'es'" [textInputConfig]="textInputConfigEs"></app-text-input>
-    <app-text-input *ngIf="multilanguageTextInputConfig.selectedLanguage == 'de'" [textInputConfig]="textInputConfigDe"></app-text-input>
+    <app-text-input *ngIf="(language$ | async).value === 'en'" [textInputConfig]="textInputConfigEn"></app-text-input>
+    <app-text-input *ngIf="(language$ | async).value === 'es'" [textInputConfig]="textInputConfigEs"></app-text-input>
+    <app-text-input *ngIf="(language$ | async).value === 'de'" [textInputConfig]="textInputConfigDe"></app-text-input>
   `
 })
 export class MultilanguageTextInputComponent implements OnInit {
   @Input() multilanguageTextInputConfig: MultilanguageTextInputConfig; 
   textFormGroup: FormGroup;
+  
+  language$: Observable<Language>
 
   
   textInputConfigEn = new TextInputConfig();
   textInputConfigEs = new TextInputConfig();
   textInputConfigDe = new TextInputConfig();
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private store: Store<AppState>) { 
+    this.language$ = store.select(store => store.formLanguage);
+
     this.textFormGroup = this.fb.group({
       inputEn: ['', [Validators.required]],
       inputEs: ['', []],

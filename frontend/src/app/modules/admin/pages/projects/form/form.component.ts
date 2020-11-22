@@ -221,12 +221,10 @@ export class FormComponent implements OnInit {
     this.titleMultilanguageInputConfig.fieldName = 'Title';
     this.titleMultilanguageInputConfig.required = true;
     this.titleMultilanguageInputConfig.placeholder = 'Title';
-    this.titleMultilanguageInputConfig.selectedLanguage = this.languageSelectorConfig.selectedLanguage.value;
     
     this.descMultilanguageInputConfig.fieldName = 'Description';
     this.descMultilanguageInputConfig.required = true;
     this.descMultilanguageInputConfig.placeholder = 'Description';
-    this.descMultilanguageInputConfig.selectedLanguage = this.languageSelectorConfig.selectedLanguage.value;
     
 
     this.playgroundCheckboxConfig.fieldName = 'Playground';

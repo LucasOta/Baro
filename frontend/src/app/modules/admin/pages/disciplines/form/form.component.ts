@@ -107,7 +107,6 @@ export class FormComponent implements OnInit {
     this.nameMultilanguageInputConfig.fieldName = 'Name';
     this.nameMultilanguageInputConfig.required = true;
     this.nameMultilanguageInputConfig.placeholder = 'Name';
-    this.nameMultilanguageInputConfig.selectedLanguage = this.languageSelectorConfig.selectedLanguage.value;
 
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };
     this.cardFooterConfig.deleteAction = function() { scope.onDelete(); };
