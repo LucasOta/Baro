@@ -151,7 +151,6 @@ export class FormComponent implements OnInit {
     this.nameMultilanguageInputConfig.fieldName = 'Name';
     this.nameMultilanguageInputConfig.required = true;
     this.nameMultilanguageInputConfig.placeholder = 'Name';
-    this.nameMultilanguageInputConfig.selectedLanguage = this.languageSelectorConfig.selectedLanguage.value;
 
     var scope = this
     this.languageSelectorConfig.onChange= function(value){

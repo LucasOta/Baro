@@ -12,7 +12,7 @@
         <div *ngIf="show(itemElements.Description)" class="col-12">Description</div>
         
         <!-- Video -->
-        <div *ngIf="show(itemElements.Video)" class="col-12">Video</div>
+        <div *ngIf="show(itemElements.Video)" class="col-12"><app-text-input [textInputConfig]="videoTextInputConfig"></app-text-input></div>
         
         <!-- Image -->
         <div *ngIf="show(itemElements.Image)" class="col-12">Image</div>

@@ -12,23 +12,26 @@ export class ItemComponent implements OnInit {
   @Input() item: FormGroup;
   itemTypes = ItemTypes;
   itemElements = ItemElements;
-  timestampTextInputConfig = new TextInputConfig();
   properties = [];
+
+  // Elements
+  videoTextInputConfig = new TextInputConfig();
 
   constructor() {} 
 
   ngOnInit(): void {
-    this.initializeComponents();
     this.setProperties();    
+    this.initializeComponents();
   }
 
   private initializeComponents(){
-
-    this.timestampTextInputConfig.fieldName = 'Timestamp';
-    this.timestampTextInputConfig.required = true;
-    this.timestampTextInputConfig.placeholder = 'Timestamp';
-    this.timestampTextInputConfig.formSubmitted = false; //Harcoded
-    this.timestampTextInputConfig.formControl = new FormControl('Hola Jorge'); 
+    if (this.properties.includes(ItemElements.Video)){
+      this.videoTextInputConfig.fieldName = 'Video';
+      this.videoTextInputConfig.required = true;
+      this.videoTextInputConfig.placeholder = 'Link to Video';
+      this.videoTextInputConfig.formSubmitted = false; //Harcoded
+      this.videoTextInputConfig.formControl = this.item.get('video') as FormControl; 
+    }
 
   }
 

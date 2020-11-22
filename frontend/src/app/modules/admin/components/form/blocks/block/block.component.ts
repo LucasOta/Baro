@@ -16,8 +16,7 @@ export class BlockComponent implements OnInit {
   bgColorTextInputConfig = new TextInputConfig();
   fontColorTextInputConfig = new TextInputConfig();
 
-  constructor() { 
-  }
+  constructor() {}
   
   ngOnInit(): void {
     this.initializeComponents();
