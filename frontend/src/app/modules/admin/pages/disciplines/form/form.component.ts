@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { DisciplineService } from 'src/app/core/http/discipline/discipline.service';
 import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
 import { Discipline } from 'src/app/shared/models/discipline';
-import { MultilanguageTextInputComponent, MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
+import { MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
+import { Translation, createTranslationForm, setTranslationFormValue, getTranslationFormValue } from 'src/app/shared/models/translation';
 
 @Component({
   selector: 'app-form',
@@ -14,8 +15,6 @@ import { CardFooterConfig } from '../../../components/cards/card-footer/card-foo
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-  @ViewChild(MultilanguageTextInputComponent, {static: true}) nameMultilanguageForm: MultilanguageTextInputComponent;
-
   moduleName = 'disciplines'; 
 
   title = 'New Discipline';
@@ -25,11 +24,10 @@ export class FormComponent implements OnInit {
   state: any;
   id: any;
 
-  nameMultilanguageInputConfig = new MultilanguageTextInputConfig();
+  nameMultilanguageInputConfig = new MultilanguageTextInputConfig(); 
   languageSelectorConfig = new LanguageSelectorConfig();
 
-  cardFooterConfig = new CardFooterConfig();
-  
+  cardFooterConfig = new CardFooterConfig();  
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,26 +36,24 @@ export class FormComponent implements OnInit {
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
-
       this.initializeComponents();
     }
 
   ngOnInit(): void { 
     
     this.createForm = this.formBuilder.group({
-      name: this.nameMultilanguageForm.getGroup()
-    });
-    
+      name: createTranslationForm()
+    });    
+    this.nameMultilanguageInputConfig.formGroup = this.createForm.get('name') as FormGroup;
 
     if (this.id) {
       this.title = 'Edit Discipline'
 
       this.disciplineService.get(true, this.id).subscribe((res)=>{
         this.discipline = res.disciplines;
-        this.nameMultilanguageForm.setValue(this.discipline.name);
+        setTranslationFormValue(this.createForm, 'name', this.discipline.name as Translation[]);        
       });   
-    }
-    
+    }    
   }
 
   // convenience getter for easy access to form fields
@@ -66,11 +62,9 @@ export class FormComponent implements OnInit {
   onSubmit() {
     this.setSubmitted();
 
-    if (this.createForm.invalid) {       
-      return;
-    }
+    if (this.createForm.invalid) return;
     
-    this.discipline.name = this.nameMultilanguageForm.getValue();
+    this.discipline.name = getTranslationFormValue(this.createForm, 'name');
     
     if (! this.id) { 
       this.disciplineService.create(this.discipline)
@@ -98,7 +92,6 @@ export class FormComponent implements OnInit {
 
   setSubmitted(){
     this.submitted = true;
-    this.nameMultilanguageForm.setSubmitted(true);
   }
 
   private initializeComponents(){
@@ -112,10 +105,6 @@ export class FormComponent implements OnInit {
     this.cardFooterConfig.deleteAction = function() { scope.onDelete(); };
     this.cardFooterConfig.id = this.id;
 
-    this.languageSelectorConfig.onChange= function(value){
-      scope.changeDetectorRef.detectChanges();
-      scope.nameMultilanguageInputConfig.selectedLanguage = value.value;
-    }
   }
 
   goToList(){

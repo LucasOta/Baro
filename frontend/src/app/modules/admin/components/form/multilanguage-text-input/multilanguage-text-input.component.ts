@@ -29,46 +29,23 @@ export class MultilanguageTextInputComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private store: Store<AppState>) { 
     this.language$ = store.select(store => store.formLanguage);
-
-    this.textFormGroup = this.fb.group({
-      inputEn: ['', [Validators.required]],
-      inputEs: ['', []],
-      inputDe: ['', []]
-    }, [Validators.required])
   }
 
   ngOnInit(): void {
-    this.initializeComponents();    
-
-    this.textInputConfigEn.formControl = this.textFormGroup.get('inputEn') as FormControl;
-    this.textInputConfigEs.formControl = this.textFormGroup.get('inputEs') as FormControl;
-    this.textInputConfigDe.formControl = this.textFormGroup.get('inputDe') as FormControl;
+    this.initializeComponents();
   }
 
-  getGroup(){
-    return this.textFormGroup;
-  }
-  
-  getValue(){
-    return [
-      new Translation('en', this.f.inputEn.value),
-      new Translation('es', this.f.inputEs.value),
-      new Translation('de', this.f.inputDe.value),      
-    ];
-  }
-
-  setValue(translations: Translation[]){
-    // TODO: Match Language, don't trust order
-    this.f.inputEn.setValue(translations[0].quote)
-    this.f.inputEs.setValue(translations[1].quote)
-    this.f.inputDe.setValue(translations[2].quote)
+  setValue(){
+    this.textInputConfigEn.formControl = this.multilanguageTextInputConfig.formGroup.get('inputEn') as FormControl;
+    this.textInputConfigEs.formControl = this.multilanguageTextInputConfig.formGroup.get('inputEs') as FormControl;
+    this.textInputConfigDe.formControl = this.multilanguageTextInputConfig.formGroup.get('inputDe') as FormControl;
   }
 
   setSubmitted(submitted){
     this.textInputConfigEn.formSubmitted = submitted;
   }
 
-  private get f() { return this.textFormGroup.controls; }
+  private get f() { return this.multilanguageTextInputConfig.formGroup.controls; }
 
   private initializeComponents(){
 
@@ -87,11 +64,14 @@ export class MultilanguageTextInputComponent implements OnInit {
     this.textInputConfigDe.placeholder = `${ this.multilanguageTextInputConfig.placeholder } in German`;
     // this.textInputConfigDe.formSubmitted = this.submitted;
 
+    this.setValue();
+
   }
 
 }
 
 export class MultilanguageTextInputConfig extends FormModuleConfig {
+  formGroup: FormGroup;
   placeholder: string = '';
   selectedLanguage: string;
 }

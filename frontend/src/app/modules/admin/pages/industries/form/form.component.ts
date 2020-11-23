@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { IndustryService } from 'src/app/core/http/industry/industry.service';
@@ -46,8 +46,9 @@ export class FormComponent implements OnInit {
   ngOnInit(): void { 
     
     this.createForm = this.formBuilder.group({
-      name: this.nameMultilanguageForm.getGroup()
+      name: this.formBuilder.group([], Validators.required)
     });
+    this.nameMultilanguageInputConfig.formGroup = this.createForm.get('name') as FormGroup;
     
 
     if (this.id) {
@@ -55,7 +56,7 @@ export class FormComponent implements OnInit {
 
       this.industryService.get(true, this.id).subscribe((res)=>{
         this.industry = res.industries;
-        this.nameMultilanguageForm.setValue(this.industry.name);
+        // this.nameMultilanguageForm.setValue(this.industry.name);
       });   
     }
     
@@ -71,7 +72,7 @@ export class FormComponent implements OnInit {
       return;
     }
     
-    this.industry.name = this.nameMultilanguageForm.getValue();
+    // this.industry.name = this.nameMultilanguageForm.getValue(); 
     
     if (! this.id) { 
       this.industryService.create(this.industry)

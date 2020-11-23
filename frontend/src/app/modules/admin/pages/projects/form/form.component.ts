@@ -72,8 +72,8 @@ export class FormComponent implements OnInit {
   ngOnInit(): void { 
     
     this.createForm = this.formBuilder.group({
-      title: this.titleMultilanguageForm.getGroup(),
-      description: this.descMultilanguageForm.getGroup(),
+      title: this.formBuilder.group([], Validators.required),
+      description: this.formBuilder.group([], Validators.required),
       playground: [false],
       featured: [false],
       clients: ['', Validators.required],
@@ -87,6 +87,9 @@ export class FormComponent implements OnInit {
     this.industriesDropDownListInputConfig.formControl = this.createForm.get('industries') as FormControl;
     this.disciplinesDropDownListInputConfig.formControl = this.createForm.get('disciplines') as FormControl;
     
+    this.titleMultilanguageInputConfig.formGroup = this.createForm.get('title') as FormGroup;
+    this.descMultilanguageInputConfig.formGroup = this.createForm.get('desc') as FormGroup;
+    
 
     if (this.id) this.setProject();
     
@@ -98,8 +101,8 @@ export class FormComponent implements OnInit {
     this.projectService.get(true, this.id).subscribe((res)=>{
       this.project = res.projects;
 
-      this.titleMultilanguageForm.setValue(this.project.title);
-      this.descMultilanguageForm.setValue(this.project.description);
+      // this.titleMultilanguageForm.setValue(this.project.title);
+      // this.descMultilanguageForm.setValue(this.project.description);
 
       this.f.playground.setValue(this.project.playground);
       this.f.featured.setValue(this.project.featured);
@@ -159,8 +162,8 @@ export class FormComponent implements OnInit {
     if (this.createForm.invalid) {     
       return;
     }
-    this.project.title = this.titleMultilanguageForm.getValue();
-    this.project.description = this.descMultilanguageForm.getValue();
+    // this.project.title = this.titleMultilanguageForm.getValue();
+    // this.project.description = this.descMultilanguageForm.getValue();
 
     this.project.playground = this.f.playground.value;
     this.project.featured = this.f.featured.value;
