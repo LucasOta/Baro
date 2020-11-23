@@ -5,7 +5,8 @@ import { first } from 'rxjs/operators';
 import { IndustryService } from 'src/app/core/http/industry/industry.service';
 import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
 import { Industry } from 'src/app/shared/models/industry';
-import { MultilanguageTextInputComponent, MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
+import { MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
+import { Translation, createTranslationForm, setTranslationFormValue, getTranslationFormValue } from 'src/app/shared/models/translation';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 
 @Component({
@@ -14,8 +15,6 @@ import { CardFooterConfig } from '../../../components/cards/card-footer/card-foo
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-  @ViewChild(MultilanguageTextInputComponent, {static: true}) nameMultilanguageForm: MultilanguageTextInputComponent;
-
   moduleName = 'industries'; 
 
   title = 'New Industry';
@@ -39,14 +38,13 @@ export class FormComponent implements OnInit {
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
-
       this.initializeComponents();
     }
 
   ngOnInit(): void { 
     
     this.createForm = this.formBuilder.group({
-      name: this.formBuilder.group([], Validators.required)
+      name: createTranslationForm()
     });
     this.nameMultilanguageInputConfig.formGroup = this.createForm.get('name') as FormGroup;
     
@@ -56,7 +54,7 @@ export class FormComponent implements OnInit {
 
       this.industryService.get(true, this.id).subscribe((res)=>{
         this.industry = res.industries;
-        // this.nameMultilanguageForm.setValue(this.industry.name);
+        setTranslationFormValue(this.createForm, 'name', this.industry.name as Translation[]);        
       });   
     }
     
@@ -72,7 +70,7 @@ export class FormComponent implements OnInit {
       return;
     }
     
-    // this.industry.name = this.nameMultilanguageForm.getValue(); 
+    this.industry.name = getTranslationFormValue(this.createForm, 'name');
     
     if (! this.id) { 
       this.industryService.create(this.industry)
@@ -100,7 +98,6 @@ export class FormComponent implements OnInit {
 
   setSubmitted(){
     this.submitted = true;
-    this.nameMultilanguageForm.setSubmitted(true);
   }
 
   private initializeComponents(){
@@ -113,11 +110,7 @@ export class FormComponent implements OnInit {
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };
     this.cardFooterConfig.deleteAction = function() { scope.onDelete(); };
     this.cardFooterConfig.id = this.id;
-
-    this.languageSelectorConfig.onChange= function(value){
-      scope.changeDetectorRef.detectChanges();
-      scope.nameMultilanguageInputConfig.selectedLanguage = value.value;
-    }
+    
   }
 
   goToList(){

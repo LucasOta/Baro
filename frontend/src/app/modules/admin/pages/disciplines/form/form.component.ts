@@ -32,7 +32,6 @@ export class FormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private disciplineService: DisciplineService,
-    private changeDetectorRef: ChangeDetectorRef,
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
