@@ -1,4 +1,4 @@
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 
 export class Translation {
     language: string;
@@ -11,24 +11,19 @@ export class Translation {
 }
 
 export function createTranslationForm(){
-    const fb = new FormBuilder();
-    return fb.group({
-        inputEn: ['', [Validators.required]],
-        inputEs: ['', []],
-        inputDe: ['', []]
-      }, [Validators.required])
-}
+    return new FormArray([
+        new FormGroup({
+            language: new FormControl('en', Validators.required),
+            quote: new FormControl('', Validators.required)
+        }),
+        new FormGroup({
+            language: new FormControl('es', Validators.required),
+            quote: new FormControl('')
+        }),
+        new FormGroup({
+            language: new FormControl('de', Validators.required),
+            quote: new FormControl('')
+        })
 
-export function setTranslationFormValue(fg: FormGroup, fgName: string, translations: Translation[]){
-    fg.get(fgName)['controls'].inputEn.setValue(translations[0].quote);
-    fg.get(fgName)['controls'].inputEs.setValue(translations[1].quote);
-    fg.get(fgName)['controls'].inputDe.setValue(translations[2].quote);
-}
-
-export function getTranslationFormValue(fg: FormGroup, fgName: string){
-    return [
-        new Translation('en', fg.get(fgName)['controls'].inputEn.value),
-        new Translation('es', fg.get(fgName)['controls'].inputEs.value),
-        new Translation('de', fg.get(fgName)['controls'].inputDe.value)
-    ];
+    ]);
 }

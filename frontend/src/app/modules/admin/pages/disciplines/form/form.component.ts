@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { DisciplineService } from 'src/app/core/http/discipline/discipline.service';
@@ -7,7 +7,7 @@ import { LanguageSelectorConfig } from 'src/app/shared/components/language-selec
 import { Discipline } from 'src/app/shared/models/discipline';
 import { MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
-import { Translation, createTranslationForm, setTranslationFormValue, getTranslationFormValue } from 'src/app/shared/models/translation';
+import { Translation, createTranslationForm } from 'src/app/shared/models/translation';
 
 @Component({
   selector: 'app-form',
@@ -43,14 +43,14 @@ export class FormComponent implements OnInit {
     this.createForm = this.formBuilder.group({
       name: createTranslationForm()
     });    
-    this.nameMultilanguageInputConfig.formGroup = this.createForm.get('name') as FormGroup;
+    this.nameMultilanguageInputConfig.formArray = this.createForm.get('name') as FormArray;
 
     if (this.id) {
       this.title = 'Edit Discipline'
 
       this.disciplineService.get(true, this.id).subscribe((res)=>{
         this.discipline = res.disciplines;
-        setTranslationFormValue(this.createForm, 'name', this.discipline.name as Translation[]);        
+        this.f.name.setValue(this.discipline.name);        
       });   
     }    
   }
@@ -63,7 +63,7 @@ export class FormComponent implements OnInit {
 
     if (this.createForm.invalid) return;
     
-    this.discipline.name = getTranslationFormValue(this.createForm, 'name');
+    this.discipline.name = this.f.name.value as Translation[];
     
     if (! this.id) { 
       this.disciplineService.create(this.discipline)

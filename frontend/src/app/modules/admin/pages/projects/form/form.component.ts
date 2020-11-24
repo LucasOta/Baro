@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ import { Project } from 'src/app/shared/models/project';
 import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 import { MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
-import { Translation, createTranslationForm, setTranslationFormValue, getTranslationFormValue } from 'src/app/shared/models/translation';
+import { Translation, createTranslationForm } from 'src/app/shared/models/translation';
 import { DropDownListInputConfig } from '../../../components/form/drop-down-list/drop-down-list.component';
 import { CheckboxConfig } from '../../../components/form/checkbox/checkbox.component';
 import { ImgPickerConfig } from '../../../components/form/image-picker/image-picker.component';
@@ -57,7 +57,6 @@ export class FormComponent implements OnInit {
     private clientService: ClientService,
     private industryService: IndustryService,
     private disciplineService: DisciplineService,
-    private changeDetectorRef: ChangeDetectorRef,
     private fileService: FileService,
     private router: Router,    
     private route: ActivatedRoute) { 
@@ -83,8 +82,8 @@ export class FormComponent implements OnInit {
     this.industriesDropDownListInputConfig.formControl = this.createForm.get('industries') as FormControl;
     this.disciplinesDropDownListInputConfig.formControl = this.createForm.get('disciplines') as FormControl;
     
-    this.titleMultilanguageInputConfig.formGroup = this.createForm.get('title') as FormGroup;
-    this.descMultilanguageInputConfig.formGroup = this.createForm.get('description') as FormGroup;
+    this.titleMultilanguageInputConfig.formArray = this.createForm.get('title') as FormArray;
+    this.descMultilanguageInputConfig.formArray = this.createForm.get('description') as FormArray;
     
 
     if (this.id) this.setProject();
@@ -97,9 +96,9 @@ export class FormComponent implements OnInit {
     this.projectService.get(true, this.id).subscribe((res)=>{
       this.project = res.projects;
 
-      setTranslationFormValue(this.createForm, 'title', this.project.title as Translation[]);        
-      setTranslationFormValue(this.createForm, 'description', this.project.description as Translation[]);
-
+      this.f.title.setValue(this.project.title);  
+      this.f.description.setValue(this.project.description);  
+      
       this.f.playground.setValue(this.project.playground);
       this.f.featured.setValue(this.project.featured);
       this.f.clients.setValue(this.getIdArray(this.project.clients));
@@ -156,8 +155,8 @@ export class FormComponent implements OnInit {
   onSubmit() {
     this.setSubmitted();
 
-    this.project.title = getTranslationFormValue(this.createForm, 'title');
-    this.project.description = getTranslationFormValue(this.createForm, 'description');
+    this.project.title = this.f.title.value as Translation[];
+    this.project.description = this.f.description.value as Translation[];
 
     this.project.playground = this.f.playground.value;
     this.project.featured = this.f.featured.value;

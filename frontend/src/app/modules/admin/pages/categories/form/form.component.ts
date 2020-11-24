@@ -1,9 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AlertService } from 'src/app/shared/services/alert.service';
 import { CategoryService } from 'src/app/core/http/category/category.service';
 import { FileService } from 'src/app/core/http/file/file.service';
 import { Category } from 'src/app/shared/models/category';
@@ -11,7 +10,7 @@ import { Category } from 'src/app/shared/models/category';
 import { ImgPickerConfig } from "../../../components/form/image-picker/image-picker.component";
 import { LanguageSelectorConfig } from '../../../../../shared/components/language-selector/language-selector.component';
 import { MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
-import { Translation, createTranslationForm, setTranslationFormValue, getTranslationFormValue } from 'src/app/shared/models/translation';
+import { Translation, createTranslationForm } from 'src/app/shared/models/translation';
 
 
 @Component({
@@ -40,8 +39,6 @@ export class FormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
     private fileService: FileService,
-    private alertService: AlertService,
-    private changeDetectorRef: ChangeDetectorRef,
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
@@ -53,7 +50,7 @@ export class FormComponent implements OnInit {
     this.createForm = this.formBuilder.group({
       name: createTranslationForm()
     });
-    this.nameMultilanguageInputConfig.formGroup = this.createForm.get('name') as FormGroup;    
+    this.nameMultilanguageInputConfig.formArray = this.createForm.get('name') as FormArray;    
 
     if (this.id) {
       this.title = 'Edit Category'
@@ -62,7 +59,7 @@ export class FormComponent implements OnInit {
       this.categoryService.get(true, this.id).subscribe((res)=>{
         // TODO: handle errors
         this.category = res.categories;
-        setTranslationFormValue(this.createForm, 'name', this.category.name as Translation[]);        
+        this.f.name.setValue(this.category.name);  
         
         this.imgPickerConfig.imgs.push({name: this.category.img});
       });   
@@ -78,7 +75,7 @@ export class FormComponent implements OnInit {
 
     if (this.createForm.invalid) return;
     
-    this.category.name = getTranslationFormValue(this.createForm, 'name');
+    this.category.name = this.f.name.value as Translation[];
     
     if (!this.id) { 
       this.categoryService.create(this.category)
