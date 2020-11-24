@@ -25,7 +25,7 @@ export class MultilanguageTextInputComponent implements OnInit {
   textInputConfigEs = new TextInputConfig();
   textInputConfigDe = new TextInputConfig();
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) { 
+  constructor( private store: Store<AppState>) { 
     this.language$ = store.select(store => store.formLanguage);
   }
 
@@ -61,7 +61,6 @@ export class MultilanguageTextInputComponent implements OnInit {
     // this.textInputConfigDe.formSubmitted = this.submitted;
 
     this.setValue();
-
   }
 
 }
