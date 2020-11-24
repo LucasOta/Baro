@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
@@ -12,7 +12,8 @@ import { Project } from 'src/app/shared/models/project';
 
 import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
-import { MultilanguageTextInputComponent, MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
+import { MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
+import { Translation, createTranslationForm } from 'src/app/shared/models/translation';
 import { DropDownListInputConfig } from '../../../components/form/drop-down-list/drop-down-list.component';
 import { CheckboxConfig } from '../../../components/form/checkbox/checkbox.component';
 import { ImgPickerConfig } from '../../../components/form/image-picker/image-picker.component';
@@ -24,10 +25,6 @@ import { FileService } from 'src/app/core/http/file/file.service';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-
-  @ViewChild('title', {static: true}) titleMultilanguageForm: MultilanguageTextInputComponent;
-  @ViewChild('desc', {static: true}) descMultilanguageForm: MultilanguageTextInputComponent;
-
   moduleName = 'projects'; 
 
   pageTitle = 'New Project';
@@ -60,20 +57,18 @@ export class FormComponent implements OnInit {
     private clientService: ClientService,
     private industryService: IndustryService,
     private disciplineService: DisciplineService,
-    private changeDetectorRef: ChangeDetectorRef,
     private fileService: FileService,
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
-
       this.initializeComponents();
     }
 
   ngOnInit(): void { 
     
     this.createForm = this.formBuilder.group({
-      title: this.titleMultilanguageForm.getGroup(),
-      description: this.descMultilanguageForm.getGroup(),
+      title: createTranslationForm(),
+      description: createTranslationForm(),
       playground: [false],
       featured: [false],
       clients: ['', Validators.required],
@@ -87,6 +82,9 @@ export class FormComponent implements OnInit {
     this.industriesDropDownListInputConfig.formControl = this.createForm.get('industries') as FormControl;
     this.disciplinesDropDownListInputConfig.formControl = this.createForm.get('disciplines') as FormControl;
     
+    this.titleMultilanguageInputConfig.formArray = this.createForm.get('title') as FormArray;
+    this.descMultilanguageInputConfig.formArray = this.createForm.get('description') as FormArray;
+    
 
     if (this.id) this.setProject();
     
@@ -98,9 +96,9 @@ export class FormComponent implements OnInit {
     this.projectService.get(true, this.id).subscribe((res)=>{
       this.project = res.projects;
 
-      this.titleMultilanguageForm.setValue(this.project.title);
-      this.descMultilanguageForm.setValue(this.project.description);
-
+      this.f.title.setValue(this.project.title);  
+      this.f.description.setValue(this.project.description);  
+      
       this.f.playground.setValue(this.project.playground);
       this.f.featured.setValue(this.project.featured);
       this.f.clients.setValue(this.getIdArray(this.project.clients));
@@ -156,11 +154,9 @@ export class FormComponent implements OnInit {
 
   onSubmit() {
     this.setSubmitted();
-    if (this.createForm.invalid) {     
-      return;
-    }
-    this.project.title = this.titleMultilanguageForm.getValue();
-    this.project.description = this.descMultilanguageForm.getValue();
+
+    this.project.title = this.f.title.value as Translation[];
+    this.project.description = this.f.description.value as Translation[];
 
     this.project.playground = this.f.playground.value;
     this.project.featured = this.f.featured.value;
@@ -169,7 +165,6 @@ export class FormComponent implements OnInit {
     this.project.industries = this.f.industries.value;
     this.project.disciplines = this.f.disciplines.value;    
 
-    // TODO: erase this harcorded code
     this.project.blocks = this.f.blocks.value;
     
     if (! this.id) { 
@@ -207,8 +202,6 @@ export class FormComponent implements OnInit {
 
   setSubmitted(){
     this.submitted = true;
-    this.titleMultilanguageForm.setSubmitted(true);
-    this.descMultilanguageForm.setSubmitted(true);
 
     this.clientsDropDownListInputConfig.submitted = true;
     this.industriesDropDownListInputConfig.submitted = true;
@@ -273,16 +266,10 @@ export class FormComponent implements OnInit {
     this.thumbImgPickerConfig.note = `You can only select up to ${this.thumbImgPickerConfig.maxImgs} image`;
 
 
-
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };
     this.cardFooterConfig.deleteAction = function() { scope.onDelete(); };
     this.cardFooterConfig.id = this.id;
 
-    this.languageSelectorConfig.onChange= function(value){
-      scope.changeDetectorRef.detectChanges();
-      scope.titleMultilanguageInputConfig.selectedLanguage = value.value;
-      scope.descMultilanguageInputConfig.selectedLanguage = value.value;
-    }
   }
 
   goToList(){    

@@ -1,11 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { IndustryService } from 'src/app/core/http/industry/industry.service';
 import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
 import { Industry } from 'src/app/shared/models/industry';
-import { MultilanguageTextInputComponent, MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
+import { MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
+import { Translation, createTranslationForm } from 'src/app/shared/models/translation';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 
 @Component({
@@ -14,8 +15,6 @@ import { CardFooterConfig } from '../../../components/cards/card-footer/card-foo
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-  @ViewChild(MultilanguageTextInputComponent, {static: true}) nameMultilanguageForm: MultilanguageTextInputComponent;
-
   moduleName = 'industries'; 
 
   title = 'New Industry';
@@ -35,19 +34,18 @@ export class FormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private industryService: IndustryService,
-    private changeDetectorRef: ChangeDetectorRef,
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
-
       this.initializeComponents();
     }
 
   ngOnInit(): void { 
     
     this.createForm = this.formBuilder.group({
-      name: this.nameMultilanguageForm.getGroup()
+      name: createTranslationForm()
     });
+    this.nameMultilanguageInputConfig.formArray = this.createForm.get('name') as FormArray;
     
 
     if (this.id) {
@@ -55,7 +53,7 @@ export class FormComponent implements OnInit {
 
       this.industryService.get(true, this.id).subscribe((res)=>{
         this.industry = res.industries;
-        this.nameMultilanguageForm.setValue(this.industry.name);
+        this.f.name.setValue(this.industry.name); 
       });   
     }
     
@@ -71,7 +69,7 @@ export class FormComponent implements OnInit {
       return;
     }
     
-    this.industry.name = this.nameMultilanguageForm.getValue();
+    this.industry.name = this.f.name.value as Translation[];
     
     if (! this.id) { 
       this.industryService.create(this.industry)
@@ -99,7 +97,6 @@ export class FormComponent implements OnInit {
 
   setSubmitted(){
     this.submitted = true;
-    this.nameMultilanguageForm.setSubmitted(true);
   }
 
   private initializeComponents(){
@@ -112,11 +109,7 @@ export class FormComponent implements OnInit {
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };
     this.cardFooterConfig.deleteAction = function() { scope.onDelete(); };
     this.cardFooterConfig.id = this.id;
-
-    this.languageSelectorConfig.onChange= function(value){
-      scope.changeDetectorRef.detectChanges();
-      scope.nameMultilanguageInputConfig.selectedLanguage = value.value;
-    }
+    
   }
 
   goToList(){

@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { FormModuleConfig } from '../form.config';
-import { TextInputConfig } from '../text-input/text-input.component';
-import { Translation } from "../../../../../shared/models/translation";
+import { FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Language } from 'src/app/shared/models/language';
 import { Store } from '@ngrx/store';
+import { TextInputConfig } from '../text-input/text-input.component';
+import { Language } from 'src/app/shared/models/language';
+import { FormModuleConfig } from '../form.config';
 import { AppState } from 'src/app/app.state';
 
 @Component({
@@ -18,7 +17,6 @@ import { AppState } from 'src/app/app.state';
 })
 export class MultilanguageTextInputComponent implements OnInit {
   @Input() multilanguageTextInputConfig: MultilanguageTextInputConfig; 
-  textFormGroup: FormGroup;
   
   language$: Observable<Language>
 
@@ -27,48 +25,23 @@ export class MultilanguageTextInputComponent implements OnInit {
   textInputConfigEs = new TextInputConfig();
   textInputConfigDe = new TextInputConfig();
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) { 
+  constructor( private store: Store<AppState>) { 
     this.language$ = store.select(store => store.formLanguage);
-
-    this.textFormGroup = this.fb.group({
-      inputEn: ['', [Validators.required]],
-      inputEs: ['', []],
-      inputDe: ['', []]
-    }, [Validators.required])
   }
 
   ngOnInit(): void {
-    this.initializeComponents();    
-
-    this.textInputConfigEn.formControl = this.textFormGroup.get('inputEn') as FormControl;
-    this.textInputConfigEs.formControl = this.textFormGroup.get('inputEs') as FormControl;
-    this.textInputConfigDe.formControl = this.textFormGroup.get('inputDe') as FormControl;
+    this.initializeComponents();
   }
 
-  getGroup(){
-    return this.textFormGroup;
-  }
-  
-  getValue(){
-    return [
-      new Translation('en', this.f.inputEn.value),
-      new Translation('es', this.f.inputEs.value),
-      new Translation('de', this.f.inputDe.value),      
-    ];
-  }
-
-  setValue(translations: Translation[]){
-    // TODO: Match Language, don't trust order
-    this.f.inputEn.setValue(translations[0].quote)
-    this.f.inputEs.setValue(translations[1].quote)
-    this.f.inputDe.setValue(translations[2].quote)
+  setValue(){
+    this.textInputConfigEn.formControl = this.multilanguageTextInputConfig.formArray.at(0).get('quote') as FormControl;
+    this.textInputConfigEs.formControl = this.multilanguageTextInputConfig.formArray.at(1).get('quote') as FormControl;
+    this.textInputConfigDe.formControl = this.multilanguageTextInputConfig.formArray.at(2).get('quote') as FormControl;
   }
 
   setSubmitted(submitted){
     this.textInputConfigEn.formSubmitted = submitted;
   }
-
-  private get f() { return this.textFormGroup.controls; }
 
   private initializeComponents(){
 
@@ -87,11 +60,13 @@ export class MultilanguageTextInputComponent implements OnInit {
     this.textInputConfigDe.placeholder = `${ this.multilanguageTextInputConfig.placeholder } in German`;
     // this.textInputConfigDe.formSubmitted = this.submitted;
 
+    this.setValue();
   }
 
 }
 
 export class MultilanguageTextInputConfig extends FormModuleConfig {
+  formArray: FormArray;
   placeholder: string = '';
   selectedLanguage: string;
 }
