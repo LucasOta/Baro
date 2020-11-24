@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TextInputConfig } from '../../text-input/text-input.component';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { ItemTypes } from "src/app/shared/enums/item"
-import { createTranslationForm } from "src/app/shared/models/translation";
+import { ItemTypes } from "src/app/shared/enums/item";
+import { createItemForm } from "src/app/shared/models/item";
 
 @Component({
   selector: 'app-block',
@@ -24,78 +24,7 @@ export class BlockComponent implements OnInit {
   }
 
   addItem(i: number){
-    switch (i) {
-      case ItemTypes.Title:
-        (this.block.controls['items'] as FormArray).push(
-          new FormGroup({
-            typeOfItem: new FormControl(i),
-            title: createTranslationForm() 
-          })
-        );
-        break;
-    
-      case ItemTypes.Text:
-        (this.block.controls['items'] as FormArray).push(
-          new FormGroup({
-            typeOfItem: new FormControl(i),
-            title: createTranslationForm(), 
-            subtitle: createTranslationForm(),
-            description: createTranslationForm()
-          })
-        );
-        break;
-      
-        case ItemTypes.Video:
-        (this.block.controls['items'] as FormArray).push(
-          new FormGroup({
-            timestamp: new FormControl(Date.now()),
-            typeOfItem: new FormControl(i),
-            video: new FormControl('', Validators.required)
-          })
-        );
-        break;
-      
-        case ItemTypes.Image: case ItemTypes.ImageGroup:
-        (this.block.controls['items'] as FormArray).push(
-          new FormGroup({
-            timestamp: new FormControl(Date.now()),
-            typeOfItem: new FormControl(i),
-            img: new FormArray([])
-          })
-        );
-        break;
-        
-        case ItemTypes.Testimonial:
-        (this.block.controls['items'] as FormArray).push(
-          new FormGroup({
-            typeOfItem: new FormControl(i),
-            testimonial: new FormGroup({
-              name: new FormControl('', Validators.required),
-              quote: createTranslationForm(),
-              jobTitle: createTranslationForm(),
-            })
-          })
-        );
-        break;
-        
-        case ItemTypes.TextImage:
-        (this.block.controls['items'] as FormArray).push(
-          new FormGroup({
-            timestamp: new FormControl(Date.now()),
-            typeOfItem: new FormControl(i),
-            img: new FormArray([]),
-            title: createTranslationForm(), 
-            subtitle: createTranslationForm(),
-            description: createTranslationForm(),
-          })
-        );
-        break;
-    
-      default:
-        console.error(`No Item type specified for enum === ${i}`)
-        break;
-    }
-    
+    createItemForm((this.block.controls['items'] as FormArray), i);    
   }
 
   deleteItem(index: number){

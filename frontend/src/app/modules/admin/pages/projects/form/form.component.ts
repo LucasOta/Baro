@@ -18,6 +18,7 @@ import { DropDownListInputConfig } from '../../../components/form/drop-down-list
 import { CheckboxConfig } from '../../../components/form/checkbox/checkbox.component';
 import { ImgPickerConfig } from '../../../components/form/image-picker/image-picker.component';
 import { FileService } from 'src/app/core/http/file/file.service';
+import { createItemForm } from "src/app/shared/models/item";
 
 @Component({
   selector: 'app-form',
@@ -127,17 +128,7 @@ export class FormComponent implements OnInit {
   setItems(items: any[]){
     const itemsForm = this.formBuilder.array([]);
     items.forEach(item => {
-      itemsForm.push(new FormGroup({
-        typeOfItem: new FormControl(item.typeOfItem),
-        timestamp: new FormControl(item.timestamp),
-        title: new FormControl(item.title || ''),
-        subtitle: new FormControl(item.subtitle || ''),
-        description: new FormControl(item.description || ''),
-        video: new FormControl(item.video || ''),
-        img: new FormControl(item.img || ''),
-        fullWidth: new FormControl(item.fullWidth || false),
-        testimonial: new FormControl(item.testimonial || ''),
-      }));
+      createItemForm(itemsForm, item.typeOfItem, item);
     });
     return itemsForm;
   }
