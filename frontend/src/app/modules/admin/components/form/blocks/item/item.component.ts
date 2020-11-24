@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ItemTypes, ItemElements } from 'src/app/shared/enums/item';
+import { MultilanguageTextInputConfig } from '../../multilanguage-text-input/multilanguage-text-input.component';
 import { TextInputConfig } from '../../text-input/text-input.component';
 
 @Component({
@@ -15,6 +16,14 @@ export class ItemComponent implements OnInit {
   properties = [];
 
   // Elements
+  titleMultilanguageInputConfig = new MultilanguageTextInputConfig();
+  subtitleMultilanguageInputConfig = new MultilanguageTextInputConfig();
+  descMultilanguageInputConfig = new MultilanguageTextInputConfig();
+
+  quoteMultilanguageInputConfig = new MultilanguageTextInputConfig();
+  jobTitleMultilanguageInputConfig = new MultilanguageTextInputConfig();
+  nameTextInputConfig = new TextInputConfig();
+
   videoTextInputConfig = new TextInputConfig();
 
   constructor() {} 
@@ -25,7 +34,25 @@ export class ItemComponent implements OnInit {
   }
 
   private initializeComponents(){
-    if (this.properties.includes(ItemElements.Video)){
+    if (this.show(ItemElements.Title)){
+      this.titleMultilanguageInputConfig.fieldName = 'Title';
+      this.titleMultilanguageInputConfig.placeholder = 'Title';
+      this.titleMultilanguageInputConfig.formArray = this.item.get('title') as FormArray;
+    }
+    
+    if (this.show(ItemElements.Subtitle)){
+      this.subtitleMultilanguageInputConfig.fieldName = 'Subtitle';
+      this.subtitleMultilanguageInputConfig.placeholder = 'Subtitle';
+      this.subtitleMultilanguageInputConfig.formArray = this.item.get('subtitle') as FormArray;
+
+    }
+    if (this.show(ItemElements.Description)){
+      this.descMultilanguageInputConfig.fieldName = 'Description';
+      this.descMultilanguageInputConfig.placeholder = 'Description';
+      this.descMultilanguageInputConfig.formArray = this.item.get('description') as FormArray;
+    }
+
+    if (this.show(ItemElements.Video)){
       this.videoTextInputConfig.fieldName = 'Video';
       this.videoTextInputConfig.required = true;
       this.videoTextInputConfig.placeholder = 'Link to Video';
@@ -33,11 +60,28 @@ export class ItemComponent implements OnInit {
       this.videoTextInputConfig.formControl = this.item.get('video') as FormControl; 
     }
 
+    if (this.show(ItemElements.Testimonial)){
+      this.quoteMultilanguageInputConfig.fieldName = 'Quote';
+      this.quoteMultilanguageInputConfig.required = true;
+      this.quoteMultilanguageInputConfig.placeholder = 'Amazing quote';
+      this.quoteMultilanguageInputConfig.formArray = (this.item.get('testimonial') as FormGroup).controls.quote as FormArray; 
+
+      this.jobTitleMultilanguageInputConfig.fieldName = 'Job title';
+      this.jobTitleMultilanguageInputConfig.required = true;
+      this.jobTitleMultilanguageInputConfig.placeholder = 'Job Title';
+      this.jobTitleMultilanguageInputConfig.formArray = (this.item.get('testimonial') as FormGroup).controls.jobTitle as FormArray; 
+
+      this.nameTextInputConfig.fieldName = 'Name';
+      this.nameTextInputConfig.required = true;
+      this.nameTextInputConfig.placeholder = 'Name';
+      this.nameTextInputConfig.formSubmitted = false; //Harcoded
+      this.nameTextInputConfig.formControl = (this.item.get('testimonial') as FormGroup).controls.name as FormControl; 
+    }
+
   }
 
   show(el: number){
-    if (this.properties.includes(el)) return true; 
-    return false;
+    return this.properties.includes(el);
   }
 
   setProperties(){

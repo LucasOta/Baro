@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TextInputConfig } from '../../text-input/text-input.component';
-import { ItemTypes } from "../../../../../../shared/enums/item"
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { ItemTypes } from "src/app/shared/enums/item"
+import { createTranslationForm } from "src/app/shared/models/translation";
 
 @Component({
   selector: 'app-block',
@@ -23,13 +24,12 @@ export class BlockComponent implements OnInit {
   }
 
   addItem(i: number){
-    // TODO: Multilanguage comented
     switch (i) {
       case ItemTypes.Title:
         (this.block.controls['items'] as FormArray).push(
           new FormGroup({
             typeOfItem: new FormControl(i),
-            // title: new FormControl('', Validators.required) 
+            title: createTranslationForm() 
           })
         );
         break;
@@ -38,9 +38,9 @@ export class BlockComponent implements OnInit {
         (this.block.controls['items'] as FormArray).push(
           new FormGroup({
             typeOfItem: new FormControl(i),
-            // title: new FormControl(''), 
-            // subtitle: new FormControl(''),
-            // description: new FormControl(''),
+            title: createTranslationForm(), 
+            subtitle: createTranslationForm(),
+            description: createTranslationForm()
           })
         );
         break;
@@ -71,8 +71,8 @@ export class BlockComponent implements OnInit {
             typeOfItem: new FormControl(i),
             testimonial: new FormGroup({
               name: new FormControl('', Validators.required),
-              // quote: this.descMultilanguageForm.getGroup(),
-              // jobTitle: this.descMultilanguageForm.getGroup(),
+              quote: createTranslationForm(),
+              jobTitle: createTranslationForm(),
             })
           })
         );
@@ -84,9 +84,9 @@ export class BlockComponent implements OnInit {
             timestamp: new FormControl(Date.now()),
             typeOfItem: new FormControl(i),
             img: new FormArray([]),
-            // title: new FormControl(''), 
-            // subtitle: new FormControl(''),
-            // description: new FormControl(''),
+            title: createTranslationForm(), 
+            subtitle: createTranslationForm(),
+            description: createTranslationForm(),
           })
         );
         break;
@@ -113,14 +113,14 @@ export class BlockComponent implements OnInit {
     this.bgColorTextInputConfig.fieldName = 'bgColor';
     this.bgColorTextInputConfig.required = true;
     this.bgColorTextInputConfig.placeholder = 'Background Color';
-    this.bgColorTextInputConfig.formSubmitted = false; //Harcoded
     this.bgColorTextInputConfig.formControl = this.block.get('bgColor') as FormControl; 
+    this.bgColorTextInputConfig.formSubmitted = false; //Harcoded
     
     this.fontColorTextInputConfig.fieldName = 'color';
     this.fontColorTextInputConfig.required = true;
     this.fontColorTextInputConfig.placeholder = 'Font Color';
-    this.fontColorTextInputConfig.formSubmitted = false; //Harcoded
     this.fontColorTextInputConfig.formControl = this.block.get('fontColor') as FormControl; 
+    this.fontColorTextInputConfig.formSubmitted = false; //Harcoded
 
   }
 
