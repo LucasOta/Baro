@@ -27,7 +27,9 @@ export class Item {
 }
 
 export function createItemForm(fa: FormArray, i: number, item?: Item){
-    const timestamp = item.timestamp || Date.now();
+    let timestamp = Date.now().toString();
+    if (item && item.timestamp) timestamp = item.timestamp;
+    
     let fg;
     switch (i) {
         case ItemTypes.Title:
