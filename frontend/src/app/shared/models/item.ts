@@ -62,12 +62,26 @@ export function createItemForm(fa: FormArray, i: number, item?: Item){
             if (item) fg.controls.video.setValue(item.video); 
             break;
         
-          case ItemTypes.Image: case ItemTypes.ImageGroup:
+          case ItemTypes.Image: 
+            fg = new FormGroup({
+                timestamp: new FormControl(timestamp),
+                typeOfItem: new FormControl(i),
+                fullWidth: new FormControl(false),
+                img: new FormArray([]) //TODOOOOOOOOOOOOO
+              });
+            if (item){          
+              fg.controls.fullWidth.setValue(item.fullWidth);            
+              fg.controls.img.setValue(item.img);            
+            }
+            break;
+
+          case ItemTypes.ImageGroup:
             fg = new FormGroup({
                 timestamp: new FormControl(timestamp),
                 typeOfItem: new FormControl(i),
                 img: new FormArray([]) //TODOOOOOOOOOOOOO
               });
+              if (item) fg.controls.img.setValue(item.img);            
             break;
           
           case ItemTypes.Testimonial:

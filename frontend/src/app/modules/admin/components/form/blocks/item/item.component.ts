@@ -3,6 +3,8 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ItemTypes, ItemElements } from 'src/app/shared/enums/item';
 import { MultilanguageTextInputConfig } from '../../multilanguage-text-input/multilanguage-text-input.component';
 import { TextInputConfig } from '../../text-input/text-input.component';
+import { CheckboxConfig } from '../../checkbox/checkbox.component';
+import { ImgPickerConfig } from '../../image-picker/image-picker.component';
 
 @Component({
   selector: 'app-item',
@@ -25,6 +27,9 @@ export class ItemComponent implements OnInit {
   nameTextInputConfig = new TextInputConfig();
 
   videoTextInputConfig = new TextInputConfig();
+
+  fullWidthCheckboxConfig = new CheckboxConfig();
+  imgPickerConfig = new ImgPickerConfig();
 
   constructor() {} 
 
@@ -58,6 +63,22 @@ export class ItemComponent implements OnInit {
       this.videoTextInputConfig.placeholder = 'Link to Video';
       this.videoTextInputConfig.formSubmitted = false; //Harcoded
       this.videoTextInputConfig.formControl = this.item.get('video') as FormControl; 
+    }
+
+    if (this.show(ItemElements.Image)){
+      this.imgPickerConfig.fieldName = 'Cover';
+      this.imgPickerConfig.prefix = 'cover';
+      this.imgPickerConfig.moduleNameFrom = 'project'; // TODO: harcoded
+      this.imgPickerConfig.elementIdFrom = '5f965f21d210413d28c1143c'; //TODO: Harcoded SpotifyID
+      this.imgPickerConfig.maxImgs = 3;
+      this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;
+    }
+    if (this.show(ItemElements.Image) && this.show(ItemElements.FullWidth)){
+      this.fullWidthCheckboxConfig.formControl = this.item.get('fullWidth') as FormControl;
+      this.fullWidthCheckboxConfig.fieldName = 'Full Width'; 
+
+      this.imgPickerConfig.maxImgs = 1;
+      this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;      
     }
 
     if (this.show(ItemElements.Testimonial)){
@@ -98,7 +119,11 @@ export class ItemComponent implements OnInit {
         this.properties = [ItemElements.Video];  
         break;
     
-      case ItemTypes.Image: case ItemTypes.ImageGroup:
+      case ItemTypes.Image:
+        this.properties = [ItemElements.Image, ItemElements.FullWidth];
+        break;
+      
+      case ItemTypes.ImageGroup:
         this.properties = [ItemElements.Image];
         break;
       

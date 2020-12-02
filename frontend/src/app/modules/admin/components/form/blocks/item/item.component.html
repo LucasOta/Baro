@@ -21,8 +21,15 @@
             <app-text-input [textInputConfig]="videoTextInputConfig"></app-text-input>
         </div>
         
+        <!-- FullWidth-->
+        <div *ngIf="show(itemElements.FullWidth)" class="col-12">
+            <app-checkbox [checkboxConfig]="fullWidthCheckboxConfig"></app-checkbox>
+        </div>
+        
         <!-- Image -->
-        <div *ngIf="show(itemElements.Image)" class="col-12">Image</div>
+        <div *ngIf="show(itemElements.Image)" class="col-12">
+            <app-image-picker [imgPickerConfig]="imgPickerConfig"></app-image-picker>
+        </div>
         
         <!-- Testimonial -->
         <div *ngIf="show(itemElements.Testimonial)" class="col-12 testimonial">
