@@ -66,12 +66,17 @@ export class ItemComponent implements OnInit {
     }
 
     if (this.show(ItemElements.Image)){
-      this.imgPickerConfig.fieldName = 'Cover';
-      this.imgPickerConfig.prefix = 'cover';
-      this.imgPickerConfig.moduleNameFrom = 'project'; // TODO: harcoded
-      this.imgPickerConfig.elementIdFrom = '5f965f21d210413d28c1143c'; //TODO: Harcoded SpotifyID
+      this.imgPickerConfig.fieldName = 'Images';
+      this.imgPickerConfig.prefix = 'item';
+      this.imgPickerConfig.timestamp = this.item.get('timestamp').value;
+      this.imgPickerConfig.moduleNameFrom = 'projects'; // TODO: harcoded
+      this.imgPickerConfig.elementIdFrom = '5fc7e977c9b0bf5a040ca573'; //TODO: Harcoded SpotifyID
       this.imgPickerConfig.maxImgs = 3;
       this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;
+
+      this.item.get('img').value.forEach(img => {        
+        this.imgPickerConfig.imgs.push({name: img})
+      });
     }
     if (this.show(ItemElements.Image) && this.show(ItemElements.FullWidth)){
       this.fullWidthCheckboxConfig.formControl = this.item.get('fullWidth') as FormControl;

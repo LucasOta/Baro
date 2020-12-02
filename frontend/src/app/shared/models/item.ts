@@ -67,11 +67,11 @@ export function createItemForm(fa: FormArray, i: number, item?: Item){
                 timestamp: new FormControl(timestamp),
                 typeOfItem: new FormControl(i),
                 fullWidth: new FormControl(false),
-                img: new FormArray([]) //TODOOOOOOOOOOOOO
+                img: new FormArray([])
               });
             if (item){          
               fg.controls.fullWidth.setValue(item.fullWidth);            
-              fg.controls.img.setValue(item.img);            
+              fg.controls.img.push( new FormControl(item.img[0]));
             }
             break;
 
@@ -79,9 +79,13 @@ export function createItemForm(fa: FormArray, i: number, item?: Item){
             fg = new FormGroup({
                 timestamp: new FormControl(timestamp),
                 typeOfItem: new FormControl(i),
-                img: new FormArray([]) //TODOOOOOOOOOOOOO
+                img: new FormArray([])
               });
-              if (item) fg.controls.img.setValue(item.img);            
+              if (item) {
+                item.img.forEach(img => {                  
+                  fg.controls.img.push( new FormControl(img));
+                });
+              };            
             break;
           
           case ItemTypes.Testimonial:

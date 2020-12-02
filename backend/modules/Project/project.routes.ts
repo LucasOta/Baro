@@ -67,7 +67,7 @@ projectRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
                                     break;
                                 
                                 case 'item': //Test this, we have to send the image name like 'item_{{timestamp}}_blabla.jpg'
-                                    const tmst = img.split("_")[2];
+                                    const tmst = img.split("_")[1];
                                     projectDB.blocks.forEach(b=>{
                                         b.items.forEach(i=>{
                                             if (i.timestamp === tmst){
@@ -75,9 +75,7 @@ projectRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
                                                 i.img.push(img);
                                             }
                                         })
-                                    })    
-                                
-                                    projectDB.coverImg = img;
+                                    });
                                     break;
                             
                                 default:
