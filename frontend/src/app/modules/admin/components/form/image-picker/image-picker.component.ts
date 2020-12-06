@@ -1,4 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/app.state';
 import { FileService } from 'src/app/core/http/file/file.service';
 import { Image } from 'src/app/shared/models/image';
 import { FormModuleConfig } from '../form.config';
@@ -11,10 +14,13 @@ import { FormModuleConfig } from '../form.config';
 export class ImagePickerComponent implements OnInit {
   @Input() imgPickerConfig: ImgPickerConfig;
   @ViewChild('inputFile') inputFile: ElementRef;
+  moduleName$: Observable<String>;
 
   private maxImgs = 0;
-
-  constructor( private fileService: FileService ) { }
+  
+  constructor( private fileService: FileService, private store: Store<AppState> ) {
+    this.moduleName$ = store.select(store => store.moduleName);
+  }
 
   ngOnInit(): void {
   }
@@ -80,7 +86,6 @@ export class ImagePickerComponent implements OnInit {
 
 export class ImgPickerConfig extends FormModuleConfig{
   maxImgs: number = -1;
-  moduleNameFrom:string;
   elementIdFrom: string;
   prefix: string = '';
   timestamp: string = '';
