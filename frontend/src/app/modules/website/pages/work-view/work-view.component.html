@@ -1,0 +1,72 @@
+<ng-container *ngIf="project">
+
+    <div class="dk-box-4">
+        <div class="bg-image bg-image-parallax">
+            <img [src]="project.coverImg | image : 'projects' : id" class="jarallax-img" alt="">
+            <div style="background-color: rgba(32, 32, 32, .6);"></div>
+        </div>
+    </div>
+    
+    <div class="dk-box-5">
+        <div class="container mnt-10 mnb-10">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="clients" *ngFor="let c of project.clients">{{c.name}}</h4>                    
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-6">
+                    <h1>{{project.title[0].quote}}</h1>
+                </div>
+
+                <div class="col-auto">
+                    <ul class="dk-list">
+                        <li class="bold">Services</li>
+                        <li class="hair" *ngFor="let d of project.disciplines">{{d.name[0].quote}}</li>
+                    </ul>
+                </div>
+                <div class="col-auto">
+                    <ul class="dk-list">
+                        <li class="bold">Industry</li>
+                        <li class="hair" *ngFor="let i of project.industries">{{i.name[0].quote}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <span class="desc">{{project.description[0].quote}}</span>
+                </div>
+            </div>
+            <div class="row justify-content-between vertical-gap dk-box-5">
+                <div class="col-12 text-center">
+                    <p>[Blocks]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="container">
+            <div class="dk-box-2 text-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <p class="lead mb-2">Like what you see? <a [routerLink]="'contact'">Let's talk</a></p>
+                            
+                        </div>
+                    </div>
+
+                    <div class="row vertical-gap dk-isotope-grid text-center" style="margin-top: 2em;">
+                        <div class="col-12">
+                            <span class="lead">Other Projects</span>
+                        </div>
+                        <div class="col-12 col-md-4 dk-isotope-grid-item mockups" *ngFor="let p of otherProjects">
+                            <app-work-preview [project]="p"></app-work-preview>
+                        </div>
+            
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-container>

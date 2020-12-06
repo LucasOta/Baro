@@ -2,14 +2,28 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h2>Branding for</h2>
-                <h2>businesses with purpose</h2>
-                <h1 *ngFor="let c of categories;">
-                    {{c.name[0].quote}}
-                </h1>
+                <h1>Branding for</h1>
+                <h1 class="grey">businesses with purpose</h1>
+                
             </div>
             <div class="col-lg-6">
                 <p class="lead">We are an independent desing firm specialized in branding. From Brand Strategy to Visual Identity, we help business that are ready to stand out.</p>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 3em;">
+            <div class="col-lg-6" *ngFor="let p of projects;">
+                <app-work-preview [project]="p"></app-work-preview>
+            </div>
+        </div>
+        
+        <div class="dk-box-2 text-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <p class="lead mb-2"><a [routerLink]="'work'">See more</a> projects, get to <a [routerLink]="'about'">know us</a>, or <a [routerLink]="'contact'">let's talk</a> about that project.</p>
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </div>
