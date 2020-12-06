@@ -27,7 +27,9 @@ export class Item {
 }
 
 export function createItemForm(fa: FormArray, i: number, item?: Item){
-    const timestamp = item.timestamp || Date.now();
+    let timestamp = Date.now().toString();
+    if (item && item.timestamp) timestamp = item.timestamp;
+    
     let fg;
     switch (i) {
         case ItemTypes.Title:
@@ -60,12 +62,30 @@ export function createItemForm(fa: FormArray, i: number, item?: Item){
             if (item) fg.controls.video.setValue(item.video); 
             break;
         
-          case ItemTypes.Image: case ItemTypes.ImageGroup:
+          case ItemTypes.Image: 
             fg = new FormGroup({
                 timestamp: new FormControl(timestamp),
                 typeOfItem: new FormControl(i),
-                img: new FormArray([]) //TODOOOOOOOOOOOOO
+                fullWidth: new FormControl(false),
+                img: new FormArray([])
               });
+            if (item){          
+              fg.controls.fullWidth.setValue(item.fullWidth);            
+              fg.controls.img.push( new FormControl(item.img[0]));
+            }
+            break;
+
+          case ItemTypes.ImageGroup:
+            fg = new FormGroup({
+                timestamp: new FormControl(timestamp),
+                typeOfItem: new FormControl(i),
+                img: new FormArray([])
+              });
+              if (item) {
+                item.img.forEach(img => {                  
+                  fg.controls.img.push( new FormControl(img));
+                });
+              };            
             break;
           
           case ItemTypes.Testimonial:
