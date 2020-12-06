@@ -5,4 +5,5 @@ export interface AppState {
   readonly generalLanguage: Language;
   readonly formSubmitted: Boolean;
   readonly moduleName: String;
+  readonly elementId: String;
 }
