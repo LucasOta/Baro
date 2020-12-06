@@ -61,7 +61,6 @@ export class ItemComponent implements OnInit {
       this.videoTextInputConfig.fieldName = 'Video';
       this.videoTextInputConfig.required = true;
       this.videoTextInputConfig.placeholder = 'Link to Video';
-      this.videoTextInputConfig.formSubmitted = false; //Harcoded
       this.videoTextInputConfig.formControl = this.item.get('video') as FormControl; 
     }
 
@@ -69,7 +68,6 @@ export class ItemComponent implements OnInit {
       this.imgPickerConfig.fieldName = 'Images';
       this.imgPickerConfig.prefix = 'item';
       this.imgPickerConfig.timestamp = this.item.get('timestamp').value;
-      this.imgPickerConfig.elementIdFrom = '5fc7e977c9b0bf5a040ca573'; //TODO: Harcoded SpotifyID
       this.imgPickerConfig.maxImgs = 3;
       this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;
 
@@ -99,7 +97,6 @@ export class ItemComponent implements OnInit {
       this.nameTextInputConfig.fieldName = 'Name';
       this.nameTextInputConfig.required = true;
       this.nameTextInputConfig.placeholder = 'Name';
-      this.nameTextInputConfig.formSubmitted = false; //Harcoded
       this.nameTextInputConfig.formControl = (this.item.get('testimonial') as FormGroup).controls.name as FormControl; 
     }
 

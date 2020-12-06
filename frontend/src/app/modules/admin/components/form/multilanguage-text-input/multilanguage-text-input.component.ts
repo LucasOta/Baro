@@ -39,26 +39,19 @@ export class MultilanguageTextInputComponent implements OnInit {
     this.textInputConfigDe.formControl = this.multilanguageTextInputConfig.formArray.at(2).get('quote') as FormControl;
   }
 
-  setSubmitted(submitted){
-    this.textInputConfigEn.formSubmitted = submitted;
-  }
-
   private initializeComponents(){
 
     this.textInputConfigEn.fieldName = this.multilanguageTextInputConfig.fieldName;
     this.textInputConfigEn.required = this.multilanguageTextInputConfig.required;
     this.textInputConfigEn.placeholder = `${ this.multilanguageTextInputConfig.placeholder } in English`;
-    this.textInputConfigEn.formSubmitted = false;
 
     this.textInputConfigEs.fieldName = this.multilanguageTextInputConfig.fieldName;
     this.textInputConfigEs.required = false;
     this.textInputConfigEs.placeholder = `${ this.multilanguageTextInputConfig.placeholder } in Spanish`;
-    // this.textInputConfigEs.formSubmitted = this.submitted;
 
     this.textInputConfigDe.fieldName = this.multilanguageTextInputConfig.fieldName;
     this.textInputConfigDe.required = false;
     this.textInputConfigDe.placeholder = `${ this.multilanguageTextInputConfig.placeholder } in German`;
-    // this.textInputConfigDe.formSubmitted = this.submitted;
 
     this.setValue();
   }

@@ -16,7 +16,7 @@
                     <button type="button" class="btn btn-tool" (click)='deleteImg(img)'><i class="fas fa-times"></i></button>
                 </div>
                 <div *ngIf="img.url" class="img" [style]=" img.url | domSanitizer "></div>
-                <div *ngIf="!img.url" class="img" [style]=" (img.name | image : (moduleName$ | async) : imgPickerConfig.elementIdFrom ) | domSanitizer "></div>
+                <div *ngIf="!img.url" class="img" [style]=" (img.name | image : (moduleName$ | async) : (elementId$ | async) ) | domSanitizer "></div>
             </div>
         </div>
     </div>

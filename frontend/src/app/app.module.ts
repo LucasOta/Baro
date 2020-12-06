@@ -21,6 +21,7 @@ import { languageReducer } from "./shared/reducers/language.reducer";
 import { formLanguageReducer } from "./shared/reducers/formLanguage.reducer";
 import { formSubmittedReducer } from "./shared/reducers/formSubmitted.reducer";
 import { moduleNameReducer } from "./shared/reducers/moduleName.reducer";
+import { elementIdReducer } from "./shared/reducers/elementId.reducer";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -40,7 +41,8 @@ export function createTranslateLoader(http: HttpClient) {
       formLanguage: formLanguageReducer, 
       generalLanguage: languageReducer,
       formSubmitted: formSubmittedReducer,
-      moduleName: moduleNameReducer
+      moduleName: moduleNameReducer,
+      elementId: elementIdReducer
     }),
     TranslateModule.forRoot({
       loader: {
