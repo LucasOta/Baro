@@ -23,6 +23,7 @@ import { createItemForm } from "src/app/shared/models/item";
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { set, reset } from "src/app/shared/actions/formSubmitted.actions";
+import { set as setModuleName } from "src/app/shared/actions/moduleName.actions";
 
 @Component({
   selector: 'app-form',
@@ -64,8 +65,9 @@ export class FormComponent implements OnInit {
     private fileService: FileService, 
     private store: Store<AppState>,
     private router: Router,    
-    private route: ActivatedRoute) { 
+    private route: ActivatedRoute) {
       this.id= this.route.snapshot.paramMap.get("id");
+      this.store.dispatch(setModuleName({moduleName: this.moduleName}));
       this.initializeComponents();
     }
 
@@ -248,14 +250,12 @@ export class FormComponent implements OnInit {
 
     this.coverImgPickerConfig.fieldName = 'Cover';
     this.coverImgPickerConfig.prefix = 'cover';
-    this.coverImgPickerConfig.moduleNameFrom = this.moduleName;
     this.coverImgPickerConfig.elementIdFrom = this.id;
     this.coverImgPickerConfig.maxImgs = 1;
     this.coverImgPickerConfig.note = `You can only select up to ${this.coverImgPickerConfig.maxImgs} image`;
     
     this.thumbImgPickerConfig.fieldName = 'Thumbnail';
     this.thumbImgPickerConfig.prefix = 'thumb';
-    this.thumbImgPickerConfig.moduleNameFrom = this.moduleName;
     this.thumbImgPickerConfig.elementIdFrom = this.id;
     this.thumbImgPickerConfig.maxImgs = 1;
     this.thumbImgPickerConfig.note = `You can only select up to ${this.thumbImgPickerConfig.maxImgs} image`;
