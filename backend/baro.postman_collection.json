@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f00bc9ed-a668-4672-8903-3876c508b468",
+		"_postman_id": "254e1d5b-3f83-4444-86a6-1ae426cdeb73",
 		"name": "baro",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -47,6 +47,40 @@
 					"path": [
 						"user",
 						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "admin@admin.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"login"
 					]
 				}
 			},
@@ -168,34 +202,89 @@
 			"response": []
 		},
 		{
-			"name": "user/login",
+			"name": "project/create",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVmN2JlZDI4YWIzZjAwNWJjODZkZGNmOCIsIm5hbWUiOiJMdWNhcyIsImVtYWlsIjoiYWRtaW4ifSwiaWF0IjoxNjAyODE4NTI3LCJleHAiOjE2MDU0MTA1Mjd9.gHdukPVTyJkieSFPGZWyMUOVIdG0AkpCWLuAufL-kBs",
+						"type": "text"
+					}
+				],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "email",
-							"value": "admin@admin.com",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "admin",
-							"type": "text"
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": [\r\n        {\r\n            \"language\": \"en\",\r\n            \"quote\": \"Project 2\"\r\n        },\r\n        {\r\n            \"language\": \"es\",\r\n            \"quote\": \"Proyecto 2\"\r\n        }\r\n    ],\r\n    \"description\": [\r\n        {\r\n            \"language\": \"en\",\r\n            \"quote\": \"Project 2 description\"\r\n        },\r\n        {\r\n            \"language\": \"es\",\r\n            \"quote\": \"Descripción del proyecto 2\"\r\n        }\r\n    ],\r\n    \"blocks\": [],\r\n\r\n    \"clients\": [],\r\n    \"industries\": [],\r\n    \"disciplines\": [],\r\n\r\n    \"featured\": true,\r\n    \"playground\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
-					"raw": "localhost:3000/user/login",
+					"raw": "localhost:3000/project/create",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"user",
-						"login"
+						"project",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "project/get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"type": "text",
+						"value": "en"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/project/5f891437e30ff65a680c5816",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"project",
+						"5f891437e30ff65a680c5816"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "project/delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"type": "text",
+						"value": "en"
+					},
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVmN2JlZDI4YWIzZjAwNWJjODZkZGNmOCIsIm5hbWUiOiJMdWNhcyIsImVtYWlsIjoiYWRtaW4ifSwiaWF0IjoxNjAyODE4NTI3LCJleHAiOjE2MDU0MTA1Mjd9.gHdukPVTyJkieSFPGZWyMUOVIdG0AkpCWLuAufL-kBs",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/project/5f891437e30ff65a680c5816",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"project",
+						"5f891437e30ff65a680c5816"
 					]
 				}
 			},

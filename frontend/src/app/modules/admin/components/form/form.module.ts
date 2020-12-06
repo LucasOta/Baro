@@ -6,17 +6,24 @@ import { TextInputComponent } from './text-input/text-input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MultilanguageTextInputComponent } from './multilanguage-text-input/multilanguage-text-input.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CheckboxComponent } from './checkbox/checkbox.component';
+import { DropDownListComponent } from './drop-down-list/drop-down-list.component';
+import { BlocksComponent } from './blocks/blocks.component';
+import { BlockComponent } from './blocks/block/block.component';
+import { ItemComponent } from './blocks/item/item.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
 @NgModule({
-  declarations: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent],
-  exports: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent],
+  declarations: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent, BlocksComponent, BlockComponent, ItemComponent],
+  exports: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent, BlocksComponent],
   imports: [
     CommonModule,
     PipesModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    DragDropModule 
   ]
 })
 export class FormModule { }

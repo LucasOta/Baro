@@ -1,0 +1,246 @@
+import { Router, Request, Response } from 'express';
+import { Project, IProject } from './project.model';
+import bcrypt from 'bcrypt';
+import Token from '../../classes/token';
+import Methods from '../../classes/methods';
+import { verifyToken } from '../../middlewares/authentication';
+import FileSystem from '../../classes/file-system';
+import { IIndustry } from '../Industry/industry.model';
+import { IDiscipline } from '../Discipline/discipline.model';
+
+const projectRoutes = Router();
+const fileSystem = new FileSystem();
+
+// Create an Project
+projectRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
+    let errors:string[] = [];
+    if (!req.body.title)        errors.push('title');
+    if (!req.body.description)  errors.push('description');
+    if (!req.body.clients)      errors.push('clients');
+    if (!req.body.industries)   errors.push('industries');
+    if (!req.body.disciplines)  errors.push('disciplines');
+    
+    if (errors.length){
+        return res.json({
+            ok: false,
+            desc: Methods.emptyFieldsMsg(errors)
+        });
+    }
+
+    Project.findOne({"name": req.body.title[0]}, (err, projectDB) => {
+
+        if (err) res.json({ ok: false, err });
+
+        if (projectDB) {
+            return res.json({
+                ok: false,
+                desc: 'An project with that title already exists.'
+            });
+        } else {
+            let project = new Project();
+            project.title = req.body.title;
+            project.description = req.body.description;
+            project.clients = req.body.clients;
+            project.industries = req.body.industries;
+            project.disciplines = req.body.disciplines;
+            project.blocks = req.body.blocks || [];
+            if (req.body.featured) project.featured = req.body.featured;
+            if (req.body.playground) project.playground = req.body.playground;
+
+            Project
+                .create(project)
+                .then(projectDB => { 
+                    // @ts-ignore
+                    const images = fileSystem.filesFromTempToFolder(req.user._id, 'projects', projectDB._id.toString());
+
+                    // Now that we have the ID, we can store the Images
+                    if (images) {                        
+                        images.forEach(img => {
+                            var prefix = img.split("_")[0];
+                            switch (prefix) {
+                                case 'thumb':
+                                    projectDB.thumbnail = img;
+                                    break;
+                                
+                                case 'cover':
+                                    projectDB.coverImg = img;
+                                    break;
+                                
+                                case 'item': //Test this, we have to send the image name like 'item_{{timestamp}}_blabla.jpg'
+                                    const tmst = img.split("_")[1];
+                                    projectDB.blocks.forEach(b=>{
+                                        b.items.forEach(i=>{
+                                            if (i.timestamp === tmst){
+                                                if (!i.img) i.img = [];
+                                                i.img.push(img);
+                                            }
+                                        })
+                                    });
+                                    break;
+                            
+                                default:
+                                    break;
+                            }
+                        });
+
+                        Project.findByIdAndUpdate(projectDB._id, projectDB, { new: true }, (err, updatedProjectDB) => {});
+                    }
+
+                    res.status(201);
+                    res.json({ ok: true, project: projectDB });
+                })
+                .catch(err => res.json({ ok: false, err }));
+        }
+
+    })
+
+});
+
+
+// Update Project
+projectRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
+    let errors:string[] = [];
+    if (!req.body._id) errors.push('id');
+    
+    if (errors.length){
+        return res.json({
+            ok: false,
+            desc: Methods.emptyFieldsMsg(errors)
+        });
+    }
+
+    let project = <IProject>{ _id: req.body._id, modified: new Date() }
+
+
+    if (req.body.title)         project.title = req.body.title;
+    if (req.body.description)   project.description = req.body.description;
+    if (req.body.clients)       project.clients = req.body.clients;
+    if (req.body.industries)    project.industries = req.body.industries;
+    if (req.body.disciplines)   project.disciplines = req.body.disciplines;
+    if (req.body.blocks)        project.blocks = req.body.blocks;
+    project.featured = req.body.featured;
+    project.playground = req.body.playground;
+
+    if (req.body.thumbnail || req.body.coverImg){
+        let currentImages :string[] = [];
+
+        if (req.body.coverImg) {
+            req.body.coverImg == 'empty' ? project.coverImg = 'project_def.jpg' : project.coverImg = req.body.coverImg;
+            currentImages.push(project.coverImg || '')
+        }
+        if (req.body.thumbnail) {
+            req.body.thumbnail == 'empty' ? project.thumbnail = 'project_def.jpg' : project.thumbnail = req.body.thumbnail;
+            currentImages.push(project.thumbnail || '')
+        }
+
+        fileSystem.filesFromTempToFolder(req.user._id, 'projects', req.body._id.toString());
+        fileSystem.deleteImagesNotIncludedIn('projects', req.body._id, currentImages);
+
+    }
+
+    Project.findByIdAndUpdate(project._id, project, { new: true }, (err, projectDB) => {
+        if (err) return Methods.sendErr(res, Methods.prettyMongooseErr(err));
+        
+        if (!projectDB) {
+            return res.json({
+                ok: false,
+                desc: 'There isn\'t a project with that ID.'
+            });
+        }
+
+        return res.json({ ok: true, desc:'Project updated'});
+    });
+
+});
+
+
+// Get ById
+projectRoutes.get ('/:projectid', async (req: any, res: Response) => {
+    const id = req.params.projectid;
+    const lang = req.get('Accept-Language');
+
+    let projects = await Project
+        .findById(id)
+        .exists('deleted', false)
+        .populate('clients')
+        .populate('industries')
+        .populate('disciplines')
+        .exec()
+        .catch(err => Methods.sendErr(res, err) );
+    
+    if (!projects) return res.json({ok:true, desc: 'No project found'});
+
+    if (lang != '' && projects) {
+        // @ts-ignore
+        projects.title =       [Methods.filterByLanguage(projects.title, lang)];
+        // @ts-ignore
+        // @ts-ignore
+        projects.description = [Methods.filterByLanguage(projects.description, lang)];
+        projects.industries.forEach( e => {
+            // @ts-ignore
+            e.name =  Methods.filterByLanguage(e.name, lang);
+        });
+        projects.disciplines.forEach( e => {
+            // @ts-ignore
+            e.name =  Methods.filterByLanguage(e.name, lang);
+        });
+        
+        // Filter Blocks content 
+        // project.blocks;
+    }
+
+    return res.json({ ok: true, projects });
+}); 
+
+// Get All Projects
+projectRoutes.get('/', async (req: any, res: Response) => {
+    const lang = req.get('Accept-Language');
+
+    let projects = await Project
+        .find()
+        .sort({ _id: -1 })
+        .exists('deleted', false)
+        .populate('clients')
+        .populate('industries')
+        .populate('disciplines')
+        .exec()
+        .catch(err => Methods.sendErr(res, err) );
+    
+    if (!projects) return res.json({ok:true, desc: 'No project found'});
+
+    if (lang != '' && projects) {
+        // @ts-ignore
+        projects.forEach(p => {
+            // @ts-ignore
+            p.title =       [Methods.filterByLanguage(p.title, lang)];
+            // @ts-ignore
+            p.description = [Methods.filterByLanguage(p.description, lang)];
+            p.industries.forEach( e => {
+                // @ts-ignore
+                e.name =  Methods.filterByLanguage(e.name, lang);
+            });
+            p.disciplines.forEach( e => {
+                // @ts-ignore
+                e.name =  Methods.filterByLanguage(e.name, lang);
+            });
+            
+            // Filter Blocks content
+            // project.blocks;
+        });
+    }
+
+    return res.json({ ok: true, projects });
+});
+
+// Delete
+projectRoutes.delete ('/:projectid', [verifyToken], async (req: any, res: Response) => {
+    const id = req.params.projectid;
+    await Project
+        .findByIdAndDelete(id)
+        .catch(err => Methods.sendErr(res, err) );
+
+    res.json({ ok: true, desc: 'Project deleted' });
+    // TODO: Delete Images
+})
+
+export default projectRoutes;

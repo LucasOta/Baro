@@ -28,8 +28,11 @@ export class ImagePickerComponent implements OnInit {
       tempImg.type = e.target.files[0].type; 
       tempImg.size = this.readableBytes(e.target.files[0].size).toString();
       tempImg.justUploaded = true;
+      if (this.imgPickerConfig.timestamp) {
+        this.imgPickerConfig.prefix = `${this.imgPickerConfig.prefix}_${this.imgPickerConfig.timestamp}`
+      }
 
-      this.fileService.uploadFile(e.target.files[0]).subscribe(res=>{
+      this.fileService.uploadFile(e.target.files[0], this.imgPickerConfig.prefix).subscribe(res=>{
         tempImg.name = res.file.name; 
         
         const reader = new FileReader();
@@ -79,6 +82,8 @@ export class ImgPickerConfig extends FormModuleConfig{
   maxImgs: number = -1;
   moduleNameFrom:string;
   elementIdFrom: string;
+  prefix: string = '';
+  timestamp: string = '';
   imgs: Image[] = [];
   imgsChanged = false;
    

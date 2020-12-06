@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
     private languageService: LanguageService,
     ) { 
       var scope = this;
-      this.languageSelectorConfig.selectedLanguage = this.languageService.getLanguage();
+      this.languageSelectorConfig.form = false;
       this.languageSelectorConfig.onChange = function(value){
         scope.languageService.setLanguage(value);
       };

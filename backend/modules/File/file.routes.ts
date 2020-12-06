@@ -32,8 +32,9 @@ fileRoutes.post('/upload', [verifyToken], async (req: any, res: Response) => {
             desc: 'Lo que subió no es una imagen'
         });
     }
-
-    fileSystem.saveTempImage(file, req.user._id).then(
+    let desc;
+    if (req.body.prefix) desc = req.body.prefix;
+    fileSystem.saveTempImage(file, req.user._id, desc).then(
         result => {
             res.json({
                 ok: true,
