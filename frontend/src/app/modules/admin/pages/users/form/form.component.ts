@@ -23,7 +23,6 @@ export class FormComponent implements OnInit {
   title = 'New User';
   createForm: FormGroup;
   user = new User();
-  submitted = false;
   state: any;
   id: any;
 
@@ -120,10 +119,6 @@ export class FormComponent implements OnInit {
 
   setSubmitted(){
     this.store.dispatch(set());
-    this.submitted = true;
-    this.nameTextInputConfig.formSubmitted = this.submitted;
-    this.emailTextInputConfig.formSubmitted = this.submitted;
-    if (!this.id) this.passwordTextInputConfig.formSubmitted = this.submitted;
   }
 
   private initializeComponents(){
@@ -132,18 +127,15 @@ export class FormComponent implements OnInit {
     this.nameTextInputConfig.fieldName = 'Name';
     this.nameTextInputConfig.required = true;
     this.nameTextInputConfig.placeholder = 'User Name';
-    this.nameTextInputConfig.formSubmitted = this.submitted;
     
     this.emailTextInputConfig.fieldName = 'Email';
     this.emailTextInputConfig.required = true;
     this.emailTextInputConfig.placeholder = 'User Email';
-    this.emailTextInputConfig.formSubmitted = this.submitted;
     
     if (!this.id) {
       this.passwordTextInputConfig.fieldName = 'Password';
       this.passwordTextInputConfig.required = true;
       this.passwordTextInputConfig.placeholder = 'User Password';
-      this.passwordTextInputConfig.formSubmitted = this.submitted;
     }
 
     this.imgPickerConfig.fieldName = 'Image';
@@ -161,9 +153,8 @@ export class FormComponent implements OnInit {
 
   goToList(){
     this.imgPickerConfig.deleteTemps(this.fileService);
-    this.router.navigate(['admin/users/list']);
-    
     this.store.dispatch(reset());
+    this.router.navigate(['admin/users/list']);    
   }
 
 }

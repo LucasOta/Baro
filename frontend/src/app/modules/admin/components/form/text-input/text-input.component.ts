@@ -24,7 +24,6 @@ export class TextInputComponent implements OnInit {
 }
 
 export class TextInputConfig extends FormModuleConfig {
-  submitted: boolean = false;
   placeholder: string = '';
   formControl: FormControl;
 }
