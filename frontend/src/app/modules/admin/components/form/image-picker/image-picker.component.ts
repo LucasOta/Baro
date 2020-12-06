@@ -15,11 +15,13 @@ export class ImagePickerComponent implements OnInit {
   @Input() imgPickerConfig: ImgPickerConfig;
   @ViewChild('inputFile') inputFile: ElementRef;
   moduleName$: Observable<String>;
+  elementId$: Observable<String>;
 
   private maxImgs = 0;
   
   constructor( private fileService: FileService, private store: Store<AppState> ) {
     this.moduleName$ = store.select(store => store.moduleName);
+    this.elementId$ = store.select(store => store.elementId);
   }
 
   ngOnInit(): void {
@@ -86,7 +88,6 @@ export class ImagePickerComponent implements OnInit {
 
 export class ImgPickerConfig extends FormModuleConfig{
   maxImgs: number = -1;
-  elementIdFrom: string;
   prefix: string = '';
   timestamp: string = '';
   imgs: Image[] = [];
