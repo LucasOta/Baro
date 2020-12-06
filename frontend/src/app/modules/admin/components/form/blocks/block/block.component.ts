@@ -43,13 +43,11 @@ export class BlockComponent implements OnInit {
     this.bgColorTextInputConfig.required = true;
     this.bgColorTextInputConfig.placeholder = 'Background Color';
     this.bgColorTextInputConfig.formControl = this.block.get('bgColor') as FormControl; 
-    this.bgColorTextInputConfig.formSubmitted = false; //Harcoded
     
     this.fontColorTextInputConfig.fieldName = 'color';
     this.fontColorTextInputConfig.required = true;
     this.fontColorTextInputConfig.placeholder = 'Font Color';
     this.fontColorTextInputConfig.formControl = this.block.get('fontColor') as FormControl; 
-    this.fontColorTextInputConfig.formSubmitted = false; //Harcoded
 
   }
 

@@ -15,6 +15,7 @@ import { Translation, createTranslationForm } from 'src/app/shared/models/transl
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { set, reset } from "src/app/shared/actions/formSubmitted.actions";
+import { set as setElementId } from "src/app/shared/actions/elementId.actions";
 
 
 @Component({
@@ -45,7 +46,8 @@ export class FormComponent implements OnInit {
     private store: Store<AppState>,
     private router: Router,    
     private route: ActivatedRoute) { 
-      this.id= this.route.snapshot.paramMap.get("id");
+      this.id = this.route.snapshot.paramMap.get("id");
+      this.store.dispatch(setElementId({elementId: this.id}));
       this.initializeComponents();
     }
 
@@ -115,7 +117,6 @@ export class FormComponent implements OnInit {
 
   private initializeComponents(){
     this.imgPickerConfig.fieldName = 'Image';
-    this.imgPickerConfig.elementIdFrom = this.id;
     this.imgPickerConfig.maxImgs = 1;
     this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;
 
