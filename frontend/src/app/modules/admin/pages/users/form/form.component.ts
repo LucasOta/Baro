@@ -8,6 +8,9 @@ import { TextInputConfig } from '../../../components/form/text-input/text-input.
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 import { ImgPickerConfig } from '../../../components/form/image-picker/image-picker.component';
 import { FileService } from 'src/app/core/http/file/file.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { set, reset } from "src/app/shared/actions/formSubmitted.actions";
 
 @Component({
   selector: 'app-form',
@@ -36,7 +39,7 @@ export class FormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private fileService: FileService,
-    private changeDetectorRef: ChangeDetectorRef,
+    private store: Store<AppState>,
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
@@ -116,6 +119,7 @@ export class FormComponent implements OnInit {
   }
 
   setSubmitted(){
+    this.store.dispatch(set());
     this.submitted = true;
     this.nameTextInputConfig.formSubmitted = this.submitted;
     this.emailTextInputConfig.formSubmitted = this.submitted;
@@ -158,6 +162,8 @@ export class FormComponent implements OnInit {
   goToList(){
     this.imgPickerConfig.deleteTemps(this.fileService);
     this.router.navigate(['admin/users/list']);
+    
+    this.store.dispatch(reset());
   }
 
 }

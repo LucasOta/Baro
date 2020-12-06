@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/app.state';
 import { FormModuleConfig } from '../form.config';
 
 @Component({
@@ -9,8 +12,11 @@ import { FormModuleConfig } from '../form.config';
 })
 export class TextInputComponent implements OnInit {
   @Input() textInputConfig: TextInputConfig;
-
-  constructor() { }
+  submitted$: Observable<Boolean>;
+  
+  constructor( private store: Store<AppState>) { 
+    this.submitted$ = store.select(store => store.formSubmitted);
+  }
 
   ngOnInit(): void {
   }

@@ -11,7 +11,7 @@
         <!-- <div  class="invalid-feedback">
             <div>Name is required</div>
         </div> -->
-        <div *ngIf=" textInputConfig.formSubmitted && textInputConfig.formControl.errors" class="invalid-feedback">
+        <div *ngIf="(submitted$ | async) && textInputConfig.formControl.errors" class="invalid-feedback">
             <div *ngIf="textInputConfig.formControl.errors.required">{{ textInputConfig.fieldName }} is required</div>
         </div>
     </div>
