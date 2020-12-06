@@ -9,6 +9,10 @@ import { MultilanguageTextInputConfig } from '../../../components/form/multilang
 import { Translation, createTranslationForm } from 'src/app/shared/models/translation';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { set, reset } from "src/app/shared/actions/formSubmitted.actions";
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -21,7 +25,6 @@ export class FormComponent implements OnInit {
   createForm: FormGroup;
   industry = new Industry();
   industries: Industry[] = [];
-  submitted = false;
   state: any;
   id: any;
 
@@ -33,7 +36,8 @@ export class FormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private industryService: IndustryService,
+    private industryService: IndustryService,    
+    private store: Store<AppState>,
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
@@ -96,7 +100,7 @@ export class FormComponent implements OnInit {
   }
 
   setSubmitted(){
-    this.submitted = true;
+    this.store.dispatch(set());
   }
 
   private initializeComponents(){
@@ -113,6 +117,7 @@ export class FormComponent implements OnInit {
   }
 
   goToList(){
+    this.store.dispatch(reset());
     this.router.navigate(['admin/industries/list']);
   }
 }

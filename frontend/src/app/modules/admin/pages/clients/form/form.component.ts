@@ -7,6 +7,10 @@ import { Client } from 'src/app/shared/models/client';
 import { TextInputConfig } from '../../../components/form/text-input/text-input.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { set, reset } from "src/app/shared/actions/formSubmitted.actions";
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -18,7 +22,6 @@ export class FormComponent implements OnInit {
   title = 'New Client';
   createForm: FormGroup;
   client = new Client();
-  submitted = false;
   state: any;
   id: any;
 
@@ -30,8 +33,8 @@ export class FormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private clientService: ClientService,
-    private changeDetectorRef: ChangeDetectorRef,
+    private clientService: ClientService, 
+    private store: Store<AppState>,
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
@@ -99,8 +102,7 @@ export class FormComponent implements OnInit {
   }
 
   setSubmitted(){
-    this.submitted = true;
-    this.nameTextInputConfig.formSubmitted = this.submitted;
+    this.store.dispatch(set());
   }
 
   private initializeComponents(){
@@ -109,7 +111,6 @@ export class FormComponent implements OnInit {
     this.nameTextInputConfig.fieldName = 'Name';
     this.nameTextInputConfig.required = true;
     this.nameTextInputConfig.placeholder = 'Client Name';
-    this.nameTextInputConfig.formSubmitted = this.submitted;
     
     this.websiteTextInputConfig.fieldName = 'Website';
     this.websiteTextInputConfig.required = false;
@@ -123,6 +124,7 @@ export class FormComponent implements OnInit {
   }
 
   goToList(){
+    this.store.dispatch(reset());
     this.router.navigate(['admin/clients/list']);
   }
 

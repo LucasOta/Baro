@@ -1,6 +1,9 @@
 import { KeyValue } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/app.state';
 import { FormModuleConfig } from '../form.config';
 
 @Component({
@@ -10,8 +13,11 @@ import { FormModuleConfig } from '../form.config';
 })
 export class DropDownListComponent implements OnInit {
   @Input() dropDownListInputConfig: DropDownListInputConfig;
+  submitted$: Observable<Boolean>;
 
-  constructor() { }
+  constructor( private store: Store<AppState>) { 
+    this.submitted$ = store.select(store => store.formSubmitted);
+  }
 
   ngOnInit(): void {
   }

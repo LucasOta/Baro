@@ -20,6 +20,10 @@ import { ImgPickerConfig } from '../../../components/form/image-picker/image-pic
 import { FileService } from 'src/app/core/http/file/file.service';
 import { createItemForm } from "src/app/shared/models/item";
 
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { set, reset } from "src/app/shared/actions/formSubmitted.actions";
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -32,7 +36,6 @@ export class FormComponent implements OnInit {
   createForm: FormGroup;
   project = new Project();
   projects: Project[] = [];
-  submitted = false;
   state: any;
   id: any;
 
@@ -58,7 +61,8 @@ export class FormComponent implements OnInit {
     private clientService: ClientService,
     private industryService: IndustryService,
     private disciplineService: DisciplineService,
-    private fileService: FileService,
+    private fileService: FileService, 
+    private store: Store<AppState>,
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
@@ -157,6 +161,10 @@ export class FormComponent implements OnInit {
     this.project.disciplines = this.f.disciplines.value;    
 
     this.project.blocks = this.f.blocks.value;
+
+    if (this.createForm.invalid) {       
+      return;
+    }
     
     if (! this.id) { 
       this.projectService.create(this.project)
@@ -192,11 +200,7 @@ export class FormComponent implements OnInit {
   }
 
   setSubmitted(){
-    this.submitted = true;
-
-    this.clientsDropDownListInputConfig.submitted = true;
-    this.industriesDropDownListInputConfig.submitted = true;
-    this.disciplinesDropDownListInputConfig.submitted = true;
+    this.store.dispatch(set());
   }
 
   private initializeComponents(){
@@ -266,6 +270,7 @@ export class FormComponent implements OnInit {
   goToList(){    
     this.coverImgPickerConfig.deleteTemps(this.fileService);
     this.thumbImgPickerConfig.deleteTemps(this.fileService);
+    this.store.dispatch(reset());
     this.router.navigate(['admin/projects/list']);
   }
 }

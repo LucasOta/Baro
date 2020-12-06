@@ -12,6 +12,10 @@ import { LanguageSelectorConfig } from '../../../../../shared/components/languag
 import { MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
 import { Translation, createTranslationForm } from 'src/app/shared/models/translation';
 
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { set, reset } from "src/app/shared/actions/formSubmitted.actions";
+
 
 @Component({
   selector: 'app-form',
@@ -26,7 +30,6 @@ export class FormComponent implements OnInit {
   createForm: FormGroup;
   category = new Category();
   categories: Category[] = [];
-  submitted = false;
   state: any;
   id: any;
 
@@ -39,6 +42,7 @@ export class FormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
     private fileService: FileService,
+    private store: Store<AppState>,
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
@@ -106,7 +110,7 @@ export class FormComponent implements OnInit {
   }
 
   setSubmitted(){
-    this.submitted = true;
+    this.store.dispatch(set());
   }
 
   private initializeComponents(){
@@ -126,6 +130,7 @@ export class FormComponent implements OnInit {
 
   goToList(){
     this.imgPickerConfig.deleteTemps(this.fileService);
+    this.store.dispatch(reset());
     this.router.navigate(['admin/categories/list']);
   }
 }

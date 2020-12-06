@@ -19,6 +19,7 @@ import { ErrorInterceptor } from "./core/interceptors/error.interceptor";
 import { StoreModule } from '@ngrx/store';
 import { languageReducer } from "./shared/reducers/language.reducer";
 import { formLanguageReducer } from "./shared/reducers/formLanguage.reducer";
+import { formSubmittedReducer } from "./shared/reducers/formSubmitted.reducer";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -36,7 +37,8 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     StoreModule.forRoot({
       formLanguage: formLanguageReducer, 
-      generalLanguage: languageReducer 
+      generalLanguage: languageReducer,
+      formSubmitted: formSubmittedReducer
     }),
     TranslateModule.forRoot({
       loader: {
