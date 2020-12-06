@@ -11,6 +11,7 @@ import { FileService } from 'src/app/core/http/file/file.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { set, reset } from "src/app/shared/actions/formSubmitted.actions";
+import { set as setModuleName } from "src/app/shared/actions/moduleName.actions";
 
 @Component({
   selector: 'app-form',
@@ -42,7 +43,7 @@ export class FormComponent implements OnInit {
     private router: Router,    
     private route: ActivatedRoute) { 
       this.id= this.route.snapshot.paramMap.get("id");
-
+      this.store.dispatch(setModuleName({moduleName: this.moduleName}));
       this.initializeComponents();
   }
 
@@ -139,7 +140,6 @@ export class FormComponent implements OnInit {
     }
 
     this.imgPickerConfig.fieldName = 'Image';
-    this.imgPickerConfig.moduleNameFrom = this.moduleName;
     this.imgPickerConfig.elementIdFrom = this.id;
     this.imgPickerConfig.maxImgs = 1;
     this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;

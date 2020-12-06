@@ -69,7 +69,6 @@ export class ItemComponent implements OnInit {
       this.imgPickerConfig.fieldName = 'Images';
       this.imgPickerConfig.prefix = 'item';
       this.imgPickerConfig.timestamp = this.item.get('timestamp').value;
-      this.imgPickerConfig.moduleNameFrom = 'projects'; // TODO: harcoded
       this.imgPickerConfig.elementIdFrom = '5fc7e977c9b0bf5a040ca573'; //TODO: Harcoded SpotifyID
       this.imgPickerConfig.maxImgs = 3;
       this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;

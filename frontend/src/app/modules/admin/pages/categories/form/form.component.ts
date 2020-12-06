@@ -115,7 +115,6 @@ export class FormComponent implements OnInit {
 
   private initializeComponents(){
     this.imgPickerConfig.fieldName = 'Image';
-    this.imgPickerConfig.moduleNameFrom = this.moduleName;
     this.imgPickerConfig.elementIdFrom = this.id;
     this.imgPickerConfig.maxImgs = 1;
     this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;
