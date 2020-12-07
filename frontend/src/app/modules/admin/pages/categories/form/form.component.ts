@@ -118,11 +118,9 @@ export class FormComponent implements OnInit {
   private initializeComponents(){
     this.imgPickerConfig.fieldName = 'Image';
     this.imgPickerConfig.maxImgs = 1;
-    this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;
 
     this.nameMultilanguageInputConfig.fieldName = 'Name';
     this.nameMultilanguageInputConfig.required = true;
-    this.nameMultilanguageInputConfig.placeholder = 'Name';
 
     // var scope = this;
     // TODO: use cardfooterconfig

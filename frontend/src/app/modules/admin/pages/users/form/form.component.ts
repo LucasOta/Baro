@@ -129,21 +129,17 @@ export class FormComponent implements OnInit {
 
     this.nameTextInputConfig.fieldName = 'Name';
     this.nameTextInputConfig.required = true;
-    this.nameTextInputConfig.placeholder = 'User Name';
     
     this.emailTextInputConfig.fieldName = 'Email';
     this.emailTextInputConfig.required = true;
-    this.emailTextInputConfig.placeholder = 'User Email';
     
     if (!this.id) {
       this.passwordTextInputConfig.fieldName = 'Password';
       this.passwordTextInputConfig.required = true;
-      this.passwordTextInputConfig.placeholder = 'User Password';
     }
 
     this.imgPickerConfig.fieldName = 'Image';
     this.imgPickerConfig.maxImgs = 1;
-    this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;
 
 
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };

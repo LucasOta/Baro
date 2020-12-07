@@ -212,11 +212,9 @@ export class FormComponent implements OnInit {
 
     this.titleMultilanguageInputConfig.fieldName = 'Title';
     this.titleMultilanguageInputConfig.required = true;
-    this.titleMultilanguageInputConfig.placeholder = 'Title';
     
     this.descMultilanguageInputConfig.fieldName = 'Description';
     this.descMultilanguageInputConfig.required = true;
-    this.descMultilanguageInputConfig.placeholder = 'Description';
     
 
     this.playgroundCheckboxConfig.fieldName = 'Playground';
@@ -253,12 +251,10 @@ export class FormComponent implements OnInit {
     this.coverImgPickerConfig.fieldName = 'Cover';
     this.coverImgPickerConfig.prefix = 'cover';
     this.coverImgPickerConfig.maxImgs = 1;
-    this.coverImgPickerConfig.note = `You can only select up to ${this.coverImgPickerConfig.maxImgs} image`;
     
     this.thumbImgPickerConfig.fieldName = 'Thumbnail';
     this.thumbImgPickerConfig.prefix = 'thumb';
     this.thumbImgPickerConfig.maxImgs = 1;
-    this.thumbImgPickerConfig.note = `You can only select up to ${this.thumbImgPickerConfig.maxImgs} image`;
 
 
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };

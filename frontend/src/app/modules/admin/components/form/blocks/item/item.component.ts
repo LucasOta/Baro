@@ -41,19 +41,16 @@ export class ItemComponent implements OnInit {
   private initializeComponents(){
     if (this.show(ItemElements.Title)){
       this.titleMultilanguageInputConfig.fieldName = 'Title';
-      this.titleMultilanguageInputConfig.placeholder = 'Title';
       this.titleMultilanguageInputConfig.formArray = this.item.get('title') as FormArray;
     }
     
     if (this.show(ItemElements.Subtitle)){
       this.subtitleMultilanguageInputConfig.fieldName = 'Subtitle';
-      this.subtitleMultilanguageInputConfig.placeholder = 'Subtitle';
       this.subtitleMultilanguageInputConfig.formArray = this.item.get('subtitle') as FormArray;
 
     }
     if (this.show(ItemElements.Description)){
       this.descMultilanguageInputConfig.fieldName = 'Description';
-      this.descMultilanguageInputConfig.placeholder = 'Description';
       this.descMultilanguageInputConfig.formArray = this.item.get('description') as FormArray;
     }
 
@@ -69,7 +66,6 @@ export class ItemComponent implements OnInit {
       this.imgPickerConfig.prefix = 'item';
       this.imgPickerConfig.timestamp = this.item.get('timestamp').value;
       this.imgPickerConfig.maxImgs = 3;
-      this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;
 
       this.item.get('img').value.forEach(img => {        
         this.imgPickerConfig.imgs.push({name: img})
@@ -79,24 +75,20 @@ export class ItemComponent implements OnInit {
       this.fullWidthCheckboxConfig.formControl = this.item.get('fullWidth') as FormControl;
       this.fullWidthCheckboxConfig.fieldName = 'Full Width'; 
 
-      this.imgPickerConfig.maxImgs = 1;
-      this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;      
+      this.imgPickerConfig.maxImgs = 1; 
     }
 
     if (this.show(ItemElements.Testimonial)){
       this.quoteMultilanguageInputConfig.fieldName = 'Quote';
       this.quoteMultilanguageInputConfig.required = true;
-      this.quoteMultilanguageInputConfig.placeholder = 'Amazing quote';
       this.quoteMultilanguageInputConfig.formArray = (this.item.get('testimonial') as FormGroup).controls.quote as FormArray; 
 
       this.jobTitleMultilanguageInputConfig.fieldName = 'Job title';
       this.jobTitleMultilanguageInputConfig.required = true;
-      this.jobTitleMultilanguageInputConfig.placeholder = 'Job Title';
       this.jobTitleMultilanguageInputConfig.formArray = (this.item.get('testimonial') as FormGroup).controls.jobTitle as FormArray; 
 
       this.nameTextInputConfig.fieldName = 'Name';
       this.nameTextInputConfig.required = true;
-      this.nameTextInputConfig.placeholder = 'Name';
       this.nameTextInputConfig.formControl = (this.item.get('testimonial') as FormGroup).controls.name as FormControl; 
     }
 

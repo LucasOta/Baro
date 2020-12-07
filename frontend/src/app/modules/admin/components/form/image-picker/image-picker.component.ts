@@ -16,8 +16,6 @@ export class ImagePickerComponent implements OnInit {
   @ViewChild('inputFile') inputFile: ElementRef;
   moduleName$: Observable<String>;
   elementId$: Observable<String>;
-
-  private maxImgs = 0;
   
   constructor( private fileService: FileService, private store: Store<AppState> ) {
     this.moduleName$ = store.select(store => store.moduleName);

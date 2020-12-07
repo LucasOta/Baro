@@ -4,8 +4,8 @@
     
     <div class="col-12 col-form-label">
         <button (click)="uploadFile()" [disabled]="imgPickerConfig.imgs.length >= imgPickerConfig.maxImgs && imgPickerConfig.maxImgs > 0" type="button" class="btn btn-default">{{ imgPickerConfig.fieldName}}</button>
-        <span class="note" *ngIf="imgPickerConfig.note">
-            (Note: {{ imgPickerConfig.note }})
+        <span class="note">
+            (Note: You can only select up to {{imgPickerConfig.maxImgs}} image/s.)
         </span>
     </div>
     
