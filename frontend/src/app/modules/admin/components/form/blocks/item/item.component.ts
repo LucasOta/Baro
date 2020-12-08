@@ -66,10 +66,9 @@ export class ItemComponent implements OnInit {
       this.imgPickerConfig.prefix = 'item';
       this.imgPickerConfig.timestamp = this.item.get('timestamp').value;
       this.imgPickerConfig.maxImgs = 3;
+      this.imgPickerConfig.formArray = this.item.get('img') as FormArray;
+      this.imgPickerConfig.setImgs(this.item.get('img').value);
 
-      this.item.get('img').value.forEach(img => {        
-        this.imgPickerConfig.imgs.push({name: img})
-      });
     }
     if (this.show(ItemElements.Image) && this.show(ItemElements.FullWidth)){
       this.fullWidthCheckboxConfig.formControl = this.item.get('fullWidth') as FormControl;

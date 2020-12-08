@@ -17,7 +17,6 @@ import { Translation, createTranslationForm } from 'src/app/shared/models/transl
 import { DropDownListInputConfig } from '../../../components/form/drop-down-list/drop-down-list.component';
 import { CheckboxConfig } from '../../../components/form/checkbox/checkbox.component';
 import { ImgPickerConfig } from '../../../components/form/image-picker/image-picker.component';
-import { FileService } from 'src/app/core/http/file/file.service';
 import { createItemForm } from "src/app/shared/models/item";
 
 import { Store } from '@ngrx/store';
@@ -63,7 +62,6 @@ export class FormComponent implements OnInit {
     private clientService: ClientService,
     private industryService: IndustryService,
     private disciplineService: DisciplineService,
-    private fileService: FileService, 
     private store: Store<AppState>,
     private router: Router,    
     private route: ActivatedRoute) {
@@ -83,6 +81,8 @@ export class FormComponent implements OnInit {
       clients: ['', Validators.required],
       industries: ['', Validators.required],
       disciplines: ['', Validators.required],
+      coverImg: this.formBuilder.array([]),
+      thumbnail: this.formBuilder.array([]),
       blocks: this.formBuilder.array([]),
     });
     this.playgroundCheckboxConfig.formControl = this.createForm.get('playground') as FormControl;
@@ -94,6 +94,8 @@ export class FormComponent implements OnInit {
     this.titleMultilanguageInputConfig.formArray = this.createForm.get('title') as FormArray;
     this.descMultilanguageInputConfig.formArray = this.createForm.get('description') as FormArray;
     
+    this.coverImgPickerConfig.formArray = this.createForm.get('coverImg') as FormArray;
+    this.thumbImgPickerConfig.formArray = this.createForm.get('thumbnail') as FormArray;
 
     if (this.id) this.setProject();
     
@@ -114,10 +116,10 @@ export class FormComponent implements OnInit {
       this.f.industries.setValue(this.getIdArray(this.project.industries));
       this.f.disciplines.setValue(this.getIdArray(this.project.disciplines));
       
-      this.setBlocks();      
-      
-      this.coverImgPickerConfig.imgs.push({name: this.project.coverImg})
-      this.thumbImgPickerConfig.imgs.push({name: this.project.thumbnail})
+      this.setBlocks();
+
+      this.coverImgPickerConfig.setImgs(this.project.coverImg);
+      this.thumbImgPickerConfig.setImgs(this.project.thumbnail);
     }); 
   }
 
@@ -169,7 +171,7 @@ export class FormComponent implements OnInit {
     if (this.createForm.invalid) {       
       return;
     }
-    
+
     if (! this.id) { 
       this.projectService.create(this.project)
         .pipe(first())
@@ -177,15 +179,6 @@ export class FormComponent implements OnInit {
           data => { if (data.ok) this.goToList(); }
         );      
     } else {
-      
-      if (this.coverImgPickerConfig.imgsChanged) {
-        this.coverImgPickerConfig.imgs[0] ? this.project.coverImg = this.coverImgPickerConfig.imgs[0].name : this.project.coverImg = 'empty';
-      }
-      
-      if (this.thumbImgPickerConfig.imgsChanged) {
-        this.thumbImgPickerConfig.imgs[0] ? this.project.thumbnail = this.thumbImgPickerConfig.imgs[0].name : this.project.thumbnail = 'empty';
-      }
-
       this.projectService.update(this.project)
         .pipe(first())
         .subscribe(
@@ -264,8 +257,6 @@ export class FormComponent implements OnInit {
   }
 
   goToList(){    
-    this.coverImgPickerConfig.deleteTemps(this.fileService);
-    this.thumbImgPickerConfig.deleteTemps(this.fileService);
     this.store.dispatch(reset());
     this.router.navigate(['admin/projects/list']);
   }
