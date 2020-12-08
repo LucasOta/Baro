@@ -55,6 +55,7 @@ export class FormComponent implements OnInit {
     
     this.nameTextInputConfig.formControl = this.createForm.get('name') as FormControl;
     this.emailTextInputConfig.formControl = this.createForm.get('email') as FormControl;
+    this.imgPickerConfig.formArray = new FormArray([new FormControl(this.user.img)]);
 
     if (this.id) {
       this.title = 'Edit Discipline'
@@ -64,7 +65,8 @@ export class FormComponent implements OnInit {
 
         this.f.name.setValue(this.user.name);
         this.f.email.setValue(this.user.email);
-        this.imgPickerConfig.formArray = new FormArray([new FormControl(this.user.img)]);
+        this.imgPickerConfig.setImgs(this.user.img);
+
       });   
     } else {
       this.createForm.addControl('password', new FormControl('', Validators.required));
