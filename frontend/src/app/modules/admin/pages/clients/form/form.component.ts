@@ -110,11 +110,9 @@ export class FormComponent implements OnInit {
 
     this.nameTextInputConfig.fieldName = 'Name';
     this.nameTextInputConfig.required = true;
-    this.nameTextInputConfig.placeholder = 'Client Name';
     
     this.websiteTextInputConfig.fieldName = 'Website';
     this.websiteTextInputConfig.required = false;
-    this.websiteTextInputConfig.placeholder = 'Client Website';
 
 
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };

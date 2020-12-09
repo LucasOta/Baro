@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { FormArray, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.state';
@@ -15,9 +16,8 @@ export class ImagePickerComponent implements OnInit {
   @Input() imgPickerConfig: ImgPickerConfig;
   @ViewChild('inputFile') inputFile: ElementRef;
   moduleName$: Observable<String>;
-  elementId$: Observable<String>;
-
-  private maxImgs = 0;
+  elementId$: Observable<String>;  
+  imgs: Image[] = [];
   
   constructor( private fileService: FileService, private store: Store<AppState> ) {
     this.moduleName$ = store.select(store => store.moduleName);
@@ -25,20 +25,20 @@ export class ImagePickerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.imgPickerConfig.timestamp) {
+      this.imgPickerConfig.prefix = `${this.imgPickerConfig.prefix}_${this.imgPickerConfig.timestamp}`
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.deleteTemps();
   }
 
   onSelectFile(e){
     const tempImg = new Image();
-    this.imgPickerConfig.imgsChanged = true;
 
     if (e.target.files) {      
       tempImg.name = e.target.files[0].name; 
-      tempImg.type = e.target.files[0].type; 
-      tempImg.size = this.readableBytes(e.target.files[0].size).toString();
-      tempImg.justUploaded = true;
-      if (this.imgPickerConfig.timestamp) {
-        this.imgPickerConfig.prefix = `${this.imgPickerConfig.prefix}_${this.imgPickerConfig.timestamp}`
-      }
 
       this.fileService.uploadFile(e.target.files[0], this.imgPickerConfig.prefix).subscribe(res=>{
         tempImg.name = res.file.name; 
@@ -48,8 +48,8 @@ export class ImagePickerComponent implements OnInit {
         reader.onload=(event:any)=>{
           tempImg.url = event.target.result;
           
-          this.imgPickerConfig.imgs.push(tempImg);
-          
+          this.imgs.push(tempImg);
+          this.imgPickerConfig.formArray.push(new FormControl(tempImg.name));
         }
 
       })
@@ -65,24 +65,44 @@ export class ImagePickerComponent implements OnInit {
     this.inputFile.nativeElement.click();
   }
 
-  deleteImg(img: Image){
-    this.imgPickerConfig.imgsChanged = true;
+  deleteImg(img: string){
+    const initialImgsLength = this.imgs.length;
+    this.imgs = this.imgs.filter(i => i.name != img );
+    this.deleteOnFormArray(img);
 
-    this.imgPickerConfig.imgs = this.imgPickerConfig.imgs.filter(i => i.name != img.name );
-    if (img.justUploaded) {
-      this.fileService.deleteTemp(img.name).subscribe(res=>{});
+    if (initialImgsLength != this.imgs.length) {
+      this.fileService.deleteTemp(img).subscribe(res=>{});
     } else {
       // We must not delete the image now in case the user wants to discard the changes,
       // the backend will delete the imgs when the class is updated.    
     }
   }
+  
+  deleteOnFormArray(img: string){
+    let faValue = this.imgPickerConfig.formArray.value;
+    const faValIndex = faValue.findIndex(e => e === img);
+    this.updateOldImgs(img);
+    this.imgPickerConfig.formArray.removeAt(faValIndex);
 
-  readableBytes(bytes: number) {
-    var i = Math.floor(Math.log(bytes) / Math.log(1024)),
-    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    // @ts-ignore
-    return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i];
-  }  
+  }
+  
+  updateOldImgs(img: string){
+    const oldImgIndex = this.imgPickerConfig.oldImages.findIndex(e => e === img);
+    if (oldImgIndex >= 0) {
+      this.imgPickerConfig.oldImages.splice(oldImgIndex, 1);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  deleteTemps(){
+    this.imgs.forEach(img => {
+      if (img.justUploaded) {
+        this.fileService.deleteTemp(img.name).subscribe(res=>{});
+      }     
+    });
+  }
 
 }
 
@@ -90,15 +110,16 @@ export class ImgPickerConfig extends FormModuleConfig{
   maxImgs: number = -1;
   prefix: string = '';
   timestamp: string = '';
-  imgs: Image[] = [];
-  imgsChanged = false;
-   
-  deleteTemps = function (fileService: FileService){
-    this.imgs.forEach(img => {
-      if (img.justUploaded) {
-        fileService.deleteTemp(img.name).subscribe(res=>{});
-      }     
-    });
+  formArray: FormArray = new FormArray([]);
+  oldImages: string[] = [];
+
+  setImgs = function(imgs: any){    
+    this.formArray.clear();
+    if (typeof imgs == 'string'){
+      this.formArray.push(new FormControl(imgs));
+    } else {
+      imgs.forEach(img => this.formArray.push(new FormControl(img)));
+    }
+    this.oldImages = this.formArray.value;
   }
-  
 }

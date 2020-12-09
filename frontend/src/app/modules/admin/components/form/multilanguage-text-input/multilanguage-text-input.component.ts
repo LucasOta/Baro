@@ -30,6 +30,7 @@ export class MultilanguageTextInputComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.multilanguageTextInputConfig.placeholder) this.multilanguageTextInputConfig.placeholder = this.multilanguageTextInputConfig.fieldName;
     this.initializeComponents();
   }
 

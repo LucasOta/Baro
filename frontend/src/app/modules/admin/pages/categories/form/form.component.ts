@@ -66,8 +66,6 @@ export class FormComponent implements OnInit {
         // TODO: handle errors
         this.category = res.categories;
         this.f.name.setValue(this.category.name);  
-        
-        this.imgPickerConfig.imgs.push({name: this.category.img});
       });   
     }   
     
@@ -90,10 +88,6 @@ export class FormComponent implements OnInit {
         data => { if (data.ok) this.goToList(); }
       );      
     } else {
-      // TODO: We should analize if this can be outside the if, only if the create backend changes
-      if (this.imgPickerConfig.imgsChanged) {
-        this.imgPickerConfig.imgs[0] ? this.category.img = this.imgPickerConfig.imgs[0].name : this.category.img = 'empty';
-      }
       this.categoryService.update(this.category)
         .pipe(first())
         .subscribe(
@@ -118,18 +112,15 @@ export class FormComponent implements OnInit {
   private initializeComponents(){
     this.imgPickerConfig.fieldName = 'Image';
     this.imgPickerConfig.maxImgs = 1;
-    this.imgPickerConfig.note = `You can only select up to ${this.imgPickerConfig.maxImgs} image`;
 
     this.nameMultilanguageInputConfig.fieldName = 'Name';
     this.nameMultilanguageInputConfig.required = true;
-    this.nameMultilanguageInputConfig.placeholder = 'Name';
 
     // var scope = this;
     // TODO: use cardfooterconfig
   }
 
   goToList(){
-    this.imgPickerConfig.deleteTemps(this.fileService);
     this.store.dispatch(reset());
     this.router.navigate(['admin/categories/list']);
   }

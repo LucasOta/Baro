@@ -19,6 +19,7 @@ export class TextInputComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.textInputConfig.placeholder) this.textInputConfig.placeholder = this.textInputConfig.fieldName;
   }
 
 }

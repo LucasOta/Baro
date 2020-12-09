@@ -13,11 +13,10 @@ import { Project } from 'src/app/shared/models/project';
 import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 import { MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
-import { Translation, createTranslationForm } from 'src/app/shared/models/translation';
+import { createTranslationForm } from 'src/app/shared/models/translation';
 import { DropDownListInputConfig } from '../../../components/form/drop-down-list/drop-down-list.component';
 import { CheckboxConfig } from '../../../components/form/checkbox/checkbox.component';
 import { ImgPickerConfig } from '../../../components/form/image-picker/image-picker.component';
-import { FileService } from 'src/app/core/http/file/file.service';
 import { createItemForm } from "src/app/shared/models/item";
 
 import { Store } from '@ngrx/store';
@@ -63,7 +62,6 @@ export class FormComponent implements OnInit {
     private clientService: ClientService,
     private industryService: IndustryService,
     private disciplineService: DisciplineService,
-    private fileService: FileService, 
     private store: Store<AppState>,
     private router: Router,    
     private route: ActivatedRoute) {
@@ -76,6 +74,7 @@ export class FormComponent implements OnInit {
   ngOnInit(): void { 
     
     this.createForm = this.formBuilder.group({
+      _id: [''],
       title: createTranslationForm(),
       description: createTranslationForm(),
       playground: [false],
@@ -83,6 +82,8 @@ export class FormComponent implements OnInit {
       clients: ['', Validators.required],
       industries: ['', Validators.required],
       disciplines: ['', Validators.required],
+      coverImg: this.formBuilder.array([]),
+      thumbnail: this.formBuilder.array([]),
       blocks: this.formBuilder.array([]),
     });
     this.playgroundCheckboxConfig.formControl = this.createForm.get('playground') as FormControl;
@@ -94,6 +95,8 @@ export class FormComponent implements OnInit {
     this.titleMultilanguageInputConfig.formArray = this.createForm.get('title') as FormArray;
     this.descMultilanguageInputConfig.formArray = this.createForm.get('description') as FormArray;
     
+    this.coverImgPickerConfig.formArray = this.createForm.get('coverImg') as FormArray;
+    this.thumbImgPickerConfig.formArray = this.createForm.get('thumbnail') as FormArray;
 
     if (this.id) this.setProject();
     
@@ -105,6 +108,7 @@ export class FormComponent implements OnInit {
     this.projectService.get(true, this.id).subscribe((res)=>{
       this.project = res.projects;
 
+      this.f._id.setValue(this.project._id);  
       this.f.title.setValue(this.project.title);  
       this.f.description.setValue(this.project.description);  
       
@@ -114,23 +118,21 @@ export class FormComponent implements OnInit {
       this.f.industries.setValue(this.getIdArray(this.project.industries));
       this.f.disciplines.setValue(this.getIdArray(this.project.disciplines));
       
-      this.setBlocks();      
-      
-      this.coverImgPickerConfig.imgs.push({name: this.project.coverImg})
-      this.thumbImgPickerConfig.imgs.push({name: this.project.thumbnail})
+      this.setBlocks();
+
+      this.coverImgPickerConfig.setImgs(this.project.coverImg);
+      this.thumbImgPickerConfig.setImgs(this.project.thumbnail);
     }); 
   }
 
   setBlocks(){
-    const blocks = this.formBuilder.array([]);
     this.project.blocks.forEach(block => {
-      blocks.push(new FormGroup({
+      (this.f.blocks as FormArray).push(new FormGroup({
         bgColor: new FormControl(block.bgColor),
         fontColor: new FormControl(block.fontColor),
         items: this.setItems(block.items)
       }));
     });
-    this.f.blocks = blocks;
   }
 
   setItems(items: any[]){
@@ -153,22 +155,12 @@ export class FormComponent implements OnInit {
 
   onSubmit() {
     this.setSubmitted();
-
-    this.project.title = this.f.title.value as Translation[];
-    this.project.description = this.f.description.value as Translation[];
-
-    this.project.playground = this.f.playground.value;
-    this.project.featured = this.f.featured.value;
-
-    this.project.clients = this.f.clients.value;
-    this.project.industries = this.f.industries.value;
-    this.project.disciplines = this.f.disciplines.value;    
-
-    this.project.blocks = this.f.blocks.value;
-
+    
     if (this.createForm.invalid) {       
       return;
     }
+
+    this.project = this.createForm.value;    
     
     if (! this.id) { 
       this.projectService.create(this.project)
@@ -177,15 +169,6 @@ export class FormComponent implements OnInit {
           data => { if (data.ok) this.goToList(); }
         );      
     } else {
-      
-      if (this.coverImgPickerConfig.imgsChanged) {
-        this.coverImgPickerConfig.imgs[0] ? this.project.coverImg = this.coverImgPickerConfig.imgs[0].name : this.project.coverImg = 'empty';
-      }
-      
-      if (this.thumbImgPickerConfig.imgsChanged) {
-        this.thumbImgPickerConfig.imgs[0] ? this.project.thumbnail = this.thumbImgPickerConfig.imgs[0].name : this.project.thumbnail = 'empty';
-      }
-
       this.projectService.update(this.project)
         .pipe(first())
         .subscribe(
@@ -212,11 +195,9 @@ export class FormComponent implements OnInit {
 
     this.titleMultilanguageInputConfig.fieldName = 'Title';
     this.titleMultilanguageInputConfig.required = true;
-    this.titleMultilanguageInputConfig.placeholder = 'Title';
     
     this.descMultilanguageInputConfig.fieldName = 'Description';
     this.descMultilanguageInputConfig.required = true;
-    this.descMultilanguageInputConfig.placeholder = 'Description';
     
 
     this.playgroundCheckboxConfig.fieldName = 'Playground';
@@ -253,12 +234,10 @@ export class FormComponent implements OnInit {
     this.coverImgPickerConfig.fieldName = 'Cover';
     this.coverImgPickerConfig.prefix = 'cover';
     this.coverImgPickerConfig.maxImgs = 1;
-    this.coverImgPickerConfig.note = `You can only select up to ${this.coverImgPickerConfig.maxImgs} image`;
     
     this.thumbImgPickerConfig.fieldName = 'Thumbnail';
     this.thumbImgPickerConfig.prefix = 'thumb';
     this.thumbImgPickerConfig.maxImgs = 1;
-    this.thumbImgPickerConfig.note = `You can only select up to ${this.thumbImgPickerConfig.maxImgs} image`;
 
 
     this.cardFooterConfig.cancelAction = function() { scope.goToList(); };
@@ -268,8 +247,6 @@ export class FormComponent implements OnInit {
   }
 
   goToList(){    
-    this.coverImgPickerConfig.deleteTemps(this.fileService);
-    this.thumbImgPickerConfig.deleteTemps(this.fileService);
     this.store.dispatch(reset());
     this.router.navigate(['admin/projects/list']);
   }
