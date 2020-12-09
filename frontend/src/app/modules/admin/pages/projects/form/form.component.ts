@@ -13,7 +13,7 @@ import { Project } from 'src/app/shared/models/project';
 import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 import { MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
-import { Translation, createTranslationForm } from 'src/app/shared/models/translation';
+import { createTranslationForm } from 'src/app/shared/models/translation';
 import { DropDownListInputConfig } from '../../../components/form/drop-down-list/drop-down-list.component';
 import { CheckboxConfig } from '../../../components/form/checkbox/checkbox.component';
 import { ImgPickerConfig } from '../../../components/form/image-picker/image-picker.component';
@@ -74,6 +74,7 @@ export class FormComponent implements OnInit {
   ngOnInit(): void { 
     
     this.createForm = this.formBuilder.group({
+      _id: [''],
       title: createTranslationForm(),
       description: createTranslationForm(),
       playground: [false],
@@ -107,6 +108,7 @@ export class FormComponent implements OnInit {
     this.projectService.get(true, this.id).subscribe((res)=>{
       this.project = res.projects;
 
+      this.f._id.setValue(this.project._id);  
       this.f.title.setValue(this.project.title);  
       this.f.description.setValue(this.project.description);  
       
@@ -124,15 +126,13 @@ export class FormComponent implements OnInit {
   }
 
   setBlocks(){
-    const blocks = this.formBuilder.array([]);
     this.project.blocks.forEach(block => {
-      blocks.push(new FormGroup({
+      (this.f.blocks as FormArray).push(new FormGroup({
         bgColor: new FormControl(block.bgColor),
         fontColor: new FormControl(block.fontColor),
         items: this.setItems(block.items)
       }));
     });
-    this.f.blocks = blocks;
   }
 
   setItems(items: any[]){
@@ -155,23 +155,13 @@ export class FormComponent implements OnInit {
 
   onSubmit() {
     this.setSubmitted();
-
-    this.project.title = this.f.title.value as Translation[];
-    this.project.description = this.f.description.value as Translation[];
-
-    this.project.playground = this.f.playground.value;
-    this.project.featured = this.f.featured.value;
-
-    this.project.clients = this.f.clients.value;
-    this.project.industries = this.f.industries.value;
-    this.project.disciplines = this.f.disciplines.value;    
-
-    this.project.blocks = this.f.blocks.value;
-
+    
     if (this.createForm.invalid) {       
       return;
     }
 
+    this.project = this.createForm.value;    
+    
     if (! this.id) { 
       this.projectService.create(this.project)
         .pipe(first())

@@ -68,7 +68,7 @@ export class ImagePickerComponent implements OnInit {
   deleteImg(img: string){
     const initialImgsLength = this.imgs.length;
     this.imgs = this.imgs.filter(i => i.name != img );
-    this.setImgAsEmpty(img);
+    this.deleteOnFormArray(img);
 
     if (initialImgsLength != this.imgs.length) {
       this.fileService.deleteTemp(img).subscribe(res=>{});
@@ -78,15 +78,11 @@ export class ImagePickerComponent implements OnInit {
     }
   }
   
-  setImgAsEmpty(img: string){
+  deleteOnFormArray(img: string){
     let faValue = this.imgPickerConfig.formArray.value;
     const faValIndex = faValue.findIndex(e => e === img);
-
-    if (this.updateOldImgs(img)) {
-      this.imgPickerConfig.formArray.at(faValIndex).setValue('empty');
-    } else {
-      this.imgPickerConfig.formArray.removeAt(faValIndex);
-    }
+    this.updateOldImgs(img);
+    this.imgPickerConfig.formArray.removeAt(faValIndex);
 
   }
   
@@ -118,13 +114,12 @@ export class ImgPickerConfig extends FormModuleConfig{
   oldImages: string[] = [];
 
   setImgs = function(imgs: any){    
-    let imgFA = new FormArray([]);
+    this.formArray.clear();
     if (typeof imgs == 'string'){
-      imgFA.push(new FormControl(imgs));
+      this.formArray.push(new FormControl(imgs));
     } else {
-      imgs.forEach(img => imgFA.push(new FormControl(img)));
+      imgs.forEach(img => this.formArray.push(new FormControl(img)));
     }
-    this.formArray = imgFA;
     this.oldImages = this.formArray.value;
   }
 }

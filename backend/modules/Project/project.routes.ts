@@ -46,45 +46,14 @@ projectRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
             project.blocks = req.body.blocks || [];
             if (req.body.featured) project.featured = req.body.featured;
             if (req.body.playground) project.playground = req.body.playground;
+            project.thumbnail = req.body.thumbnail[0] || 'project_def.jpg';
+            project.coverImg = req.body.coverImg[0] || 'project_def.jpg';
 
             Project
                 .create(project)
                 .then(projectDB => { 
                     // @ts-ignore
                     const images = fileSystem.filesFromTempToFolder(req.user._id, 'projects', projectDB._id.toString());
-
-                    // Now that we have the ID, we can store the Images
-                    if (images) {                        
-                        images.forEach(img => {
-                            var prefix = img.split("_")[0];
-                            switch (prefix) {
-                                case 'thumb':
-                                    projectDB.thumbnail = img;
-                                    break;
-                                
-                                case 'cover':
-                                    projectDB.coverImg = img;
-                                    break;
-                                
-                                case 'item': //Test this, we have to send the image name like 'item_{{timestamp}}_blabla.jpg'
-                                    const tmst = img.split("_")[1];
-                                    projectDB.blocks.forEach(b=>{
-                                        b.items.forEach(i=>{
-                                            if (i.timestamp === tmst){
-                                                if (!i.img) i.img = [];
-                                                i.img.push(img);
-                                            }
-                                        })
-                                    });
-                                    break;
-                            
-                                default:
-                                    break;
-                            }
-                        });
-
-                        Project.findByIdAndUpdate(projectDB._id, projectDB, { new: true }, (err, updatedProjectDB) => {});
-                    }
 
                     res.status(201);
                     res.json({ ok: true, project: projectDB });
@@ -120,23 +89,18 @@ projectRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
     if (req.body.blocks)        project.blocks = req.body.blocks;
     project.featured = req.body.featured;
     project.playground = req.body.playground;
+    project.thumbnail = req.body.thumbnail[0] || 'project_def.jpg';
+    project.coverImg = req.body.coverImg[0] || 'project_def.jpg';
 
-    if (req.body.thumbnail || req.body.coverImg){
-        let currentImages :string[] = [];
-
-        if (req.body.coverImg) {
-            req.body.coverImg == 'empty' ? project.coverImg = 'project_def.jpg' : project.coverImg = req.body.coverImg;
-            currentImages.push(project.coverImg || '')
-        }
-        if (req.body.thumbnail) {
-            req.body.thumbnail == 'empty' ? project.thumbnail = 'project_def.jpg' : project.thumbnail = req.body.thumbnail;
-            currentImages.push(project.thumbnail || '')
-        }
-
-        fileSystem.filesFromTempToFolder(req.user._id, 'projects', req.body._id.toString());
-        fileSystem.deleteImagesNotIncludedIn('projects', req.body._id, currentImages);
-
-    }
+    fileSystem.filesFromTempToFolder(req.user._id, 'projects', req.body._id.toString());
+    let currentImages = [project.thumbnail, project.coverImg];
+    project.blocks.forEach(block => {
+        block.items.forEach(item => {
+            if(item.img) currentImages = currentImages.concat(item.img); 
+        });
+    });
+    
+    fileSystem.deleteImagesNotIncludedIn('projects', req.body._id, currentImages);
 
     Project.findByIdAndUpdate(project._id, project, { new: true }, (err, projectDB) => {
         if (err) return Methods.sendErr(res, Methods.prettyMongooseErr(err));

@@ -140,12 +140,11 @@ userRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
 
     if (req.body.name) user.name = req.body.name;
     if (req.body.email) user.email = req.body.email;
-    if (req.body.img){
-        req.body.img == 'empty' ? user.img = 'category_def.jpg' : user.img = req.body.img;
-        fileSystem.filesFromTempToFolder(req.user._id, 'users', req.body._id.toString());
-        let currentImages :string[] = [user.img || ''];
-        fileSystem.deleteImagesNotIncludedIn('users', req.body._id, currentImages);
-    }
+    user.img = req.body.img[0] || 'category_def.jpg';   
+
+    fileSystem.filesFromTempToFolder(req.user._id, 'users', req.body._id.toString());
+    let currentImages = [user.img || ''];
+    fileSystem.deleteImagesNotIncludedIn('users', req.body._id, currentImages);
 
     User.findByIdAndUpdate(user._id, user, { new: true }, (err, userDB) => {
         //TODO: Update password

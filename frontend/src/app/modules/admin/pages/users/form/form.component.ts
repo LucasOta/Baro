@@ -50,12 +50,13 @@ export class FormComponent implements OnInit {
 
     this.createForm = this.formBuilder.group({
       name: ['', Validators.required],
-      email: ['', Validators.required]
+      email: ['', Validators.required],
+      img: this.formBuilder.array([])
     });
     
     this.nameTextInputConfig.formControl = this.createForm.get('name') as FormControl;
     this.emailTextInputConfig.formControl = this.createForm.get('email') as FormControl;
-    this.imgPickerConfig.formArray = new FormArray([new FormControl(this.user.img)]);
+    this.imgPickerConfig.formArray = this.createForm.get('img') as FormArray;
 
     if (this.id) {
       this.title = 'Edit Discipline'
@@ -83,9 +84,8 @@ export class FormComponent implements OnInit {
     if (this.createForm.invalid) {
       return;
     }
-    
-    this.user.name = this.f.name.value;
-    this.user.email = this.f.email.value;
+
+    this.user = this.createForm.value;    
     
     if (! this.id) { 
       this.user.password = this.f.password.value;
