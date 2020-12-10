@@ -12,10 +12,12 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { WorkPreviewComponent } from './components/work-preview/work-preview.component';
 import { PipesModule } from "../../shared/pipes/pipes.module";
 import { WorkViewComponent } from './pages/work-view/work-view.component';
+import { BlockComponent } from './components/block/block.component';
+import { ItemComponent } from './components/block/item/item.component';
 
 
 @NgModule({
-  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent, WorkViewComponent],
+  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent, WorkViewComponent, BlockComponent, ItemComponent],
   imports: [
     CommonModule,
     WebsiteRoutingModule,
