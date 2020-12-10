@@ -3,13 +3,15 @@ import { Item } from 'src/app/shared/models/item';
 
 @Component({
   selector: 'app-text',
-  template: `
-    <h2>{{item.title[0].quote}}</h2>
-    <h4>{{item.subtitle[0].quote}}</h4>
-    <div class="row justify-content-between vertical-gap">
-        <div class="col-12">
-            <p>{{item.description[0].quote}}</p>
-        </div>
+  template: `  
+    <div class="container">
+      <h2>{{item.title[0].quote}}</h2>
+      <h4>{{item.subtitle[0].quote}}</h4>
+      <div class="row justify-content-between vertical-gap">
+          <div class="col-12">
+              <p>{{item.description[0].quote}}</p>
+          </div>
+      </div>
     </div>
   `
 })
