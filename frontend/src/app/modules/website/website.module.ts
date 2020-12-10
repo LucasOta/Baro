@@ -14,10 +14,17 @@ import { PipesModule } from "../../shared/pipes/pipes.module";
 import { WorkViewComponent } from './pages/work-view/work-view.component';
 import { BlockComponent } from './components/block/block.component';
 import { ItemComponent } from './components/block/item/item.component';
+import { TitleComponent } from './components/block/item/types/title.component';
+import { TextComponent } from './components/block/item/types/text.component';
+import { VideoComponent } from './components/block/item/types/video.component';
+import { ImageComponent } from './components/block/item/types/image.component';
+import { ImageGroupComponent } from './components/block/item/types/image-group.component';
+import { TestimonialComponent } from './components/block/item/types/testimonial.component';
+import { TextImageComponent } from './components/block/item/types/text-image.component';
 
 
 @NgModule({
-  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent, WorkViewComponent, BlockComponent, ItemComponent],
+  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent, WorkViewComponent, BlockComponent, ItemComponent, TitleComponent, TextComponent, VideoComponent, ImageComponent, ImageGroupComponent, TestimonialComponent, TextImageComponent],
   imports: [
     CommonModule,
     WebsiteRoutingModule,
