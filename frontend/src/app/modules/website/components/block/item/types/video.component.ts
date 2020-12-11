@@ -3,16 +3,31 @@ import { Item } from 'src/app/shared/models/item';
 
 @Component({
   selector: 'app-video',
-  template: `
-    <div class="row vertical-gap dk-gallery">
-      <div class="col-12">
-          <div class="dk-box-4">
-              <div class="dk-gallery-video text-center">
-                  <a [href]='item.video' class="dk-btn dk-btn-play mt-20 dk-gallery-video-item"></a>
-              </div>
-          </div>
+  styles:[
+    `
+    .video-cover {
+      position: relative;
+      padding-bottom: 56.25%;
+    }
+    
+    iframe{
+      border: none;
+      background: #232323;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    `
+  ],
+  template: `  
+    <div class="container">      
+      <div class="video-cover">        
+        <iframe [src]='item.video | safe' allowfullscreen="allowfullscreen"></iframe>
       </div>
     </div>
+
   `
 })
 export class VideoComponent implements OnInit {
