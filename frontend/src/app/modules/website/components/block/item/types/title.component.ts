@@ -3,8 +3,13 @@ import { Item } from 'src/app/shared/models/item';
 
 @Component({
   selector: 'app-title',
+  styles: [
+    'h1, h2, h3, h4, h5 {font-family: "Baro", sans-serif; font-weight: 600;}'
+  ],
   template: `
-  <h2>{{item.title[0].quote}}</h2>
+    <div class="container">
+      <h2>{{item.title[0].quote}}</h2>
+    </div>
   `
 })
 export class TitleComponent implements OnInit {
