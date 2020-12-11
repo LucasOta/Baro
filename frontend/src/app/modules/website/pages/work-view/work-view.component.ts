@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
 import { ProjectService } from 'src/app/core/http/project/project.service';
 import { Project } from 'src/app/shared/models/project';
+import { set as setModuleName } from "src/app/shared/actions/moduleName.actions";
+import { set as setElementId } from "src/app/shared/actions/elementId.actions";
 
 @Component({
   selector: 'app-work-view',
@@ -9,12 +13,18 @@ import { Project } from 'src/app/shared/models/project';
   styleUrls: ['./work-view.component.css']
 })
 export class WorkViewComponent implements OnInit {
+  moduleName = 'projects'; 
   id: any;
   project: Project;
   otherProjects: Project[];
 
-  constructor( private projectService: ProjectService, private route: ActivatedRoute ) {
+  constructor( 
+    private projectService: ProjectService, 
+    private route: ActivatedRoute,
+    private store: Store<AppState> ) {
     this.id= this.route.snapshot.paramMap.get("id");
+    this.store.dispatch(setModuleName({moduleName: this.moduleName}));
+    this.store.dispatch(setElementId({elementId: this.id}));
    }
 
   //  TODO: re-render on click on another project
