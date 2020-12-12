@@ -1,0 +1,54 @@
+.dk-box-fullscreen {
+    min-height: 60vh;
+}
+.bg-image-parallax {
+    background: url('src/assets/website/img/foto_about_1920.jpg');
+    background-color: #f04925;
+    background-size: contain;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+.question .container{
+    padding: 50px 0;
+    border-top: 2px solid #d0d0d0;
+}
+.answer p{
+    font-size: 1.5em;
+}
+.red_title h1{
+    color: #f04925;
+    font-size: 3em;
+}
+
+.testimonial{
+    margin-bottom: 3em;
+}
+
+.quote{
+    font-style: italic;
+}
+
+.client p{
+    font-size: 1em;
+    color: #bbbbbb;
+    font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+    .dk-box-fullscreen {
+        min-height: 55vh;
+    }
+}
+@media (max-width: 768px) {
+    .dk-box-fullscreen {
+        min-height: 35vh;
+        padding: 0;
+    }
+}
+@media (max-width: 480px) {
+    .dk-box-fullscreen {
+        min-height: 30vh;
+        padding: 0;
+    }
+}

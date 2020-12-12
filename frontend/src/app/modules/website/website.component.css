@@ -33,13 +33,25 @@
 body{
     font-family: 'Inter', sans-serif;
 }
+p a{
+    border-bottom: 2px solid #f04925;
+    padding-bottom: 3px;
+}
+p a:hover{
+    color: #f04925 !important;
+    text-decoration: none;
+    padding-bottom: 4px;
+}
 
 h1, h2, h3, h4, h5 {
-    font-family: 'BaroBlack', sans-serif;
-    font-weight: 900;
+    font-family: 'Baro', sans-serif;
+    font-weight: 600;
 }
 
 .lead{
     font-size: 1.7em;
     color: #000;
+}
+.black_font{
+    color: #202020;
 }
