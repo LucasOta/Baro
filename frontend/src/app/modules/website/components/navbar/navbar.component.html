@@ -38,13 +38,32 @@
             </ul>
             
         </div>
+        <div class="dk-navbar-burger" [ngClass]="{'dk-open-fullscreen': fullscreen}" (click)="toggleFullScreen()"><span></span><span></span><span></span></div>
     </div>
 </nav>
-<div class="dk-navbar dk-navbar-fullscreen">
+<div class="dk-navbar dk-navbar-fullscreen" [ngClass]="{'dk-open-fullscreen': fullscreen}">
     <div class="container">
         <div class="d-block"></div>
         <div class="dk-nav-content">
+            <ul class="dk-nav dk-nav-align-right" >
 
+                <li routerLinkActive="active" class="dk-drop-item">
+                    <a [routerLink]="'home'" (click)="turnOffFullScreen()">Home</a>                        
+                <li>
+                
+                <li routerLinkActive="active" class="dk-drop-item">
+                    <a [routerLink]="'work'" (click)="turnOffFullScreen()">Work</a>                        
+                <li>
+                
+                <li routerLinkActive="active" class="dk-drop-item">
+                    <a [routerLink]="'about'" (click)="turnOffFullScreen()">About</a>                        
+                <li>
+                
+                <li routerLinkActive="active" class="dk-drop-item">
+                    <a [routerLink]="'contact'" (click)="turnOffFullScreen()">Contact</a>                        
+                <li> 
+
+            </ul>
         </div>
         <ul class="dk-social-links text-center">
             <li><a href="#" class="dk-social-facebook"><span class="fab fa-facebook-f"></span></a></li>
@@ -54,6 +73,7 @@
             <li><a href="#" class="dk-social-pinterest"><span class="fab fa-pinterest"></span></a></li>
             <li><a href="#" class="dk-social-instagram"><span class="fab fa-instagram"></span></a></li>
         </ul>
+        <div class="dk-navbar-burger" [ngClass]="{'dk-open-fullscreen': fullscreen}" (click)="toggleFullScreen()"><span></span><span></span><span></span></div>
     </div>
 </div>
 <!-- END: Navbar -->

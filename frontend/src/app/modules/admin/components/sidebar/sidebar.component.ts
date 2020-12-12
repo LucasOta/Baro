@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AuthenticationService } from "../../../../core/authentication/authentication.service";
 import { User } from 'src/app/shared/models/user';
 
@@ -9,11 +9,16 @@ import { User } from 'src/app/shared/models/user';
 })
 export class SidebarComponent implements OnInit {
   currentUser: User = null;
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,private renderer: Renderer2) {
     this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit(): void {
   }
 
+  closeSideBar(){
+    this.renderer.removeClass(document.body, 'sidebar-open');
+    this.renderer.addClass(document.body, 'sidebar-closed');
+    this.renderer.addClass(document.body, 'sidebar-collapse');
+  }
 }
