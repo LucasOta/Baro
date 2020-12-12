@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-website',
@@ -32,7 +33,7 @@ export class WebsiteComponent implements OnInit {
     'vendor/lg-video/dist/lg-video.min.js',
     'vendor/swiper/dist/js/swiper.min.js',
     'js/mimilism.js',
-    'js/mimilism-init.js',
+    'js/mimilism-init.js'
   ]
   constructor(
     private renderer: Renderer2, 

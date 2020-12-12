@@ -645,6 +645,8 @@ function initNavbar() {
     if (!$navbar.length && !$navbarFullscreen.length) {
         console.error('Navbar was not found');
         return;
+    } else{
+        console.log('Navbar found')
     }
     $navbar.each(function () {
         var $this = (0, _utility.$)(this);
@@ -712,14 +714,15 @@ function initNavbar() {
             });
         }
 
-        (0, _utility.$)('<div class="dk-navbar-burger"><span></span><span></span><span></span></div>').appendTo($this.find('[class*="container"]').add($navbarFullscreen.find('[class*="container"]')));
+        // (0, _utility.$)('<div class="dk-navbar-burger"><span></span><span></span><span></span></div>').appendTo($this.find('[class*="container"]').add($navbarFullscreen.find('[class*="container"]')));
 
-        var $burger = $navbar.add($navbarFullscreen).find('.dk-navbar-burger');
-        $burger.on('click', function () {
-            $body.add($burger).add($navbarFullscreen).toggleClass('dk-open-fullscreen');
-            $dropItem.removeClass('drop');
-            $dropdown.removeClass('drop');
-        });
+        // var $burger = $navbar.add($navbarFullscreen).find('.dk-navbar-burger');
+        // $burger.on('click', function () {
+        //     console.log('Click!');
+        //     $body.add($burger).add($navbarFullscreen).toggleClass('dk-open-fullscreen');
+        //     $dropItem.removeClass('drop');
+        //     $dropdown.removeClass('drop');
+        // });
     });
 
     // Dropdown Position

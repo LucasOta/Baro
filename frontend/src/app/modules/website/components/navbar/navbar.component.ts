@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  fullscreen = false;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleFullScreen(){
+    this.fullscreen = !this.fullscreen;
+  }
+  turnOffFullScreen(){
+    this.fullscreen = false;
   }
 
 }
