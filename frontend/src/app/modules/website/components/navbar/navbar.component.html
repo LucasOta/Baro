@@ -38,6 +38,9 @@
             </ul>
             
         </div>
+
+        <app-language-selector [languageSelectorConfig]="languageSelectorConfig" class="only_desktop"></app-language-selector>
+
         <div class="dk-navbar-burger" [ngClass]="{'dk-open-fullscreen': fullscreen}" (click)="toggleFullScreen()"><span></span><span></span><span></span></div>
     </div>
 </nav>
@@ -47,22 +50,24 @@
         <div class="dk-nav-content">
             <ul class="dk-nav dk-nav-align-right" >
 
-                <li routerLinkActive="active" class="dk-drop-item">
+                <li routerLinkActive="active">
                     <a [routerLink]="'home'" (click)="turnOffFullScreen()">Home</a>                        
                 <li>
                 
-                <li routerLinkActive="active" class="dk-drop-item">
+                <li routerLinkActive="active">
                     <a [routerLink]="'work'" (click)="turnOffFullScreen()">Work</a>                        
                 <li>
                 
-                <li routerLinkActive="active" class="dk-drop-item">
+                <li routerLinkActive="active">
                     <a [routerLink]="'about'" (click)="turnOffFullScreen()">About</a>                        
                 <li>
                 
-                <li routerLinkActive="active" class="dk-drop-item">
+                <li routerLinkActive="active">
                     <a [routerLink]="'contact'" (click)="turnOffFullScreen()">Contact</a>                        
                 <li> 
-
+                <li>
+                    <app-language-selector [languageSelectorConfig]="languageSelectorConfig"></app-language-selector>
+                </li>
             </ul>
         </div>
         <ul class="dk-social-links text-center">
