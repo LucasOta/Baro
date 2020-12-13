@@ -22,12 +22,15 @@ import { ImageGroupComponent } from './components/block/item/types/image-group.c
 import { TestimonialComponent } from './components/block/item/types/testimonial.component';
 import { TextImageComponent } from './components/block/item/types/text-image.component';
 
+import { ComponentsModule } from "../../shared/components/components.module";
+
 
 @NgModule({
   declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent, WorkViewComponent, BlockComponent, ItemComponent, TitleComponent, TextComponent, VideoComponent, ImageComponent, ImageGroupComponent, TestimonialComponent, TextImageComponent],
   imports: [
     CommonModule,
     WebsiteRoutingModule,
+    ComponentsModule,
     PipesModule
   ]
 })

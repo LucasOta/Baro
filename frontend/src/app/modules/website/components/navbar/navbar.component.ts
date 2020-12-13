@@ -1,13 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit {  
+  languageSelectorConfig = new LanguageSelectorConfig();
   fullscreen = false;
-  constructor() { }
+  
+  constructor(private languageService: LanguageService) {
+    var scope = this;
+      this.languageSelectorConfig.form = false;
+      this.languageSelectorConfig.onChange = function(value){
+        scope.languageService.setLanguage(value);
+      };
+  }
 
   ngOnInit(): void {
   }
