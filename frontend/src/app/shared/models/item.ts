@@ -43,9 +43,9 @@ export function createItemForm(fa: FormArray, i: number, item?: Item){
         case ItemTypes.Text:
             fg = new FormGroup({
                 typeOfItem: new FormControl(i),
-                title: createTranslationForm(), 
-                subtitle: createTranslationForm(),
-                description: createTranslationForm()
+                title: createTranslationForm(false), 
+                subtitle: createTranslationForm(false),
+                description: createTranslationForm(false)
               });
             if (item){
                 fg.controls.title.setValue(item.title);            
@@ -109,9 +109,9 @@ export function createItemForm(fa: FormArray, i: number, item?: Item){
                 timestamp: new FormControl(timestamp),
                 typeOfItem: new FormControl(i),
                 img: new FormArray([]),
-                title: createTranslationForm(), 
-                subtitle: createTranslationForm(),
-                description: createTranslationForm(),
+                title: createTranslationForm(false), 
+                subtitle: createTranslationForm(false),
+                description: createTranslationForm(false),
               });
             if (item){
                 // todo: IMG
