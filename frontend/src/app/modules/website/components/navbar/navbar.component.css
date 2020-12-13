@@ -1,3 +1,14 @@
 .custom_logo{
     height: 1.8em;
 }
+
+.dk-navbar-fullscreen{
+    font-family: "Baro", sans-serif;
+    font-weight: 600 !important;
+}
+
+@media (max-width: 992px) {
+    .only_desktop{
+        display: none;
+    }
+}
