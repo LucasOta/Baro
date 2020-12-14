@@ -18,12 +18,12 @@ h1, .bold{
 }
 
 .project_header{
-    color: #131313;
+    color: var(--main-font-color);
     margin-bottom: 2em;
 }
 
 .desc{    
-    color: #131313;
+    color: var(--main-font-color);
     font-size: 1.4em;
     line-height: normal;
 }
