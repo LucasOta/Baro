@@ -21,3 +21,7 @@
 .project_clients {
     font-weight: 300 !important;
 }
+
+.dk-portfolio-item-style-2:hover .dk-portfolio-item-info .dk-portfolio-item-title {
+    color: var(--primary);
+}
