@@ -35,6 +35,7 @@
     --primary: #f04925;
     --main-font-color: #202020;
     --light-gray-font-color: #bbbbbb;
+    --white: #FFF;
 }
 
 body{
@@ -45,7 +46,7 @@ p a{
     padding-bottom: 3px;
 }
 p a:hover{
-    color: #f04925 !important;
+    color: var(--primary) !important;
     text-decoration: none;
     padding-bottom: 4px;
 }

@@ -18,20 +18,20 @@
             
             <ul class="dk-nav dk-nav-align-right">
                 
-                <li routerLinkActive="active" class="dk-drop-item">
-                    <a [routerLink]="'home'">Home</a>                        
+                <li class="dk-drop-item">
+                    <a [routerLink]="'home'" routerLinkActive="active">Home</a>                        
                 <li>
                 
-                <li routerLinkActive="active" class="dk-drop-item">
-                    <a [routerLink]="'work'">Work</a>                        
+                <li class="dk-drop-item">
+                    <a [routerLink]="'work'" routerLinkActive="active">Work</a>                        
                 <li>
                 
-                <li routerLinkActive="active" class="dk-drop-item">
-                    <a [routerLink]="'about'">About</a>                        
+                <li class="dk-drop-item">
+                    <a [routerLink]="'about'" routerLinkActive="active">About</a>                        
                 <li>
                 
-                <li routerLinkActive="active" class="dk-drop-item">
-                    <a [routerLink]="'contact'">Contact</a>                        
+                <li class="dk-drop-item">
+                    <a [routerLink]="'contact'" routerLinkActive="active">Contact</a>                        
                 <li>
 
         
@@ -48,22 +48,22 @@
     <div class="container">
         <div class="d-block"></div>
         <div class="dk-nav-content">
-            <ul class="dk-nav dk-nav-align-right" >
+            <ul class="dk-nav dk-nav-align-right fullscreen_list" >
 
-                <li routerLinkActive="active">
-                    <a [routerLink]="'home'" (click)="turnOffFullScreen()">Home</a>                        
+                <li>
+                    <a [routerLink]="'home'" (click)="turnOffFullScreen()" routerLinkActive="active">Home</a>                        
                 <li>
                 
-                <li routerLinkActive="active">
-                    <a [routerLink]="'work'" (click)="turnOffFullScreen()">Work</a>                        
+                <li>
+                    <a [routerLink]="'work'" (click)="turnOffFullScreen()" routerLinkActive="active">Work</a>                        
                 <li>
                 
-                <li routerLinkActive="active">
-                    <a [routerLink]="'about'" (click)="turnOffFullScreen()">About</a>                        
+                <li>
+                    <a [routerLink]="'about'" (click)="turnOffFullScreen()" routerLinkActive="active">About</a>                        
                 <li>
                 
-                <li routerLinkActive="active">
-                    <a [routerLink]="'contact'" (click)="turnOffFullScreen()">Contact</a>                        
+                <li>
+                    <a [routerLink]="'contact'" (click)="turnOffFullScreen()" routerLinkActive="active">Contact</a>                        
                 <li> 
                 <li>
                     <app-language-selector [languageSelectorConfig]="languageSelectorConfig"></app-language-selector>
