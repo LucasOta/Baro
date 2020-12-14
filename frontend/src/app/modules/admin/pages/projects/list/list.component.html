@@ -22,8 +22,8 @@
                 <tr *ngFor="let c of projects; trackBy: trackByFn" (click)='edit(c._id)' class="pointer">
                   <td>{{c.title[0].quote}}</td>
                   <td>{{c.description[0].quote}}</td>
-                  <td>{{c.created}}</td>
-                  <td>{{c.modified}}</td>
+                  <td>{{c.created | date:'d/M/yy, h:mm a'}}</td>
+                  <td>{{c.modified | date:'d/M/yy, h:mm a'}}</td>
                 </tr>
             </tbody>
           </table>
