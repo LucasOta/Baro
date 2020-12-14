@@ -17,8 +17,13 @@ h1, .bold{
     font-weight: 100;
 }
 
-.desc{
-    color: #000;
-    font-size: 2em;
+.project_header{
+    color: #131313;
+    margin-bottom: 2em;
+}
+
+.desc{    
+    color: #131313;
+    font-size: 1.4em;
     line-height: normal;
 }
