@@ -12,11 +12,13 @@ import { BlocksComponent } from './blocks/blocks.component';
 import { BlockComponent } from './blocks/block/block.component';
 import { ItemComponent } from './blocks/item/item.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TextAreaComponent } from './text-area/text-area.component';
+import { MultilanguageTextAreaComponent } from './multilanguage-text-area/multilanguage-text-area.component';
 
 
 
 @NgModule({
-  declarations: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent, BlocksComponent, BlockComponent, ItemComponent],
+  declarations: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent, BlocksComponent, BlockComponent, ItemComponent, TextAreaComponent, MultilanguageTextAreaComponent],
   exports: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent, BlocksComponent],
   imports: [
     CommonModule,
