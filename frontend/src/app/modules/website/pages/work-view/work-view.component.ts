@@ -22,12 +22,17 @@ export class WorkViewComponent implements OnInit {
     private projectService: ProjectService, 
     private route: ActivatedRoute,
     private store: Store<AppState> ) {
-    this.id= this.route.snapshot.paramMap.get("id");
+      
     this.store.dispatch(setModuleName({moduleName: this.moduleName}));
-    this.store.dispatch(setElementId({elementId: this.id}));
+
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      this.store.dispatch(setElementId({elementId: this.id}));
+      this.ngOnInit();
+    });
+
    }
 
-  //  TODO: re-render on click on another project
 
   ngOnInit(): void {
     this.projectService.get(false, this.id).subscribe((res)=>{
@@ -36,6 +41,7 @@ export class WorkViewComponent implements OnInit {
     this.projectService.get().subscribe((res)=>{
       this.otherProjects = res.projects;
     });
+    window.scroll(0,0);
   }
 
 }

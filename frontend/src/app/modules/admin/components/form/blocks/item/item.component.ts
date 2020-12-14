@@ -5,6 +5,7 @@ import { MultilanguageTextInputConfig } from '../../multilanguage-text-input/mul
 import { TextInputConfig } from '../../text-input/text-input.component';
 import { CheckboxConfig } from '../../checkbox/checkbox.component';
 import { ImgPickerConfig } from '../../image-picker/image-picker.component';
+import { MultilanguageTextAreaConfig } from '../../multilanguage-text-area/multilanguage-text-area.component';
 
 @Component({
   selector: 'app-item',
@@ -20,9 +21,9 @@ export class ItemComponent implements OnInit {
   // Elements
   titleMultilanguageInputConfig = new MultilanguageTextInputConfig();
   subtitleMultilanguageInputConfig = new MultilanguageTextInputConfig();
-  descMultilanguageInputConfig = new MultilanguageTextInputConfig();
+  descMultilanguageAreaConfig = new MultilanguageTextAreaConfig();
 
-  quoteMultilanguageInputConfig = new MultilanguageTextInputConfig();
+  quoteMultilanguageAreaConfig = new MultilanguageTextInputConfig();
   jobTitleMultilanguageInputConfig = new MultilanguageTextInputConfig();
   nameTextInputConfig = new TextInputConfig();
 
@@ -50,8 +51,8 @@ export class ItemComponent implements OnInit {
 
     }
     if (this.show(ItemElements.Description)){
-      this.descMultilanguageInputConfig.fieldName = 'Description';
-      this.descMultilanguageInputConfig.formArray = this.item.get('description') as FormArray;
+      this.descMultilanguageAreaConfig.fieldName = 'Description';
+      this.descMultilanguageAreaConfig.formArray = this.item.get('description') as FormArray;
     }
 
     if (this.show(ItemElements.Video)){
@@ -78,9 +79,9 @@ export class ItemComponent implements OnInit {
     }
 
     if (this.show(ItemElements.Testimonial)){
-      this.quoteMultilanguageInputConfig.fieldName = 'Quote';
-      this.quoteMultilanguageInputConfig.required = true;
-      this.quoteMultilanguageInputConfig.formArray = (this.item.get('testimonial') as FormGroup).controls.quote as FormArray; 
+      this.quoteMultilanguageAreaConfig.fieldName = 'Quote';
+      this.quoteMultilanguageAreaConfig.required = true;
+      this.quoteMultilanguageAreaConfig.formArray = (this.item.get('testimonial') as FormGroup).controls.quote as FormArray; 
 
       this.jobTitleMultilanguageInputConfig.fieldName = 'Job title';
       this.jobTitleMultilanguageInputConfig.required = true;
