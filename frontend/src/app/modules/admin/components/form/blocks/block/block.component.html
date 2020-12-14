@@ -1,4 +1,4 @@
-<div class="block">    
+<div class="block" [ngStyle]="{'color': fontColorTextInputConfig.formControl.value, 'background-color': bgColorTextInputConfig.formControl.value }">    
     <div class="row">
         <div class="col-6"> <app-text-input [textInputConfig]="bgColorTextInputConfig"></app-text-input> </div>
         <div class="col-6"> <app-text-input [textInputConfig]="fontColorTextInputConfig"></app-text-input> </div>
