@@ -13,7 +13,7 @@
         
         <!-- Description -->
         <div *ngIf="show(itemElements.Description)" class="col-12">            
-            <app-multilanguage-text-input [multilanguageTextInputConfig]="descMultilanguageInputConfig"></app-multilanguage-text-input>
+            <app-multilanguage-text-area [multilanguageTextAreaConfig]="descMultilanguageAreaConfig"></app-multilanguage-text-area>
         </div>
         
         <!-- Video -->
@@ -33,7 +33,7 @@
         
         <!-- Testimonial -->
         <div *ngIf="show(itemElements.Testimonial)" class="col-12 testimonial">
-            <app-multilanguage-text-input [multilanguageTextInputConfig]="quoteMultilanguageInputConfig"></app-multilanguage-text-input>
+            <app-multilanguage-text-area [multilanguageTextAreaConfig]="quoteMultilanguageAreaConfig"></app-multilanguage-text-area>
             <app-multilanguage-text-input [multilanguageTextInputConfig]="jobTitleMultilanguageInputConfig"></app-multilanguage-text-input>
             <app-text-input [textInputConfig]="nameTextInputConfig"></app-text-input>
         </div>
