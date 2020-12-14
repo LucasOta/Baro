@@ -30,15 +30,23 @@
 @import "../../../assets/website/font/InterWeb/inter.css";
 @import "../../../assets/website/font/BaroDisplay/baro.css";
 
+/* variables */
+:root {
+    --primary: #f04925;
+    --main-font-color: #202020;
+    --light-gray-font-color: #bbbbbb;
+    --white: #FFF;
+}
+
 body{
     font-family: 'Inter', sans-serif;
 }
 p a{
-    border-bottom: 2px solid #f04925;
+    border-bottom: 2px solid var(--primary);
     padding-bottom: 3px;
 }
 p a:hover{
-    color: #f04925 !important;
+    color: var(--primary) !important;
     text-decoration: none;
     padding-bottom: 4px;
 }
@@ -50,8 +58,8 @@ h1, h2, h3, h4, h5 {
 
 .lead{
     font-size: 1.7em;
-    color: #000;
+    color: var(--main-font-color);
 }
 .black_font{
-    color: #202020;
+    color: var(--main-font-color);
 }

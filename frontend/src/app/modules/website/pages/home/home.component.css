@@ -1,7 +1,3 @@
-.grey{
-    color: #AFAFAF;
-}
-
-a:hover {
-    color: hotpink;
+.gray{
+    color: var(--light-gray-font-color);
 }

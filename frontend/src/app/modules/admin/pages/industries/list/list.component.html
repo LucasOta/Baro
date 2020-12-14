@@ -20,8 +20,8 @@
           <tbody>
               <tr *ngFor="let c of industries; trackBy: trackByFn" (click)='edit(c._id)' class="pointer">
                 <td>{{c.name[0].quote}}</td>
-                <td>{{c.created}}</td>
-                <td>{{c.modified}}</td>
+                <td>{{c.created | date:'d/M/yy, h:mm a'}}</td>
+                <td>{{c.modified | date:'d/M/yy, h:mm a'}}</td>
               </tr>
           </tbody>
         </table>

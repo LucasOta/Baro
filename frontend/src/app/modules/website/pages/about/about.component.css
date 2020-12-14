@@ -3,7 +3,7 @@
 }
 .bg-image-parallax {
     background: url('src/assets/website/img/foto_about_1920.jpg');
-    background-color: #f04925;
+    background-color: var(--primary);
     background-size: contain;
     background-position: bottom;
     background-repeat: no-repeat;
@@ -17,7 +17,7 @@
     font-size: 1.5em;
 }
 .red_title h1{
-    color: #f04925;
+    color :var(--primary);
     font-size: 3em;
 }
 
@@ -31,7 +31,7 @@
 
 .client p{
     font-size: 1em;
-    color: #bbbbbb;
+    color: var(--light-gray-font-color);
     font-weight: 600;
 }
 

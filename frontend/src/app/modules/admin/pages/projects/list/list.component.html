@@ -12,18 +12,20 @@
           <table id="projects" class="table table-hover">
             <thead>
                 <tr>
+                  <th></th>
                   <th>{{ 'Title' | translate }}</th>
-                  <th>{{ 'Description' | translate }}</th>
                   <th>{{ 'Created' | translate }}</th>
                   <th>{{ 'Modified' | translate }}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let c of projects; trackBy: trackByFn" (click)='edit(c._id)' class="pointer">
+                  <td>
+                    <div class="div_img_circle img-circle elevation-2" [style]=" (c.thumbnail | image : moduleName : c._id ) | domSanitizer "></div>
+                  </td>
                   <td>{{c.title[0].quote}}</td>
-                  <td>{{c.description[0].quote}}</td>
-                  <td>{{c.created}}</td>
-                  <td>{{c.modified}}</td>
+                  <td>{{c.created | date:'d/M/yy, h:mm a'}}</td>
+                  <td>{{c.modified | date:'d/M/yy, h:mm a'}}</td>
                 </tr>
             </tbody>
           </table>

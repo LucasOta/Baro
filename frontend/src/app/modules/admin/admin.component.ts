@@ -7,7 +7,9 @@ import { DOCUMENT } from '@angular/common';
   template:
     `<app-navbar></app-navbar>
     <app-sidebar></app-sidebar>  
-    <router-outlet></router-outlet>  
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>  
     <app-footer></app-footer>`,
   encapsulation: ViewEncapsulation.None
 })

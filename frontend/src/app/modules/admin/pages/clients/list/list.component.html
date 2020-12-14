@@ -23,8 +23,8 @@
                   <td (click)='edit(c._id)'>{{c.name}}</td>
                   <td (click)='edit(c._id)' *ngIf="!c.website"><i>No website assigned</i></td>
                   <td *ngIf="c.website"><a href="http://{{c.website}}" target="_blank" rel="noopener noreferrer">{{c.website}}</a></td>
-                  <td (click)='edit(c._id)'>{{c.created}}</td>
-                  <td (click)='edit(c._id)'>{{c.modified}}</td>
+                  <td (click)='edit(c._id)'>{{c.created | date:'d/M/yy, h:mm a'}}</td>
+                  <td (click)='edit(c._id)'>{{c.modified | date:'d/M/yy, h:mm a'}}</td>
                 </tr>
             </tbody>
           </table>
