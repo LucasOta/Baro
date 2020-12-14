@@ -13,6 +13,7 @@ import { Project } from 'src/app/shared/models/project';
 import { LanguageSelectorConfig } from 'src/app/shared/components/language-selector/language-selector.component';
 import { CardFooterConfig } from '../../../components/cards/card-footer/card-footer.component';
 import { MultilanguageTextInputConfig } from '../../../components/form/multilanguage-text-input/multilanguage-text-input.component';
+import { MultilanguageTextAreaConfig } from '../../../components/form/multilanguage-text-area/multilanguage-text-area.component';
 import { createTranslationForm } from 'src/app/shared/models/translation';
 import { DropDownListInputConfig } from '../../../components/form/drop-down-list/drop-down-list.component';
 import { CheckboxConfig } from '../../../components/form/checkbox/checkbox.component';
@@ -41,7 +42,7 @@ export class FormComponent implements OnInit {
   id: any;
 
   titleMultilanguageInputConfig = new MultilanguageTextInputConfig();
-  descMultilanguageInputConfig = new MultilanguageTextInputConfig();
+  descMultilanguageAreaConfig = new MultilanguageTextAreaConfig();
   languageSelectorConfig = new LanguageSelectorConfig();
 
   playgroundCheckboxConfig = new CheckboxConfig();
@@ -93,7 +94,7 @@ export class FormComponent implements OnInit {
     this.disciplinesDropDownListInputConfig.formControl = this.createForm.get('disciplines') as FormControl;
     
     this.titleMultilanguageInputConfig.formArray = this.createForm.get('title') as FormArray;
-    this.descMultilanguageInputConfig.formArray = this.createForm.get('description') as FormArray;
+    this.descMultilanguageAreaConfig.formArray = this.createForm.get('description') as FormArray;
     
     this.coverImgPickerConfig.formArray = this.createForm.get('coverImg') as FormArray;
     this.thumbImgPickerConfig.formArray = this.createForm.get('thumbnail') as FormArray;
@@ -196,8 +197,8 @@ export class FormComponent implements OnInit {
     this.titleMultilanguageInputConfig.fieldName = 'Title';
     this.titleMultilanguageInputConfig.required = true;
     
-    this.descMultilanguageInputConfig.fieldName = 'Description';
-    this.descMultilanguageInputConfig.required = true;
+    this.descMultilanguageAreaConfig.fieldName = 'Description';
+    this.descMultilanguageAreaConfig.required = true;
     
 
     this.playgroundCheckboxConfig.fieldName = 'Playground';

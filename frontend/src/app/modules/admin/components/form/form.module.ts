@@ -19,7 +19,7 @@ import { MultilanguageTextAreaComponent } from './multilanguage-text-area/multil
 
 @NgModule({
   declarations: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent, BlocksComponent, BlockComponent, ItemComponent, TextAreaComponent, MultilanguageTextAreaComponent],
-  exports: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent, BlocksComponent],
+  exports: [ImagePickerComponent, TextInputComponent, MultilanguageTextInputComponent, CheckboxComponent, DropDownListComponent, BlocksComponent, TextAreaComponent, MultilanguageTextAreaComponent],
   imports: [
     CommonModule,
     PipesModule,
