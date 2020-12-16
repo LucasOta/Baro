@@ -39,7 +39,10 @@ export class WorkViewComponent implements OnInit {
       this.project = res.projects;
     });
     this.projectService.getAllWebsite(false, true).subscribe((res)=>{
-      this.otherProjects = res.projects;
+      this.otherProjects = res.projects.filter(p => p._id != this.id);
+      //Shuffle array and keep only 3 elements, this should be donde by the Backend
+      this.otherProjects.sort(() => Math.random() - 0.5);
+      this.otherProjects = this.otherProjects.slice(0,2);
     });
     window.scroll(0,0);
   }
