@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService, InterceptorSkipHeader } from '../api.service';
 
 import { Project } from "../../../shared/models/project";
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,16 @@ export class ProjectService {
   ROUTE = 'project';
   constructor(private api: ApiService) { }
 
-  get(avoidLangIntercep = false, id?: string) {
+  get(avoidLangIntercep = false, id?: string, onlyFeatured?: boolean, bringPlayground?: boolean) {
     var headers;
     avoidLangIntercep ? headers = InterceptorSkipHeader : headers = {};
     if (id) {
       return this.api.http.get<any>(`${this.api.URL}/${this.ROUTE}/${id}`, {headers});
     }
+    return this.api.http.get<any>(`${this.api.URL}/${this.ROUTE}`, {headers});
+  }
+  getAllWebsite(onlyFeatured = false, noPlayground = false) {
+    let headers = new HttpHeaders().set("onlyFeatured",onlyFeatured.toString()).set("noPlayground", noPlayground.toString());
     return this.api.http.get<any>(`${this.api.URL}/${this.ROUTE}`, {headers});
   }
   

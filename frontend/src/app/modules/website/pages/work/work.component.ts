@@ -24,7 +24,7 @@ export class WorkComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.projectService.get().subscribe((res)=>{
+    this.projectService.getAllWebsite(false, true).subscribe((res)=>{
       this.projects = res.projects;
     });
 

@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private projectService: ProjectService) { }
   ngOnInit(): void {
-    this.projectService.get().subscribe((res)=>{
+    this.projectService.getAllWebsite(true).subscribe((res)=>{
       this.projects = res.projects;
     });
   }

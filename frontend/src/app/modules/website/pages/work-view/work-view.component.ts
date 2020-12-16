@@ -38,7 +38,7 @@ export class WorkViewComponent implements OnInit {
     this.projectService.get(false, this.id).subscribe((res)=>{
       this.project = res.projects;
     });
-    this.projectService.get().subscribe((res)=>{
+    this.projectService.getAllWebsite(false, true).subscribe((res)=>{
       this.otherProjects = res.projects;
     });
     window.scroll(0,0);

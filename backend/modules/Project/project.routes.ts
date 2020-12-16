@@ -180,6 +180,8 @@ projectRoutes.get ('/:projectid', async (req: any, res: Response) => {
 // Get All Projects
 projectRoutes.get('/', async (req: any, res: Response) => {
     const lang = req.get('Accept-Language');
+    const onlyFeatured = req.get('onlyFeatured') == 'true';
+    const noPlayground = req.get('noPlayground') == 'true';    
 
     let projects = await Project
         .find()
@@ -192,6 +194,13 @@ projectRoutes.get('/', async (req: any, res: Response) => {
         .catch(err => Methods.sendErr(res, err) );
     
     if (!projects) return res.json({ok:true, desc: 'No project found'});
+
+    if (onlyFeatured) projects = projects.filter(p => p.featured);
+    if (noPlayground) projects = projects.filter(p => !p.playground);
+
+    console.log('onlyFeatured', onlyFeatured);
+    console.log('bringPlayground', noPlayground);
+    // console.log('projects', projects);
 
     if (lang != '' && projects) {
         // @ts-ignore
