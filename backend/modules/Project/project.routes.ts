@@ -149,8 +149,29 @@ projectRoutes.get ('/:projectid', async (req: any, res: Response) => {
             e.name =  Methods.filterByLanguage(e.name, lang);
         });
         
-        // Filter Blocks content 
-        // project.blocks;
+        projects.blocks.forEach( block => {
+            block.items.forEach(item => {
+                if (item.title) {
+                    // @ts-ignore                    
+                    item.title =  Methods.filterByLanguage(item.title, lang);
+                }
+                if (item.subtitle) {
+                    // @ts-ignore                    
+                    item.subtitle =  Methods.filterByLanguage(item.subtitle, lang);
+                }
+                if (item.description) {
+                    // @ts-ignore                    
+                    item.description =  Methods.filterByLanguage(item.description, lang);
+                }
+                if (item.testimonial) {
+                    // @ts-ignore                    
+                    item.testimonial.quote =  Methods.filterByLanguage(item.testimonial.quote, lang);
+                    // @ts-ignore                    
+                    item.testimonial.jobTitle =  Methods.filterByLanguage(item.testimonial.jobTitle, lang);
+                }
+                
+            });
+        });
     }
 
     return res.json({ ok: true, projects });

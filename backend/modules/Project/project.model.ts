@@ -183,6 +183,7 @@ export interface IItem {
     order: number,
     typeOfItem: number,
     title?: Translation[],
+    subtitle?: Translation[],
     description?: Translation[],
     video?: string,
     img?: string[],
