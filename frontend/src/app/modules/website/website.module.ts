@@ -23,6 +23,7 @@ import { TestimonialComponent } from './components/block/item/types/testimonial.
 import { TextImageComponent } from './components/block/item/types/text-image.component';
 
 import { ComponentsModule } from "../../shared/components/components.module";
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ComponentsModule } from "../../shared/components/components.module";
     CommonModule,
     WebsiteRoutingModule,
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    SharedModule
   ]
 })
 export class WebsiteModule { }

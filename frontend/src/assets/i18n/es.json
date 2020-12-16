@@ -22,5 +22,12 @@
     "Created": "Creado",
     "Modified": "Modificado",
 
-    "Logout": "Cerrar Sesión"
+    "Logout": "Cerrar Sesión",
+
+    "Home": "Inicio",
+    "Work": "Trabajos",
+    "About": "Nosotros",
+    "Contact": "Contacto",
+
+    "Services": "Servicios"
 }
