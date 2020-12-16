@@ -2,10 +2,18 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-industries',
-  templateUrl: './industries.component.html',
-  styleUrls: ['./industries.component.css']
+  template:
+  `
+    <div class="content-wrapper">
+      <app-content-header [title]="title"></app-content-header>
+      <section class="content">
+          <router-outlet></router-outlet>
+      </section>
+    </div>
+  `
 })
 export class IndustriesComponent implements OnInit {
+  title = 'Industries';
 
   constructor() { }
 

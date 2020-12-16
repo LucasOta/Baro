@@ -6,10 +6,8 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./admin.component.css'],
   template:
     `<app-navbar></app-navbar>
-    <app-sidebar></app-sidebar>  
-    <div class="content-wrapper">
-      <router-outlet></router-outlet>
-    </div>  
+    <app-sidebar></app-sidebar>
+    <router-outlet></router-outlet>
     <app-footer></app-footer>`,
   encapsulation: ViewEncapsulation.None
 })
