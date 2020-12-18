@@ -454,8 +454,7 @@ var MIMILISM = function () {
         key: 'init',
         value: function init() {
             // prt:sc:dm
-            // TODO: see how this can be improved
-            setTimeout(() => {
+            
                 this.initNavbar();
                 this.initCount();
                 this.initBtnLoad();
@@ -470,7 +469,6 @@ var MIMILISM = function () {
                 this.initPluginOFI();
                 this.initPluginLightGallery();
                 this.initPluginJqueryform();
-            }, 500);
 
             return this;
         }

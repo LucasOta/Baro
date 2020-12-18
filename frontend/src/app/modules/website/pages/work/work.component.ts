@@ -26,16 +26,45 @@ export class WorkComponent implements OnInit {
     
     this.projectService.getAllWebsite(false, true).subscribe((res)=>{
       this.projects = res.projects;
+      this.initIsotope();
     });
 
     this.disciplineService.get().subscribe((res)=>{
       this.disciplines = res.disciplines;
+      this.initIsotope();
     });
 
     this.industryService.get().subscribe((res)=>{
       this.industries = res.industries;
+      this.initIsotope();
     });
 
+  }
+
+  initIsotope() {
+    if (
+      this.projects.length    > 0 && 
+      this.disciplines.length > 0 && 
+      this.industries.length  > 0) {
+      // @ts-ignore
+      window.Mimilism.initPluginIsotope();   
+    }
+  }
+
+  noSpaces(str: string){
+    return str.replace(/\s/g, '');
+  }
+
+  getClasses(p:Project){
+    let classes = '';
+    p.disciplines.forEach(d => {
+      classes += ` ${this.noSpaces(d.name[0].quote)}`
+    });
+    p.industries.forEach(i => {
+      classes += ` ${this.noSpaces(i.name[0].quote)}`
+    });
+
+    return classes;
   }
 
 }

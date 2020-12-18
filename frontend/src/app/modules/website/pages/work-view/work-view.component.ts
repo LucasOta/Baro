@@ -42,7 +42,7 @@ export class WorkViewComponent implements OnInit {
       this.otherProjects = res.projects.filter(p => p._id != this.id);
       //Shuffle array and keep only 3 elements, this should be donde by the Backend
       this.otherProjects.sort(() => Math.random() - 0.5);
-      this.otherProjects = this.otherProjects.slice(0,2);
+      this.otherProjects = this.otherProjects.slice(0,3);
     });
     window.scroll(0,0);
   }

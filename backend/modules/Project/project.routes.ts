@@ -198,9 +198,6 @@ projectRoutes.get('/', async (req: any, res: Response) => {
     if (onlyFeatured) projects = projects.filter(p => p.featured);
     if (noPlayground) projects = projects.filter(p => !p.playground);
 
-    console.log('onlyFeatured', onlyFeatured);
-    console.log('bringPlayground', noPlayground);
-    // console.log('projects', projects);
 
     if (lang != '' && projects) {
         // @ts-ignore

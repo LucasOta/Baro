@@ -3,10 +3,7 @@
         <div class="container">
             <ul class="dk-isotope-filter text-center">
                 <li class="active" data-filter="*">All</li>
-                <li data-filter=".branding">Branding</li>
-                <li data-filter=".design">Design</li>
-                <li data-filter=".mockups">Mockups</li>
-                <li data-filter=".photography">Photography</li>
+                <li [attr.data-filter]="'.' + noSpaces(d.name[0].quote)" *ngFor="let d of disciplines">{{d.name[0].quote}}</li>
             </ul>
         </div>
     </div>
@@ -15,7 +12,7 @@
         <div class="container">
             <div class="row vertical-gap dk-isotope-grid">
                 
-                <div class="col-12 col-md-6 dk-isotope-grid-item mockups" *ngFor="let p of projects">
+                <div class="col-12 col-md-6 dk-isotope-grid-item" [ngClass]="getClasses(p)" *ngFor="let p of projects">
                     <app-work-preview [project]="p"></app-work-preview>
                 </div>
 

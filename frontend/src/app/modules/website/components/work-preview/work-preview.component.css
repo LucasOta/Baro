@@ -22,6 +22,10 @@
     font-weight: 300 !important;
 }
 
+.dk-portfolio-item-image-size{
+    padding-top: 0 !important;
+}
+
 .dk-portfolio-item-style-2:hover .dk-portfolio-item-info .dk-portfolio-item-title {
     color: var(--primary);
 }
