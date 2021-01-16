@@ -49,7 +49,7 @@ export default class FileSystem {
     deleteImage(moduleName: string, elementID: string, img: string) {
         const pathFile = path.resolve(__dirname, '../uploads', moduleName, elementID, img);
 
-        return new Promise((resolve, reject, ) => {
+        return new Promise<void>((resolve, reject, ) => {
 
             try {
                 fs.unlinkSync(pathFile);
