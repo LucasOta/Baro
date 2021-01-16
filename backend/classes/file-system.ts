@@ -30,7 +30,7 @@ export default class FileSystem {
     }    
 
     deleteTempImage(userId: string, fileName: string) {
-        return new Promise((resolve, reject, ) => {
+        return new Promise<void>((resolve, reject, ) => {
 
             const path = this.createUserFolder(userId) ;
 
