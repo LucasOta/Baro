@@ -43,8 +43,13 @@ server.app.use('/file', fileRoutes);
 
 // Conectar DB
 mongoose.set('useFindAndModify', false);
-mongoose.connect('mongodb://localhost/barobranding',
-    // mongoose.connect('mongodb+srv://admin:admin@comments-y6qqv.mongodb.net/test?retryWrites=true&w=majority',
+
+// Local
+// mongoose.connect('mongodb://localhost/barobranding',
+
+// Server
+mongoose.connect('mongodb://127.0.0.1:27017',
+
     { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, (err) => {
 
         if (err) throw err;
