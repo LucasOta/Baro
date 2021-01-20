@@ -11,16 +11,14 @@ export class NavbarComponent implements OnInit {
   languageSelectorConfig = new LanguageSelectorConfig();
   fullscreen = false;
   
-  constructor(private languageService: LanguageService) {
-    var scope = this;
-      this.languageSelectorConfig.form = false;
-      this.languageSelectorConfig.onChange = function(value){
-        scope.languageService.setLanguage(value);
-      };
-  }
+  constructor(private languageService: LanguageService) {}
 
   ngOnInit(): void {
   }
+
+  onLanguageChange(value){
+    this.languageService.setLanguage(value);
+  };
 
   toggleFullScreen(){
     this.fullscreen = !this.fullscreen;

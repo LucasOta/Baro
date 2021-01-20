@@ -36,6 +36,10 @@
     --main-font-color: #202020;
     --light-gray-font-color: #bbbbbb;
     --white: #FFF;
+
+    --font-black: #000000;
+    --font-gray: #afafaf;
+    --font-light-gray: #dcdcdc;
 }
 
 body{

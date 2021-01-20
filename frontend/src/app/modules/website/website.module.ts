@@ -24,10 +24,11 @@ import { TextImageComponent } from './components/block/item/types/text-image.com
 
 import { ComponentsModule } from "../../shared/components/components.module";
 import { SharedModule } from 'src/app/shared/shared.module';
+import { WebsiteLanguageSelectorComponent } from './components/website-language-selector/website-language-selector.component';
 
 
 @NgModule({
-  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent, WorkViewComponent, BlockComponent, ItemComponent, TitleComponent, TextComponent, VideoComponent, ImageComponent, ImageGroupComponent, TestimonialComponent, TextImageComponent],
+  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent, WorkViewComponent, BlockComponent, ItemComponent, TitleComponent, TextComponent, VideoComponent, ImageComponent, ImageGroupComponent, TestimonialComponent, TextImageComponent, WebsiteLanguageSelectorComponent],
   imports: [
     CommonModule,
     WebsiteRoutingModule,
