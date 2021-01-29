@@ -1,7 +1,6 @@
 import FilterizrOptions from './FilterizrOptions/FilterizrOptions';
 import FilterContainer from './FilterContainer';
 import FilterItem from './FilterItem';
-import { Filter } from './Types';
 import { RawOptions } from './types/interfaces/index';
 export default class Filterizr {
     /**
@@ -26,7 +25,7 @@ export default class Filterizr {
      * Filters the items in the grid by a category
      * @param category by which to filter
      */
-    filter(category: Filter): void;
+    filter(category): void;
     destroy(): void;
     /**
      * Inserts a new FilterItem in the Filterizr grid

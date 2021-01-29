@@ -1,4 +1,3 @@
-import { Filter } from './Types';
 import FilterItem from './FilterItem';
 import FilterizrOptions from './FilterizrOptions/FilterizrOptions';
 export default class FilterItems {
@@ -13,8 +12,8 @@ export default class FilterItems {
     updateTransitionStyle(): void;
     updateDimensions(): void;
     push(filterItem: FilterItem): number;
-    getFiltered(filter: Filter): FilterItem[];
-    getFilteredOut(filter: Filter): FilterItem[];
+    getFiltered(filter): FilterItem[];
+    getFilteredOut(filter): FilterItem[];
     getSorted(sortAttr?: string, sortOrder?: 'asc' | 'desc'): FilterItem[];
     getSearched(searchTerm: string): FilterItem[];
     getShuffled(): FilterItem[];
