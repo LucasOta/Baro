@@ -2,36 +2,42 @@
     <div class="container">
         <div class="row vertical-gap justify-content-between">
             <div class="col-lg-5">
-                <p class="lead">Get in touch for a project, inquire about job opportunities, or simply say hello :)</p>
+                <p class="lead">{{'Get in touch for a project, inquire about job opportunities, or simply say hello :)' | translate}}</p>
                 <ul class="dk-list mb-30">
                     <li><strong>Email:</strong> <a href="#">hello@barobranding.com</a></li>
-                    <li><strong>Phone:</strong> <a href="#">(+54) 3492-672555</a></li>
-                    <li><strong>Address:</strong> J.P. López, Rafaela</li>
+                    <li><strong>{{'Phone' | translate}}:</strong> <a href="#">(+54) 3492-672555</a></li>
+                    <li><strong>{{'Address' | translate}}:</strong> J.P. López, Rafaela</li>
                 </ul>
             </div>
             <div class="col-lg-6">
                 <form action="php/contact.php" class="dk-form" method="post">
                     <div class="row vertical-gap">
                         <div class="col-md-6">
-                            <input class="form-control" type="text" name="firstName" value="" placeholder="First Name *" required>
+                            <input class="form-control" type="text" name="name" value="" [placeholder]="'Name *' | translate" required>
                         </div>
                         <div class="col-md-6">
-                            <input class="form-control" type="text" name="lastName" value="" placeholder="Last Name *" required>
+                            <input class="form-control" type="text" name="company" value="" [placeholder]="'Company' | translate">
                         </div>
                         <div class="col-md-12">
-                            <input type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Email *">
+                            <input type="email" name="email" class="form-control" aria-describedby="emailHelp" [placeholder]="'Email *' | translate">
                         </div>
                         <div class="col-md-12">
-                            <input type="tel" name="phone" class="form-control" aria-describedby="telHelp" placeholder="Phone">
+                            <input type="tel" name="phone" class="form-control" aria-describedby="telHelp" [placeholder]="'Phone' | translate">
+                        </div>
+                        <div class="col-md-12">
+                            <input class="form-control" type="text" name="country" value="" [placeholder]="'Country' | translate">
                         </div>
                         <div class="col-12">
-                            <textarea class="form-control" name="message" rows="8" cols="80" placeholder="Message *"></textarea>
+                            <textarea class="form-control" name="message" rows="8" cols="80" [placeholder]="'Message *' | translate" required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <input type="checkbox" name="subscribe" id=""> {{'Subscribe to our newsletter' | translate}}
                         </div>
                         <div class="col-12">
                             <div class="dk-result"></div>
                         </div>
                     </div>
-                    <button class="dk-btn dk-btn-md" type="submit" name="sumbit">Submit</button>
+                    <button class="dk-btn dk-btn-md" type="submit" name="sumbit">{{'Submit' | translate}}</button>
                 </form>
             </div>
         </div>

@@ -49,14 +49,14 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-7">
-                            <p class="lead mb-2">Like what you see? <a [routerLink]="'../../contact'">Let's talk</a></p>
+                            <p class="lead mb-2">{{'Like what you see?' | translate}} <a [routerLink]="'../../contact'">Let's talk</a></p>
                             
                         </div>
                     </div>
 
                     <div class="row vertical-gap dk-isotope-grid text-center" style="margin-top: 2em;">
                         <div class="col-12">
-                            <span class="lead">Other Projects</span>
+                            <span class="lead">{{'Other Projects' | translate}}</span>
                         </div>
                         <div class="col-12 col-md-4 dk-isotope-grid-item mockups" *ngFor="let p of otherProjects">
                             <app-work-preview [project]="p"></app-work-preview>
