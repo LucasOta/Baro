@@ -11,10 +11,21 @@ import { Industry } from 'src/app/shared/models/industry';
   templateUrl: './work.component.html',
   styleUrls: ['./work.component.css']
 })
+
 export class WorkComponent implements OnInit {
   projects: Project[] = [];
   disciplines: Discipline[] = [];
   industries: Industry[] = [];
+  filters = {
+    discipline: {
+      value: '',
+      filters: []
+    },
+    industry: {
+      value: '',
+      filters: []
+    }
+  };
 
   constructor(
     private projectService: ProjectService,
@@ -23,48 +34,62 @@ export class WorkComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    
+
     this.projectService.getAllWebsite(false, true).subscribe((res)=>{
       this.projects = res.projects;
-      this.initIsotope();
+      this.projects.forEach(p => p._show = true);
     });
 
     this.disciplineService.get().subscribe((res)=>{
       this.disciplines = res.disciplines;
-      this.initIsotope();
     });
 
     this.industryService.get().subscribe((res)=>{
       this.industries = res.industries;
-      this.initIsotope();
     });
 
   }
 
-  initIsotope() {
-    if (
-      this.projects.length    > 0 && 
-      this.disciplines.length > 0 && 
-      this.industries.length  > 0) {
-      // @ts-ignore
-      window.Mimilism.initPluginIsotope();   
+  refreshShow(){
+    for (let i = 0; i < this.projects.length; i++) {
+      let filterByDisc = this.filters.discipline.value != '';
+      let filterByInd = this.filters.industry.value != '';
+      let hasDisc;
+      let hasInd;        
+      
+      filterByDisc ? hasDisc = this.hasSelectedDisc(this.projects[i]) : hasDisc = true;
+      filterByInd ? hasInd = this.hasSelectedInd(this.projects[i]) : hasInd = true;
+
+      this.projects[i]._show = hasDisc && hasInd;
     }
   }
 
-  noSpaces(str: string){
-    return str.replace(/\s/g, '');
+  private hasSelectedDisc(p:Project){
+    let has = false;
+    p.disciplines.forEach(d => {
+      if (!has) has = d.name[0].quote === this.filters.discipline.value;      
+      if (has) return true;
+    });
+    return has;
   }
 
-  getClasses(p:Project){
-    let classes = '';
-    p.disciplines.forEach(d => {
-      classes += ` ${this.noSpaces(d.name[0].quote)}`
+  private hasSelectedInd(p:Project){
+    let has = false;
+    p.industries.forEach(d => {
+      if (!has) has = d.name[0].quote === this.filters.industry.value;      
+      if (has) return true;
     });
-    p.industries.forEach(i => {
-      classes += ` ${this.noSpaces(i.name[0].quote)}`
-    });
+    return has;
+  }
 
-    return classes;
+  selectDiscFilter(p: any){
+    this.filters.discipline.value = p.value;
+    this.refreshShow();
+  }
+  
+  selectIndFilter(p: any){
+    this.filters.industry.value = p.value;
+    this.refreshShow();
   }
 
 }

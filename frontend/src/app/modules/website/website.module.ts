@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatSelectModule} from '@angular/material/select';
 
 import { WebsiteRoutingModule } from './website-routing.module';
 import { WebsiteComponent } from './website.component';
@@ -28,13 +29,33 @@ import { WebsiteLanguageSelectorComponent } from './components/website-language-
 
 
 @NgModule({
-  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent, WorkViewComponent, BlockComponent, ItemComponent, TitleComponent, TextComponent, VideoComponent, ImageComponent, ImageGroupComponent, TestimonialComponent, TextImageComponent, WebsiteLanguageSelectorComponent],
+  declarations: [
+    WebsiteComponent, 
+    HomeComponent, 
+    FooterComponent, 
+    NavbarComponent, 
+    WorkComponent, 
+    AboutComponent, 
+    ContactComponent, 
+    WorkPreviewComponent, 
+    WorkViewComponent, 
+    BlockComponent, 
+    ItemComponent, 
+    TitleComponent, 
+    TextComponent, 
+    VideoComponent, 
+    ImageComponent, 
+    ImageGroupComponent, 
+    TestimonialComponent, 
+    TextImageComponent, 
+    WebsiteLanguageSelectorComponent],
   imports: [
     CommonModule,
     WebsiteRoutingModule,
     ComponentsModule,
     PipesModule,
-    SharedModule
+    SharedModule,
+    MatSelectModule
   ]
 })
 export class WebsiteModule { }
