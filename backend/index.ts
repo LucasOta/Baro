@@ -4,24 +4,24 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload';
 
-import userRoutes from './modules/User/user.routes';
-import postRoutes from './modules/Post/post.routes';
 import categoryRoutes from './modules/Category/category.routes';
-import industryRoutes from './modules/Industry/industry.routes';
-import disciplineRoutes from './modules/Discipline/discipline.routes';
 import clientRoutes from './modules/Client/client.routes';
-import projectRoutes from './modules/Project/project.routes';
+import contactRoutes from './modules/Contact/contact.routes';
+import disciplineRoutes from './modules/Discipline/discipline.routes';
 import fileRoutes from './modules/File/file.routes';
+import industryRoutes from './modules/Industry/industry.routes';
+import postRoutes from './modules/Post/post.routes';
+import projectRoutes from './modules/Project/project.routes';
+import userRoutes from './modules/User/user.routes';
 
 import cors from 'cors';
 
-const server = new Server();
 
+const server = new Server();
 
 // Body parser
 server.app.use(bodyParser.urlencoded({ extended: true }));
 server.app.use(bodyParser.json());
-
 
 // FileUpload
 server.app.use(fileUpload({ useTempFiles: true }));
@@ -29,26 +29,25 @@ server.app.use(fileUpload({ useTempFiles: true }));
 // CORS
 server.app.use(cors({ origin: true, credentials: true }));
 
-
-// Rutas de mi app
-server.app.use('/user', userRoutes);
-server.app.use('/posts', postRoutes);
+// Endpoints
 server.app.use('/category', categoryRoutes);
-server.app.use('/industry', industryRoutes);
-server.app.use('/discipline', disciplineRoutes);
 server.app.use('/client', clientRoutes);
-server.app.use('/project', projectRoutes);
+server.app.use('/contact', contactRoutes);
+server.app.use('/discipline', disciplineRoutes);
 server.app.use('/file', fileRoutes);
+server.app.use('/industry', industryRoutes);
+server.app.use('/posts', postRoutes);
+server.app.use('/project', projectRoutes);
+server.app.use('/user', userRoutes);
 
-
-// Conectar DB
+// Connect DB
 mongoose.set('useFindAndModify', false);
 
 // Local
-// mongoose.connect('mongodb://localhost/barobranding',
+mongoose.connect('mongodb://localhost/barobranding',
 
 // Server
-mongoose.connect('mongodb://127.0.0.1:27017',
+// mongoose.connect('mongodb://127.0.0.1:27017',
 
     { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, (err) => {
 
@@ -57,7 +56,7 @@ mongoose.connect('mongodb://127.0.0.1:27017',
         console.log('MongoDB On-Line');
     })
 
-// Levantar express
+// Run Express
 server.start(() => {
     console.log(`Server running on port ${server.port}`);
 });
