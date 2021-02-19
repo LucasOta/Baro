@@ -20,6 +20,7 @@ import { ClientsComponent } from './pages/clients/clients.component';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { ContentHeaderComponent } from './components/content-header/content-header.component';
+import { ContactsComponent } from './pages/contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ContentHeaderComponent } from './components/content-header/content-head
     IndustriesComponent,
     DisciplinesComponent,
     ClientsComponent,
+    ContactsComponent,
     ProjectsComponent,
     ContentHeaderComponent
   ],
