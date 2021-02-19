@@ -6,6 +6,15 @@ input{
     border: none !important;
     border-bottom: 1px solid var(--primary) !important;
 }
+
+input:invalid:required, textarea:invalid:required {
+    background-color:#ff461e0f; 
+}
+
+.no-invalid{
+    background-color: var(--white) !important;
+}
+
 textarea{
     border: 1px solid var(--primary) !important;
 }
