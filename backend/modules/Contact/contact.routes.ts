@@ -19,7 +19,7 @@ contactRoutes.post('/create', (req: Request, res: Response) => {
     Contact
         .create(contact)
         .then(contactDB => {
-            res.status(201);
+            res.status(203);
             return res.json({ ok: true, desc: 'Contact created', contact: contactDB });
         })
         .catch(err =>  Methods.sendErr(res, err) );

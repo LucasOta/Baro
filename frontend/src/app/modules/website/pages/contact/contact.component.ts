@@ -14,7 +14,7 @@ export class ContactComponent implements OnInit {
     submitted: false,
     sending: false,
     sent: false
-  }
+  };
   
   constructor(private contactService: ContactService) { }
 
@@ -24,7 +24,6 @@ export class ContactComponent implements OnInit {
     this.status.submitted = true;
 
     if(this.model.name && this.model.email && this.model.message){
-      // Send form
       this.status.sending = true;
 
       this.contactService.create(this.model)
@@ -32,8 +31,10 @@ export class ContactComponent implements OnInit {
         .subscribe(
           data => { 
             if (data.ok) {
-              this.status.sending = false; 
-              this.status.sent = true; 
+              setTimeout(() => {                
+                this.status.sending = false; 
+                this.status.sent = true; 
+              }, 750);
             }
           }
         );
