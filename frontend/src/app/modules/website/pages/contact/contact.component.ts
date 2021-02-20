@@ -30,7 +30,12 @@ export class ContactComponent implements OnInit {
       this.contactService.create(this.model)
         .pipe(first())
         .subscribe(
-          data => { if (data.ok) this.status.sending = this.status.sent = true; }
+          data => { 
+            if (data.ok) {
+              this.status.sending = false; 
+              this.status.sent = true; 
+            }
+          }
         );
     }    
   }
