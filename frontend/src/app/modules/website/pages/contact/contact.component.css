@@ -37,6 +37,10 @@ textarea{
     pointer-events: none;
 }
 
+input:checked ~ .checkmark {
+    background-color: red;
+  }
+
 /* Spinner */
 .spinner {
     -webkit-animation:spin 1s linear infinite;
