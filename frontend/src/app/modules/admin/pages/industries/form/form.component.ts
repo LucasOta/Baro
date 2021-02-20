@@ -75,7 +75,7 @@ export class FormComponent implements OnInit {
     
     this.industry.name = this.f.name.value as Translation[];
     
-    if (! this.id) { 
+    if (!this.id) { 
       this.industryService.create(this.industry)
         .pipe(first())
         .subscribe(

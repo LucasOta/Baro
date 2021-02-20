@@ -4,40 +4,88 @@
             <div class="col-lg-5">
                 <p class="lead">{{'Get in touch for a project, inquire about job opportunities, or simply say hello :)' | translate}}</p>
                 <ul class="dk-list mb-30">
-                    <li><strong>Email:</strong> <a href="#">hello@barobranding.com</a></li>
-                    <li><strong>{{'Phone' | translate}}:</strong> <a href="#">(+54) 3492-672555</a></li>
-                    <li><strong>{{'Address' | translate}}:</strong> J.P. López, Rafaela</li>
+                    <li><strong>Email:</strong> <a href="#"> hello@barobranding.com</a></li>
+                    <li><strong>{{'Phone' | translate}}:</strong> <a href="#"> (+54) 3492-672555</a></li>
+                    <!-- <li><strong>{{'Address' | translate}}:</strong> J.P. López, Rafaela</li> -->
                 </ul>
             </div>
             <div class="col-lg-6">
-                <form action="php/contact.php" class="dk-form" method="post">
+                <form class="dk-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
                     <div class="row vertical-gap">
                         <div class="col-md-6">
-                            <input class="form-control" type="text" name="name" value="" [placeholder]="'Name *' | translate" required>
+                            <input 
+                                class="form-control" 
+                                [ngClass]="{ 'no-invalid': (!status.submitted)}"
+                                type="text" 
+                                name="name" 
+                                [placeholder]="'Name *' | translate" 
+                                [(ngModel)]="model.name"
+                                required
+                            >
                         </div>
                         <div class="col-md-6">
-                            <input class="form-control" type="text" name="company" value="" [placeholder]="'Company' | translate">
+                            <input 
+                                class="form-control" 
+                                type="text" 
+                                name="company" 
+                                [placeholder]="'Company' | translate" 
+                                [(ngModel)]="model.company"
+                            >
                         </div>
                         <div class="col-md-12">
-                            <input type="email" name="email" class="form-control" aria-describedby="emailHelp" [placeholder]="'Email *' | translate">
+                            <input 
+                                type="email" 
+                                name="email" 
+                                class="form-control"
+                                [ngClass]="{ 'no-invalid': (!status.submitted)}"
+                                aria-describedby="emailHelp" 
+                                [placeholder]="'Email *' | translate" 
+                                [(ngModel)]="model.email"
+                                required
+                            >
                         </div>
                         <div class="col-md-12">
-                            <input type="tel" name="phone" class="form-control" aria-describedby="telHelp" [placeholder]="'Phone' | translate">
+                            <input 
+                                type="tel" 
+                                name="phone" 
+                                class="form-control" 
+                                aria-describedby="telHelp" 
+                                [placeholder]="'Phone' | translate"                                 
+                                [(ngModel)]="model.phone"
+                            >
                         </div>
                         <div class="col-md-12">
-                            <input class="form-control" type="text" name="country" value="" [placeholder]="'Country' | translate">
+                            <input 
+                                class="form-control" 
+                                type="text" 
+                                name="country"
+                                [placeholder]="'Country' | translate" 
+                                [(ngModel)]="model.country"
+                            >
                         </div>
                         <div class="col-12">
-                            <textarea class="form-control" name="message" rows="8" cols="80" [placeholder]="'Message *' | translate" required></textarea>
+                            <textarea 
+                                class="form-control"
+                                [ngClass]="{ 'no-invalid': (!status.submitted)}"
+                                name="message" 
+                                rows="8" cols="80" 
+                                [placeholder]="'Message *' | translate" 
+                                [(ngModel)]="model.message"
+                                required
+                            ></textarea>
                         </div>
                         <div class="col-12">
-                            <input type="checkbox" name="subscribe" id=""> {{'Subscribe to our newsletter' | translate}}
+                            <input type="checkbox" name="subscribe" id="" [(ngModel)]="model.newsletter"> {{'Subscribe to our newsletter' | translate}}
                         </div>
                         <div class="col-12">
                             <div class="dk-result"></div>
                         </div>
                     </div>
-                    <button class="dk-btn dk-btn-md" type="submit" name="sumbit">{{'Submit' | translate}}</button>
+                    
+                    <button class="dk-btn dk-btn-md" *ngIf="!status.sent && !status.sending" type="submit" name="sumbit">{{'Submit' | translate}}</button>
+                    <button class="dk-btn dk-btn-md loading-btn" *ngIf="status.submitted && status.sending"><i class="fas fa-circle-notch spinner"></i></button>
+                    <button class="dk-btn dk-btn-md sent-btn" *ngIf="status.submitted && status.sent" disabled>{{'Thank you!' | translate}}</button>
+                    
                 </form>
             </div>
         </div>

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "254e1d5b-3f83-4444-86a6-1ae426cdeb73",
+		"_postman_id": "1cd241a4-d445-42f0-b8ba-3a00cc23b65f",
 		"name": "baro",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -289,7 +289,146 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "contact/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Lucas 2",
+							"description": "*",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "admin@admin.com",
+							"description": "*",
+							"type": "text"
+						},
+						{
+							"key": "message",
+							"value": "this is a message",
+							"description": "*",
+							"type": "text"
+						},
+						{
+							"key": "company",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "country",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "newsletter",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/contact/create",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contact",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contact/getById",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYwMmE4ZTY5N2I2NWNkMjM5YzdhYmFkZSIsIm5hbWUiOiJMdWNhcyIsImVtYWlsIjoiYWRtaW4ifSwiaWF0IjoxNjEzNzAyMjk0LCJleHAiOjE2MTYyOTQyOTR9.-bst_1zJ9hUavrdUVr3NY4uR5TbEZH4QFXXYRXt3d_M",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/contact/602f234db40a5858a00779d9",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contact",
+						"602f234db40a5858a00779d9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contact/getAll",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYwMmE4ZTY5N2I2NWNkMjM5YzdhYmFkZSIsIm5hbWUiOiJMdWNhcyIsImVtYWlsIjoiYWRtaW4ifSwiaWF0IjoxNjEzNzAyMjk0LCJleHAiOjE2MTYyOTQyOTR9.-bst_1zJ9hUavrdUVr3NY4uR5TbEZH4QFXXYRXt3d_M",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/contact",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contact/delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYwMmE4ZTY5N2I2NWNkMjM5YzdhYmFkZSIsIm5hbWUiOiJMdWNhcyIsImVtYWlsIjoiYWRtaW4ifSwiaWF0IjoxNjEzNzAyMjk0LCJleHAiOjE2MTYyOTQyOTR9.-bst_1zJ9hUavrdUVr3NY4uR5TbEZH4QFXXYRXt3d_M",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/contact/602f234db40a5858a00779d9",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contact",
+						"602f234db40a5858a00779d9"
+					]
+				}
+			},
+			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
