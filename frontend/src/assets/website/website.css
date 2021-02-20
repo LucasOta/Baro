@@ -1,11 +1,12 @@
 body {
     --primary: #ff461d;
     --light-primary: #f19580;
+    --white: #FFF;
+    --black: #000;
     /* --green: #A8CF45;
-    --grey: #F2F3F3;
-    --white: #ffffff;
-    --primary-light: #DCEDF7;
     --dark-font: #201E1E;
+    --grey: #F2F3F3;
+    --primary-light: #DCEDF7;
     --light-font: #373435; */
 
     -webkit-user-select: none;

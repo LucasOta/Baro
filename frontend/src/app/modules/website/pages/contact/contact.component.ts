@@ -7,36 +7,28 @@ import { Contact } from 'src/app/shared/models/contact';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
-  // form={
-  //   name: '',
-  //   name: '',
-  //   name: '',
-  //   name: '',
-  //   name: '',
-  // };
   model = new Contact();
-
-  submitted = false;
-  // Seguir desde acá
-  // https://angular.io/guide/forms
+  status = {
+    submitted: false,
+    sending: false,
+    sent: false
+  }
   
   constructor() { }
 
   ngOnInit(): void {}
 
-  onSubmit() { 
-    this.submitted = true;
+  onSubmit() {
+    this.status.submitted = true;
 
     if(this.model.name && this.model.email && this.model.message){
       // Send form
+      this.status.sending = true;
+      setTimeout(() => {
+        this.status.sending = false;
+        this.status.sent = true;
+      }, 1000);
       console.log(this.model);
-    }
-    
+    }    
   }
-
-
-
-  // TODO: Remove this when we're done
-  get diagnostic() { return JSON.stringify(this.model); }
-
 }

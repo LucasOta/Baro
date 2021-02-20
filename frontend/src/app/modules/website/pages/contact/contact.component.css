@@ -24,8 +24,25 @@ textarea{
     font-size: 1em;
     font-weight: 500;
     text-transform: unset;
+    min-width: 40%;
     background-color: var(--primary);
 }
-.dk-btn:hover{
+.dk-btn:hover, .loading-btn{
     background-color: var(--light-primary);
 }
+
+.sent-btn{
+    background-color: var(--black);
+    color: var(--white);
+    pointer-events: none;
+}
+
+/* Spinner */
+.spinner {
+    -webkit-animation:spin 1s linear infinite;
+    -moz-animation:spin 1s linear infinite;
+    animation:spin 1s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

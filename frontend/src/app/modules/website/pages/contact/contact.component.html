@@ -15,7 +15,7 @@
                         <div class="col-md-6">
                             <input 
                                 class="form-control" 
-                                [ngClass]="{ 'no-invalid': (!submitted)}"
+                                [ngClass]="{ 'no-invalid': (!status.submitted)}"
                                 type="text" 
                                 name="name" 
                                 [placeholder]="'Name *' | translate" 
@@ -37,7 +37,7 @@
                                 type="email" 
                                 name="email" 
                                 class="form-control"
-                                [ngClass]="{ 'no-invalid': (!submitted)}"
+                                [ngClass]="{ 'no-invalid': (!status.submitted)}"
                                 aria-describedby="emailHelp" 
                                 [placeholder]="'Email *' | translate" 
                                 [(ngModel)]="model.email"
@@ -66,7 +66,7 @@
                         <div class="col-12">
                             <textarea 
                                 class="form-control"
-                                [ngClass]="{ 'no-invalid': (!submitted)}"
+                                [ngClass]="{ 'no-invalid': (!status.submitted)}"
                                 name="message" 
                                 rows="8" cols="80" 
                                 [placeholder]="'Message *' | translate" 
@@ -81,7 +81,11 @@
                             <div class="dk-result"></div>
                         </div>
                     </div>
-                    <button class="dk-btn dk-btn-md" type="submit" name="sumbit">{{'Submit' | translate}}</button>
+                    
+                    <button class="dk-btn dk-btn-md" *ngIf="!status.sent && !status.sending" type="submit" name="sumbit">{{'Submit' | translate}}</button>
+                    <button class="dk-btn dk-btn-md loading-btn" *ngIf="status.submitted && status.sending"><i class="fas fa-circle-notch spinner"></i></button>
+                    <button class="dk-btn dk-btn-md sent-btn" *ngIf="status.submitted && status.sent" disabled>{{'Thank you!' | translate}}</button>
+                    
                 </form>
             </div>
         </div>
