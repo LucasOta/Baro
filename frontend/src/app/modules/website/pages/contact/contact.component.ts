@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { ContactService } from 'src/app/core/http/contact/contact.service';
 import { Contact } from 'src/app/shared/models/contact';
 
 @Component({
@@ -14,7 +16,7 @@ export class ContactComponent implements OnInit {
     sent: false
   }
   
-  constructor() { }
+  constructor(private contactService: ContactService) { }
 
   ngOnInit(): void {}
 
@@ -24,11 +26,12 @@ export class ContactComponent implements OnInit {
     if(this.model.name && this.model.email && this.model.message){
       // Send form
       this.status.sending = true;
-      setTimeout(() => {
-        this.status.sending = false;
-        this.status.sent = true;
-      }, 1000);
-      console.log(this.model);
+
+      this.contactService.create(this.model)
+        .pipe(first())
+        .subscribe(
+          data => { if (data.ok) this.status.sending = this.status.sent = true; }
+        );
     }    
   }
 }
