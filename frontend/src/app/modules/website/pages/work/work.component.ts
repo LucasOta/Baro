@@ -20,7 +20,10 @@ export class WorkComponent implements OnInit {
     discipline: '',
     industry: ''
   };
-  panelOpen = false;
+  panelOpen = {
+    disc: false,
+    ind: false
+  };
   indCombinationChecker = [
     {industry: '', combinations: []}
   ];
@@ -69,8 +72,8 @@ export class WorkComponent implements OnInit {
     this.refreshOptionsStatus();
   }
 
-  panelToggled(e: any){
-    this.panelOpen = e;
+  panelToggled(e: any, disc: boolean){
+    disc ? this.panelOpen.disc = e : this.panelOpen.ind = e;
   }
 
   private hasSelectedDisc(p:Project){
