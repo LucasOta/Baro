@@ -20,6 +20,8 @@ export class Project {
     clients: Client[];
     industries: Industry[];
     disciplines: Discipline[];
+    
+    _show: boolean;
 
     created?: Date;
     modified?: Date;

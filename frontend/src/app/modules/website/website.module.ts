@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatSelectModule} from '@angular/material/select';
 
 import { WebsiteRoutingModule } from './website-routing.module';
 import { WebsiteComponent } from './website.component';
@@ -29,12 +30,33 @@ import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [WebsiteComponent, HomeComponent, FooterComponent, NavbarComponent, WorkComponent, AboutComponent, ContactComponent, WorkPreviewComponent, WorkViewComponent, BlockComponent, ItemComponent, TitleComponent, TextComponent, VideoComponent, ImageComponent, ImageGroupComponent, TestimonialComponent, TextImageComponent, WebsiteLanguageSelectorComponent],
+  declarations: [
+    WebsiteComponent, 
+    HomeComponent, 
+    FooterComponent, 
+    NavbarComponent, 
+    WorkComponent, 
+    AboutComponent, 
+    ContactComponent, 
+    WorkPreviewComponent, 
+    WorkViewComponent, 
+    BlockComponent, 
+    ItemComponent, 
+    TitleComponent, 
+    TextComponent, 
+    VideoComponent, 
+    ImageComponent, 
+    ImageGroupComponent, 
+    TestimonialComponent, 
+    TextImageComponent, 
+    WebsiteLanguageSelectorComponent],
   imports: [
     CommonModule,
     WebsiteRoutingModule,
     ComponentsModule,
     PipesModule,
+    SharedModule,
+    MatSelectModule,
     FormsModule,
     SharedModule
   ]

@@ -1,0 +1,26 @@
+.layer {
+    background-color: rgb(255 255 255 / 85%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+hr, .spacing{
+    display: none;
+}
+
+@media (max-width: 424px) {
+    hr{
+        display: revert;
+        margin: 0;
+    }
+    .spacing{
+        display: revert;
+    }
+    .dk-padding-top{
+        padding: 0 !important;
+    }
+}

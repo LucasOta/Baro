@@ -1,22 +1,57 @@
 <div class="black_font">
+
     <div class="dk-box-5 dk-padding-top">
+
         <div class="container">
-            <ul class="dk-isotope-filter text-center">
-                <li class="active" data-filter="*">All</li>
-                <li [attr.data-filter]="'.' + noSpaces(d.name[0].quote)" *ngFor="let d of disciplines">{{d.name[0].quote}}</li>
-            </ul>
+            <mat-form-field appearance="fill">
+                <mat-select (selectionChange)="selectDiscFilter($event)" disableOptionCentering (openedChange)="panelToggled($event, true)" [(value)]="filters.discipline">
+                  <mat-option value="" [hidden]="filters.discipline === ''">All Services</mat-option>
+                  <ng-container *ngFor="let d of disciplines">
+                      <mat-option                     
+                        [hidden]="filters.discipline === d.name[0].quote"
+                        [value]="d.name[0].quote" 
+                        [disabled]="!d.hasCombinations">
+                            {{d.name[0].quote}}
+                            <ng-container *ngIf="!d.hasCombinations">(no projects)</ng-container>
+                       </mat-option>
+                  </ng-container>
+                </mat-select>
+            </mat-form-field>
+            
+            <div class="spacing" [ngStyle]="{'height.px': disciplines.length * 22}" *ngIf="panelOpen.disc"></div>
+            <hr>
+            
+            <mat-form-field appearance="fill">
+                <mat-select (selectionChange)="selectIndFilter($event)" disableOptionCentering (openedChange)="panelToggled($event, false)" [(value)]="filters.industry">
+                    <mat-option value="" [hidden]="filters.industry === ''">All Industries</mat-option>
+                    <ng-container *ngFor="let i of industries" >
+                        <mat-option
+                        [hidden]="filters.industry === i.name[0].quote"
+                        [value]="i.name[0].quote" 
+                        [disabled]="!i.hasCombinations">
+                        {{i.name[0].quote}} 
+                        <ng-container *ngIf="!i.hasCombinations">(no projects)</ng-container>
+                        </mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+
+            <div class="spacing" [ngStyle]="{'height.px': industries.length * 22}" *ngIf="panelOpen.ind"></div>
         </div>
+
     </div>
 
     <div class="dk-box-2 dk-padding-bot">
+        <div class="layer" *ngIf="panelOpen.disc || panelOpen.ind"></div>
         <div class="container">
-            <div class="row vertical-gap dk-isotope-grid">
-                
-                <div class="col-12 col-md-6 dk-isotope-grid-item" [ngClass]="getClasses(p)" *ngFor="let p of projects">
-                    <app-work-preview [project]="p"></app-work-preview>
-                </div>
-
+            <div class="row vertical-gap dk-isotope-grid" style="height: 100%;">
+                <ng-container *ngFor="let p of projects">
+                    <div class="col-12 col-md-6 dk-isotope-grid-item" *ngIf="p._show">
+                        <app-work-preview [project]="p"></app-work-preview>
+                    </div>
+                </ng-container>              
             </div>        
         </div>
     </div>
+
 </div>

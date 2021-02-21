@@ -1,13 +1,15 @@
 body {
     --primary: #EF4924;
     --light-primary: #f19580;
+    --dark-font: #201E1E;
+    --light-font: #afafaf;
     --white: #FFF;
     --black: #000;
     /* --green: #A8CF45;
     --dark-font: #201E1E;
     --grey: #F2F3F3;
     --primary-light: #DCEDF7;
-    --light-font: #373435; */
+     */
 
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -20,3 +22,77 @@ body {
 /* body{  
     color: var(--dark-font);
 } */
+
+
+/* Customize Angular Material Select */
+.mat-form-field-flex{
+    background-color: var(--white) !important;
+} 
+
+.mat-form-field-label{
+    display: none !important;
+}
+.cdk-overlay-pane {
+    margin-top: 20px !important;
+}
+
+.mat-form-field-infix {
+    width: 160px !important;
+}
+
+.mat-select-arrow {
+    border-top: 0.15em solid !important;
+    border-right: 0.15em solid !important;
+    border-bottom: 0px solid !important;
+    border-left: 0px solid !important;
+    
+	height: 0.7em !important;
+	width: 0.7em !important;
+    
+    margin: 0 !important;
+	content: '';
+	display: inline-block;
+	left: 0.15em;
+	position: relative;
+	vertical-align: top;
+    top: 0;
+	transform: rotate(135deg);
+    color: var(--dark-font) !important;
+}
+
+.mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+    transform: translateY(0%) !important;
+}
+
+.mat-form-field-underline{
+    display: none;
+}
+
+.mat-select-panel{
+    box-shadow: none !important;
+    border-radius: none !important;
+    background-color: transparent !important;
+    -ms-overflow-style: none;
+}
+.mat-select-panel::-webkit-scrollbar {
+    display: none;
+}
+
+.mat-select-panel .mat-option.mat-selected {
+    background: var(--white) !important;
+}
+
+.mat-primary .mat-option.mat-selected {
+    color: var(--dark-font) !important;
+}
+
+.mat-option {
+    color: var(--light-font) !important;
+    height: 2em !important;
+}
+
+.mat-option:hover:not(.mat-option-disabled), .mat-option:focus:not(.mat-option-disabled) {
+    background: transparent !important;
+    color: var(--dark-font) !important;
+}
+
