@@ -31,6 +31,23 @@ body {
     font-size: calc(var(--base-font-size) * 100) !important;
 }
 
+/* Font-colors */
+.ft_primary{
+    color: var(--primary) !important;
+}
+.ft_white{
+    color: var(--white) !important;
+}
+.ft_black{
+    color: var(--black) !important;
+}
+.ft_grey-100{
+    color: var(--grey-100) !important;
+}
+.ft_grey-200{
+    color: var(--grey-200) !important;
+}
+
 /* Customize Angular Material Select */
 .mat-form-field-flex{
     background-color: var(--white) !important;

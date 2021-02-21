@@ -35,7 +35,7 @@
     color: var(--black) !important;
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: 20px;
 }
 .dk-navbar .dk-navbar-burger:hover > span {
     background-color: var(--grey-100) !important;
@@ -54,5 +54,11 @@
 @media (max-width: 992px) {
     .only_desktop{
         display: none;
+    }
+}
+
+@media (max-width: 574px) {
+    .dk-navbar .dk-navbar-burger{
+        right: 10px;
     }
 }

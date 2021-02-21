@@ -30,7 +30,7 @@
 @import "../../../assets/website/font/BaroDisplay/baro.css";
 
 body{
-    font-family: 'Baro', sans-serif;
+    font-family: 'Baro', sans-serif !important;
 }
 
 p a{
@@ -41,4 +41,10 @@ p a:hover{
     color: var(--primary) !important;
     text-decoration: none;
     padding-bottom: 4px;
+}
+
+h1{
+    font-family: 'Baro', sans-serif !important;
+    font-size: calc(var(--base-font-size) * 100) !important;
+    font-weight: 800;
 }
