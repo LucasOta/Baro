@@ -1,9 +1,9 @@
 <div class="black_font">
 
-    <div class="dk-box-5 dk-padding-top">
+    <div class="dk-box-5">
 
         <div class="container">
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" style="margin-right: 3em;">
                 <mat-select (selectionChange)="selectDiscFilter($event)" disableOptionCentering (openedChange)="panelToggled($event, true)" [(value)]="filters.discipline">
                   <mat-option value="" [hidden]="filters.discipline === ''">All Services</mat-option>
                   <ng-container *ngFor="let d of disciplines">
@@ -19,7 +19,6 @@
             </mat-form-field>
             
             <div class="spacing" [ngStyle]="{'height.px': disciplines.length * 22}" *ngIf="panelOpen.disc"></div>
-            <hr>
             
             <mat-form-field appearance="fill">
                 <mat-select (selectionChange)="selectIndFilter($event)" disableOptionCentering (openedChange)="panelToggled($event, false)" [(value)]="filters.industry">
@@ -51,6 +50,16 @@
                     </div>
                 </ng-container>              
             </div>        
+        </div>
+    </div>
+
+    <div class="dk-box-2 text-center" style="padding-top: 0;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <p class="mb-2 call_to_action">{{'Interested?' | translate}} <a [routerLink]="'../../contact'">{{'Let\'s talk' | translate}}</a>.</p>                    
+                </div>
+            </div> 
         </div>
     </div>
 
