@@ -25,8 +25,8 @@
                 <p class="pt50 ft_black pad-t-65">{{'We are an independent desing firm specialized in branding. From Brand Strategy to Visual Identity, we help business that are ready to stand out.' | translate}}</p>
             </div>
         </div>
-        <div class="row" style="margin-top: 3em;">
-            <div class="col-lg-6" *ngFor="let p of projects;">
+        <div class="row" style="margin-top: 1.5em;">
+            <div class="col-12 col-md-6 dk-isotope-grid-item" *ngFor="let p of projects;" style="margin-top: 1.5em;">
                 <app-work-preview [project]="p"></app-work-preview>
             </div>
         </div>

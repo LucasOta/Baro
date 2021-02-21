@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row vertical-gap justify-content-between">
             <div class="col-lg-5">
-                <p class="lead">{{'Get in touch for a project, inquire about job opportunities, or simply say hello :)' | translate}}</p>
-                <ul class="dk-list mb-30">
-                    <li><strong>Email:</strong> <a href="#"> hello@barobranding.com</a></li>
-                    <li><strong>{{'Phone' | translate}}:</strong> <a href="#"> (+54) 3492-672555</a></li>
+                <p class="pt50 ft_black">{{'Get in touch for a project, inquire about job opportunities, or simply say hello :)' | translate}}</p>
+                <ul class="dk-list mb-30 mt-50">
+                    <li class="pt30"><a href="mailto:hello@barobranding.com" class="ft_grey-100"> hello@barobranding.com</a></li>
+                    <li class="pt30"><a href="https://wa.me/5493492672555" class="ft_grey-100"> (+54) 3492-672555</a></li>
                     <!-- <li><strong>{{'Address' | translate}}:</strong> J.P. López, Rafaela</li> -->
                 </ul>
             </div>
@@ -14,7 +14,7 @@
                     <div class="row vertical-gap">
                         <div class="col-md-6">
                             <input 
-                                class="form-control" 
+                                class="form-control pt30 ft_black" 
                                 [ngClass]="{ 'no-invalid': (!status.submitted)}"
                                 type="text" 
                                 name="name" 
@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-6">
                             <input 
-                                class="form-control" 
+                                class="form-control pt30 ft_black" 
                                 type="text" 
                                 name="company" 
                                 [placeholder]="'Company' | translate" 
@@ -36,7 +36,7 @@
                             <input 
                                 type="email" 
                                 name="email" 
-                                class="form-control"
+                                class="form-control pt30 ft_black"
                                 [ngClass]="{ 'no-invalid': (!status.submitted)}"
                                 aria-describedby="emailHelp" 
                                 [placeholder]="'Email *' | translate" 
@@ -48,7 +48,7 @@
                             <input 
                                 type="tel" 
                                 name="phone" 
-                                class="form-control" 
+                                class="form-control pt30 ft_black" 
                                 aria-describedby="telHelp" 
                                 [placeholder]="'Phone' | translate"                                 
                                 [(ngModel)]="model.phone"
@@ -56,7 +56,7 @@
                         </div>
                         <div class="col-md-12">
                             <input 
-                                class="form-control" 
+                                class="form-control pt30 ft_black" 
                                 type="text" 
                                 name="country"
                                 [placeholder]="'Country' | translate" 
@@ -65,7 +65,7 @@
                         </div>
                         <div class="col-12">
                             <textarea 
-                                class="form-control"
+                                class="form-control pt30 ft_black"
                                 [ngClass]="{ 'no-invalid': (!status.submitted)}"
                                 name="message" 
                                 rows="8" cols="80" 
@@ -75,16 +75,16 @@
                             ></textarea>
                         </div>
                         <div class="col-12">
-                            <input type="checkbox" name="subscribe" id="" [(ngModel)]="model.newsletter"> {{'Subscribe to our newsletter' | translate}}
+                            <input type="checkbox" name="subscribe" class="pt20" [(ngModel)]="model.newsletter"> {{'Subscribe to our newsletter' | translate}}
                         </div>
                         <div class="col-12">
                             <div class="dk-result"></div>
                         </div>
                     </div>
                     
-                    <button class="dk-btn dk-btn-md" *ngIf="!status.sent && !status.sending" type="submit" name="sumbit">{{'Submit' | translate}}</button>
-                    <button class="dk-btn dk-btn-md loading-btn" *ngIf="status.submitted && status.sending"><i class="fas fa-circle-notch spinner"></i></button>
-                    <button class="dk-btn dk-btn-md sent-btn" *ngIf="status.submitted && status.sent" disabled>{{'Thank you!' | translate}}</button>
+                    <button class="dk-btn dk-btn-md  pt30" *ngIf="!status.sent && !status.sending" type="submit" name="sumbit">{{'Submit' | translate}}</button>
+                    <button class="dk-btn dk-btn-md loading-btn pt30" *ngIf="status.submitted && status.sending"><i class="fas fa-circle-notch spinner"></i></button>
+                    <button class="dk-btn dk-btn-md sent-btn pt30" *ngIf="status.submitted && status.sent" disabled>{{'Thank you!' | translate}}</button>
                     
                 </form>
             </div>
