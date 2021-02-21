@@ -5,13 +5,13 @@
 .dk-drop-item a, .fullscreen_list li a{
     font-family: "Baro", sans-serif;
     font-weight: 400 !important;
-    color: var(--font-gray);
+    color: var(--grey-100);
     text-transform: capitalize;
     font-size: 1.3em;
 }
 
 .dk-drop-item a.active, .fullscreen_list li .active{
-    color: var(--font-black);
+    color: var(--black);
 }
 
 .dk-navbar-fullscreen{
@@ -22,7 +22,7 @@
     font-size: 2.5em;
 }
 .dk-navbar-burger.dk-open-fullscreen span{
-    background-color: var(--font-black) !important;
+    background-color: var(--black) !important;
 }
 
 @media (max-width: 992px) {

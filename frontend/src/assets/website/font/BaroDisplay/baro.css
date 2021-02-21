@@ -2,48 +2,6 @@
 @font-face {
   font-family: 'Baro';
   font-style:  normal;
-  font-weight: 00;
-  font-display: swap;
-  src: url("BaroDisplay-ExtLt.otf") format("otf");
-}
-@font-face {
-  font-family: 'Baro';
-  font-style:  italic;
-  font-weight: 100;
-  font-display: swap;
-  src: url("BaroDisplay-ExtLtIta.otf") format("otf");
-}
-@font-face {
-  font-family: 'Baro';
-  font-style:  normal;
-  font-weight: 100;
-  font-display: swap;
-  src: url("BaroDisplay-Light.otf") format("otf");
-}
-@font-face {
-  font-family: 'Baro';
-  font-style:  italic;
-  font-weight: 200;
-  font-display: swap;
-  src: url("BaroDisplay-LightIta.otf") format("otf");
-}
-@font-face {
-  font-family: 'Baro';
-  font-style:  normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url("BaroDisplay-Thin.otf") format("otf");
-}
-@font-face {
-  font-family: 'Baro';
-  font-style:  italic;
-  font-weight: 300;
-  font-display: swap;
-  src: url("BaroDisplay-ThinIta.otf") format("otf");
-}
-@font-face {
-  font-family: 'Baro';
-  font-style:  normal;
   font-weight: 400;
   font-display: swap;
   src: url("BaroDisplay-Regular.otf") format("otf");
@@ -58,89 +16,14 @@
 @font-face {
   font-family: 'Baro';
   font-style:  normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("BaroDisplay-Medium.otf") format("otf");
-}
-@font-face {
-  font-family: 'Baro';
-  font-style:  italic;
-  font-weight: 500;
-  font-display: swap;
-  src: url("BaroDisplay-MedIta.otf") format("otf");
-}
-@font-face {
-  font-family: 'Baro';
-  font-style:  normal;
   font-weight: 600;
   font-display: swap;
   src: url("BaroDisplay-Bold.otf") format("otf");
 }
 @font-face {
   font-family: 'Baro';
-  font-style:  italic;
-  font-weight: 600;
-  font-display: swap;
-  src: url("BaroDisplay-BoldIta.otf") format("otf");
-}
-@font-face {
-  font-family: 'Baro';
   font-style:  normal;
-  font-weight: 700;
+  font-weight: 800;
   font-display: swap;
   src: url("BaroDisplay-ExtraBold.otf") format("otf");
 }
-@font-face {
-  font-family: 'Baro';
-  font-style:  italic;
-  font-weight: 700;
-  font-display: swap;
-  src: url("BaroDisplay-ExtBdIta.otf") format("otf");
-}
-
-/* Hairline */
-@font-face {
-  font-family: 'BaroHair';
-  font-style:  normal;
-  font-weight: 100;
-  font-display: swap;
-  src: url("BaroDisplay-Hairline.otf") format("otf");
-}
-@font-face {
-  font-family: 'BaroHair';
-  font-style:  italic;
-  font-weight: 100;
-  font-display: swap;
-  src: url("BaroDisplay-HairlineI.otf") format("otf");
-}
-
-/* Black */
-@font-face {
-  font-family: 'BaroBlack';
-  font-style:  normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url("BaroDisplay-Black.otf") format("otf");
-}
-@font-face {
-  font-family: 'BaroBlack';
-  font-style:  italic;
-  font-weight: 800;
-  font-display: swap;
-  src: url("BaroDisplay-BlackIta.otf") format("otf");
-}
-@font-face {
-  font-family: 'BaroBlack';
-  font-style:  normal;
-  font-weight: 900;
-  font-display: swap;
-  src: url("BaroDisplay-ExtBlk.otf") format("otf");
-}
-@font-face {
-  font-family: 'BaroBlack';
-  font-style:  italic;
-  font-weight: 900;
-  font-display: swap;
-  src: url("BaroDisplay-ExtBlkIta.otf") format("otf");
-}
-

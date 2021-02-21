@@ -2,7 +2,7 @@
     font-family: "Baro", 
     sans-serif;
     font-weight: 400 !important;
-    color: var(--font-light-gray);
+    color: var(--grey-200);
     text-transform: capitalize;
     font-size: 1.3em;
     padding: 10px 0;
