@@ -5,19 +5,29 @@
         <div class="container">
             <mat-form-field appearance="fill">
                 <mat-label>Services</mat-label>
-                <mat-select class="dk-isotope-filter" (selectionChange)="selectDiscFilter($event)">
+                <mat-select (selectionChange)="selectDiscFilter($event)" (openedChange)="panelToggled($event)" [(value)]="filters.discipline">
                   <mat-option value="">All Services</mat-option>
-                  <mat-option *ngFor="let d of disciplines" [value]="d.name[0].quote">{{d.name[0].quote}}</mat-option>
+                  <mat-option 
+                    *ngFor="let d of disciplines" 
+                    [value]="d.name[0].quote" 
+                    [disabled]="!d.hasCombinations">
+                        {{d.name[0].quote}}
+                        <ng-container *ngIf="!d.hasCombinations">(no projects)</ng-container>
+                   </mat-option>
                 </mat-select>
               </mat-form-field>
-        </div>
-
-        <div class="container">
+        
             <mat-form-field appearance="fill">
                 <mat-label>Industry</mat-label>
-                <mat-select class="dk-isotope-filter" (selectionChange)="selectIndFilter($event)">
+                <mat-select (selectionChange)="selectIndFilter($event)" (openedChange)="panelToggled($event)" [(value)]="filters.industry">
                   <mat-option value="">All Industries</mat-option>
-                  <mat-option *ngFor="let i of industries" [value]="i.name[0].quote">{{i.name[0].quote}}</mat-option>
+                  <mat-option 
+                    *ngFor="let i of industries" 
+                    [value]="i.name[0].quote" 
+                    [disabled]="!i.hasCombinations">
+                        {{i.name[0].quote}} 
+                        <ng-container *ngIf="!i.hasCombinations">(no projects)</ng-container>
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
         </div>
@@ -25,6 +35,7 @@
     </div>
 
     <div class="dk-box-2 dk-padding-bot">
+        <div class="layer" *ngIf="panelOpen"></div>
         <div class="container">
             <div class="row vertical-gap dk-isotope-grid" style="height: 100%;">
                 <ng-container *ngFor="let p of projects">
