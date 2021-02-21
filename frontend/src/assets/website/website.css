@@ -10,6 +10,25 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    --base-font-size: 0.65px;
+}
+
+/* Font-sizes */
+.pt20{
+    font-size: calc(var(--base-font-size) * 20) !important;
+}
+.pt30{
+    font-size: calc(var(--base-font-size) * 30) !important;
+}
+.pt40{
+    font-size: calc(var(--base-font-size) * 40) !important;
+}
+.pt50{
+    font-size: calc(var(--base-font-size) * 50) !important;
+}
+.pt100{
+    font-size: calc(var(--base-font-size) * 100) !important;
 }
 
 /* Customize Angular Material Select */

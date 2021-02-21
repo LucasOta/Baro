@@ -1,17 +1,20 @@
 .website_lang_sel {
-    font-family: "Baro", 
-    sans-serif;
     font-weight: 400 !important;
     color: var(--grey-200);
     text-transform: capitalize;
-    font-size: 1.3em;
     padding: 10px 0;
+    padding-bottom: 0;
     margin-left: 30px;
     cursor: pointer;
 }
 
+.website_lang_sel:hover{
+    color: var(--grey-100);
+}
+
 @media (max-width: 992px) {
     .website_lang_sel {
-        font-size: 2.5em;
+        font-size: calc(var(--base-font-size) * 50) !important;
+        margin-left: 0;
     }
 }
