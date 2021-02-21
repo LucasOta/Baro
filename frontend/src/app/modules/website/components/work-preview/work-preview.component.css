@@ -29,3 +29,7 @@
 .dk-portfolio-item-style-2:hover .dk-portfolio-item-info .dk-portfolio-item-title {
     color: var(--primary);
 }
+
+.dk-portfolio-item{
+    cursor: pointer;
+}

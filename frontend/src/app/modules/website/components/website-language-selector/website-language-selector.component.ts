@@ -10,8 +10,9 @@ import { LanguageService } from 'src/app/shared/services/language.service';
   selector: 'app-website-language-selector',
   template: `
     <div class="website_lang_sel">
-    <span *ngIf="(language$ | async).value === 'en'" (click)="switchLanguage('es')">En</span>
-    <span *ngIf="(language$ | async).value === 'es'" (click)="switchLanguage('en')">Es</span>
+      <span *ngIf="(language$ | async).value === 'en'" (click)="switchLanguage('es')">En</span>
+      <span *ngIf="(language$ | async).value === 'es'" (click)="switchLanguage('en')">Es</span>
+    </div>
   `,
   styleUrls: ['./website-language-selector.component.css']
 })
