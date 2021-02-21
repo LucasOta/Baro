@@ -29,10 +29,9 @@
 /*Custom Fonts*/
 @import "../../../assets/website/font/BaroDisplay/baro.css";
 
-body{
+body, p, a, h1, h2, h3, h4, h5, span{
     font-family: 'Baro', sans-serif !important;
 }
-
 p a{
     border-bottom: 2px solid var(--primary);
     padding-bottom: 3px;
@@ -44,7 +43,6 @@ p a:hover{
 }
 
 h1{
-    font-family: 'Baro', sans-serif !important;
     font-size: calc(var(--base-font-size) * 100) !important;
     font-weight: 800;
 }

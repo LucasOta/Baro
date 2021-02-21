@@ -1,3 +1,13 @@
+.dk-footer{
+    background-color: var(--black);
+    color: var(--white);
+}
+
+a{
+    color: var(--white);
+    font-size: calc(var(--base-font-size) * 30) !important;
+}
+
 .space{
     margin: 2em;
 }
