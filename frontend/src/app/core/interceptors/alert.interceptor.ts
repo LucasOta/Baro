@@ -28,6 +28,8 @@ export class AlertInterceptor implements HttpInterceptor {
               case 201:
                 this.success( event.body.desc || 'Element Created' );
                 break;
+              case 203:
+                break;
               default:
                 this.error('Unespected response');
             }

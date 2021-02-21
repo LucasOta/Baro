@@ -26,6 +26,7 @@ import { TextImageComponent } from './components/block/item/types/text-image.com
 import { ComponentsModule } from "../../shared/components/components.module";
 import { SharedModule } from 'src/app/shared/shared.module';
 import { WebsiteLanguageSelectorComponent } from './components/website-language-selector/website-language-selector.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -55,7 +56,9 @@ import { WebsiteLanguageSelectorComponent } from './components/website-language-
     ComponentsModule,
     PipesModule,
     SharedModule,
-    MatSelectModule
+    MatSelectModule,
+    FormsModule,
+    SharedModule
   ]
 })
 export class WebsiteModule { }

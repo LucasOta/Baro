@@ -1,11 +1,13 @@
 body {
-    --primary: #ff461d;
+    --primary: #EF4924;
     --light-primary: #f19580;
     --dark-font: #201E1E;
     --light-font: #afafaf;
+    --white: #FFF;
+    --black: #000;
     /* --green: #A8CF45;
+    --dark-font: #201E1E;
     --grey: #F2F3F3;
-    --white: #ffffff;
     --primary-light: #DCEDF7;
      */
 
