@@ -4,30 +4,32 @@
 
         <div class="container">
             <mat-form-field appearance="fill">
-                <mat-label>Services</mat-label>
-                <mat-select (selectionChange)="selectDiscFilter($event)" (openedChange)="panelToggled($event)" [(value)]="filters.discipline">
-                  <mat-option value="">All Services</mat-option>
-                  <mat-option 
-                    *ngFor="let d of disciplines" 
-                    [value]="d.name[0].quote" 
-                    [disabled]="!d.hasCombinations">
-                        {{d.name[0].quote}}
-                        <ng-container *ngIf="!d.hasCombinations">(no projects)</ng-container>
-                   </mat-option>
+                <mat-select (selectionChange)="selectDiscFilter($event)" disableOptionCentering (openedChange)="panelToggled($event)" [(value)]="filters.discipline">
+                  <mat-option value="" [hidden]="filters.discipline === ''">All Services</mat-option>
+                  <ng-container *ngFor="let d of disciplines">
+                      <mat-option                     
+                        [hidden]="filters.discipline === d.name[0].quote"
+                        [value]="d.name[0].quote" 
+                        [disabled]="!d.hasCombinations">
+                            {{d.name[0].quote}}
+                            <ng-container *ngIf="!d.hasCombinations">(no projects)</ng-container>
+                       </mat-option>
+                  </ng-container>
                 </mat-select>
               </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Industry</mat-label>
-                <mat-select (selectionChange)="selectIndFilter($event)" (openedChange)="panelToggled($event)" [(value)]="filters.industry">
-                  <mat-option value="">All Industries</mat-option>
-                  <mat-option 
-                    *ngFor="let i of industries" 
-                    [value]="i.name[0].quote" 
-                    [disabled]="!i.hasCombinations">
-                        {{i.name[0].quote}} 
-                        <ng-container *ngIf="!i.hasCombinations">(no projects)</ng-container>
-                  </mat-option>
+                <mat-select (selectionChange)="selectIndFilter($event)" disableOptionCentering (openedChange)="panelToggled($event)" [(value)]="filters.industry">
+                  <mat-option value="" [hidden]="filters.industry === ''">All Industries</mat-option>
+                  <ng-container *ngFor="let i of industries" >
+                      <mat-option
+                        [hidden]="filters.industry === i.name[0].quote"
+                        [value]="i.name[0].quote" 
+                        [disabled]="!i.hasCombinations">
+                            {{i.name[0].quote}} 
+                            <ng-container *ngIf="!i.hasCombinations">(no projects)</ng-container>
+                      </mat-option>
+                  </ng-container>
                 </mat-select>
               </mat-form-field>
         </div>
