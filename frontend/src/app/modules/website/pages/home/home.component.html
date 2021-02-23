@@ -1,32 +1,32 @@
-<div class="dk-box-2 black_font">
+<div class="dk-box-1 black_font">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-                <h1>{{'Branding for' | translate}}</h1>
+            <div class="col-lg-6 pt100">
+                <h1 class="mb-0 ft_black">{{'Branding for' | translate}}</h1>
                 <div id="carouselPhrases" class="carousel slide carousel-fade" data-ride="carousel">
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <h1 class="gray">{{'businesses with purpose' | translate}}</h1>                          
+                        <h1 class="ft_grey-100">{{'businesses with purpose' | translate}}</h1>                          
                       </div>
                       <div class="carousel-item">
-                        <h1 class="gray">{{'competitive startups' | translate}}</h1>                          
+                        <h1 class="ft_grey-100">{{'competitive startups' | translate}}</h1>                          
                       </div>
                       <div class="carousel-item">
-                        <h1 class="gray">{{'thriving business' | translate}}</h1>                          
+                        <h1 class="ft_grey-100">{{'thriving business' | translate}}</h1>                          
                       </div>
                       <div class="carousel-item">
-                        <h1 class="gray">{{'industry leaders' | translate}}</h1>                          
+                        <h1 class="ft_grey-100">{{'industry leaders' | translate}}</h1>                          
                       </div>
                     </div>
                   </div>
                 
             </div>
             <div class="col-lg-6">
-                <p class="lead">{{'We are an independent desing firm specialized in branding. From Brand Strategy to Visual Identity, we help business that are ready to stand out.' | translate}}</p>
+                <p class="pt50 ft_black pad-t-65">{{'We are an independent desing firm specialized in branding. From Brand Strategy to Visual Identity, we help business that are ready to stand out.' | translate}}</p>
             </div>
         </div>
-        <div class="row" style="margin-top: 3em;">
-            <div class="col-lg-6" *ngFor="let p of projects;">
+        <div class="row" style="margin-top: 1.5em;">
+            <div class="col-12 col-md-6 dk-isotope-grid-item" *ngFor="let p of projects;" style="margin-top: 1.5em;">
                 <app-work-preview [project]="p"></app-work-preview>
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-7">
-                        <p class="lead mb-2"><a [routerLink]="'../work'">{{'See more' | translate}}</a> {{'projects, get to' | translate}} <a [routerLink]="'../about'">{{'know us' | translate}}</a> {{', or' | translate}} <a [routerLink]="'../contact'">{{'let\'s talk' | translate}}</a> {{'about that project.' | translate}}</p>
+                        <p class="mb-2 call_to_action"><a [routerLink]="'../work'">{{'See more' | translate}}</a> {{'projects, get to' | translate}} <a [routerLink]="'../about'">{{'know us' | translate}}</a>{{', or' | translate}} <a [routerLink]="'../contact'">{{'let\'s talk' | translate}}</a> {{'about that project.' | translate}}</p>
                     </div>
                 </div>
             </div>

@@ -27,43 +27,33 @@
 
 
 /*Custom Fonts*/
-@import "../../../assets/website/font/InterWeb/inter.css";
 @import "../../../assets/website/font/BaroDisplay/baro.css";
 
-/* variables */
-:root {
-    --primary: #f04925;
-    --main-font-color: #202020;
-    --light-gray-font-color: #bbbbbb;
-    --white: #FFF;
-
-    --font-black: #000000;
-    --font-gray: #afafaf;
-    --font-light-gray: #dcdcdc;
-}
-
-body{
-    font-family: 'Inter', sans-serif;
+body, p, a, h1, h2, h3, h4, h5, span{
+    font-family: 'Baro', sans-serif !important;
 }
 p a{
-    border-bottom: 2px solid var(--primary);
-    padding-bottom: 3px;
+    border-bottom: 4px solid var(--primary);
 }
 p a:hover{
     color: var(--primary) !important;
     text-decoration: none;
-    padding-bottom: 4px;
 }
 
-h1, h2, h3, h4, h5 {
-    font-family: 'Baro', sans-serif;
+h1{
+    font-size: calc(var(--base-font-size) * 100) !important;
+    font-weight: 800;
+}
+
+.call_to_action{
+    color: var(--black);
+    font-size: calc(var(--base-font-size) * 50) !important;
     font-weight: 600;
 }
-
-.lead{
-    font-size: 1.7em;
-    color: var(--main-font-color);
+.call_to_action a{
+    border-bottom: 4px solid var(--primary);
 }
-.black_font{
-    color: var(--main-font-color);
+.call_to_action a:hover{
+    color: var(--primary) !important;
+    text-decoration: none;
 }

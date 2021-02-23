@@ -1,17 +1,23 @@
 .custom_logo{
-    height: 1.8em;
+    height: 3em;    
+    padding-bottom: 8px;
 }
-
+.dk-drop-item a{
+    padding-bottom: 0;
+}
 .dk-drop-item a, .fullscreen_list li a{
     font-family: "Baro", sans-serif;
     font-weight: 400 !important;
-    color: var(--font-gray);
+    color: var(--grey-100);
     text-transform: capitalize;
-    font-size: 1.3em;
+}
+
+.dk-navbar .dk-nav-content .dk-nav a:hover{
+    color: var(--black) !important;
 }
 
 .dk-drop-item a.active, .fullscreen_list li .active{
-    color: var(--font-black);
+    color: var(--black);
 }
 
 .dk-navbar-fullscreen{
@@ -22,11 +28,37 @@
     font-size: 2.5em;
 }
 .dk-navbar-burger.dk-open-fullscreen span{
-    background-color: var(--font-black) !important;
+    background-color: var(--black) !important;
+}
+
+.dk-navbar .dk-navbar-burger{
+    color: var(--black) !important;
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+}
+.dk-navbar .dk-navbar-burger:hover > span {
+    background-color: var(--grey-100) !important;
+}
+
+.dk-navbar .dk-navbar-burger > span:nth-child(2){
+    position: relative;
+    display: block;
+    width: 24px !important;
+    height: 2px;
+    background-color: #131313;
+    transition: background-color .2s ease, visibility .2s ease, transform .2s ease, opacity .2s ease !important;
+    transform: none !important;
 }
 
 @media (max-width: 992px) {
     .only_desktop{
         display: none;
+    }
+}
+
+@media (max-width: 574px) {
+    .dk-navbar .dk-navbar-burger{
+        right: 10px;
     }
 }

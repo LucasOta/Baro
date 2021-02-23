@@ -1,28 +1,52 @@
 body {
-    --primary: #EF4924;
+    --primary: #ff461d;
     --light-primary: #f19580;
-    --dark-font: #201E1E;
-    --light-font: #afafaf;
-    --white: #FFF;
-    --black: #000;
-    /* --green: #A8CF45;
-    --dark-font: #201E1E;
-    --grey: #F2F3F3;
-    --primary-light: #DCEDF7;
-     */
+    --white: #FFFFFF;
+    --black: #000000;
+    --grey-100: #AFAFAF;
+    --grey-200: #DCDCDC;
 
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none; 
+    user-select: none;
 
+    --base-font-size: 0.65px;
 }
 
-/* --------- Font Related --------- */
-/* body{  
-    color: var(--dark-font);
-} */
+/* Font-sizes */
+.pt20{
+    font-size: calc(var(--base-font-size) * 20) !important;
+}
+.pt30{
+    font-size: calc(var(--base-font-size) * 30) !important;
+}
+.pt40{
+    font-size: calc(var(--base-font-size) * 40) !important;
+}
+.pt50{
+    font-size: calc(var(--base-font-size) * 50) !important;
+}
+.pt100{
+    font-size: calc(var(--base-font-size) * 100) !important;
+}
 
+/* Font-colors */
+.ft_primary{
+    color: var(--primary) !important;
+}
+.ft_white{
+    color: var(--white) !important;
+}
+.ft_black{
+    color: var(--black) !important;
+}
+.ft_grey-100{
+    color: var(--grey-100) !important;
+}
+.ft_grey-200{
+    color: var(--grey-200) !important;
+}
 
 /* Customize Angular Material Select */
 .mat-form-field-flex{
@@ -33,11 +57,15 @@ body {
     display: none !important;
 }
 .cdk-overlay-pane {
-    margin-top: 20px !important;
+    margin-top: 40px !important;
 }
 
 .mat-form-field-infix {
-    width: 160px !important;
+    width: 200px !important;
+}
+
+.mat-option.mat-option-disabled {
+    color: var(--grey-100);
 }
 
 .mat-select-arrow {
@@ -57,8 +85,13 @@ body {
 	vertical-align: top;
     top: 0;
 	transform: rotate(135deg);
-    color: var(--dark-font) !important;
+    color: var(--grey-100) !important;
 }
+
+.mat-select-value-text, .mat-option{
+    font-size: calc(var(--base-font-size) * 40) !important;
+    color: var(--grey-100);
+} 
 
 .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
     transform: translateY(0%) !important;
@@ -73,6 +106,7 @@ body {
     border-radius: none !important;
     background-color: transparent !important;
     -ms-overflow-style: none;
+    max-width: none !important;
 }
 .mat-select-panel::-webkit-scrollbar {
     display: none;
@@ -87,7 +121,6 @@ body {
 }
 
 .mat-option {
-    color: var(--light-font) !important;
     height: 2em !important;
 }
 

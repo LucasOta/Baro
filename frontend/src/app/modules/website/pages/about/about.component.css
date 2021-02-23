@@ -2,7 +2,6 @@
     min-height: 60vh;
 }
 .bg-image-parallax {
-    background: url('src/assets/website/img/foto_about_1920.jpg');
     background-color: var(--primary);
     background-size: contain;
     background-position: bottom;
@@ -15,12 +14,13 @@
     width: 90%;
 }
 
-.answer p{
-    font-size: 1.5em;
+.white_title{
+    font-weight: 600 !important;
 }
+
 .red_title h1{
-    color :var(--primary);
-    font-size: 3em;
+    color: var(--primary);
+    font-weight: 600 !important;
 }
 
 .testimonial{
@@ -32,9 +32,8 @@
 }
 
 .client p{
-    font-size: 1em;
-    color: var(--light-gray-font-color);
     font-weight: 600;
+    color: var(--grey-200);
 }
 
 .dk-box-fullscreen{

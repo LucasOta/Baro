@@ -12,9 +12,9 @@ import { Item } from 'src/app/shared/models/item';
         <div class="row align-items-center justify-content-between vertical-gap mt-60">
           <div class="col-lg-5 order-lg-1">
               <div class="dk-box">
-                <h2>{{item.title[0].quote}}</h2>
-                <h4>{{item.subtitle[0].quote}}</h4>
-                <p>{{item.description[0].quote}}</p>
+                <h2 class="pt50">{{item.title[0].quote}}</h2>
+                <h4 class="pt40">{{item.subtitle[0].quote}}</h4>
+                <p class="pt30">{{item.description[0].quote}}</p>
               </div>
               <div class="dk-gap d-block d-lg-none mnt-5"></div>
           </div>

@@ -14,12 +14,13 @@
 }
 
 .project_title, .project_clients {
-    font-family: 'Inter', sans-serif;
-    font-size: 1em !important;
     margin-bottom: 0 !important;
 }
-.project_clients {
-    font-weight: 300 !important;
+.project_clients span {
+    text-transform: none;
+}
+.dk-portfolio-item-info span {
+    font-weight: 400;
 }
 
 .dk-portfolio-item-image-size{

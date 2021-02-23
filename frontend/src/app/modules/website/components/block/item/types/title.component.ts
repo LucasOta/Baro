@@ -8,7 +8,7 @@ import { Item } from 'src/app/shared/models/item';
   ],
   template: `
     <div class="container">
-      <h2>{{item.title[0].quote}}</h2>
+      <h2 class="pt50">{{item.title[0].quote}}</h2>
     </div>
   `
 })
