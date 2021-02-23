@@ -44,7 +44,7 @@ server.app.use('/user', userRoutes);
 mongoose.set('useFindAndModify', false);
 
 // Local
-mongoose.connect('mongodb://localhost/barobranding',
+// mongoose.connect('mongodb://localhost/barobranding',
 
 // Server
 mongoose.connect('mongodb://127.0.0.1:27017',
@@ -54,7 +54,7 @@ mongoose.connect('mongodb://127.0.0.1:27017',
         if (err) throw err;
 
         console.log('MongoDB On-Line');
-    })
+    });
 
 // Run Express
 server.start(() => {
