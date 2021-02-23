@@ -4,26 +4,26 @@
   font-style:  normal;
   font-weight: 400;
   font-display: swap;
-  src: url("BaroDisplay-Regular.otf") format("otf");
+  src: url("BaroDisplay-Regular.otf") format("opentype");
 }
 @font-face {
   font-family: 'Baro';
   font-style:  italic;
   font-weight: 400;
   font-display: swap;
-  src: url("BaroDisplay-RegIta.otf") format("otf");
+  src: url("BaroDisplay-RegIta.otf") format("opentype");
 }
 @font-face {
   font-family: 'Baro';
   font-style:  normal;
   font-weight: 600;
   font-display: swap;
-  src: url("BaroDisplay-Bold.otf") format("otf");
+  src: url("BaroDisplay-Bold.otf") format("opentype");
 }
 @font-face {
   font-family: 'Baro';
   font-style:  normal;
   font-weight: 800;
   font-display: swap;
-  src: url("BaroDisplay-ExtraBold.otf") format("otf");
+  src: url("BaroDisplay-ExtraBold.otf") format("opentype");
 }
