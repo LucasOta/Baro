@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  url: 'http://localhost:3000'
-  // url: 'http://barobranding.com/api'
+  //url: 'http://localhost:3000'
+  url: 'http://barobranding.com/api'
 };
