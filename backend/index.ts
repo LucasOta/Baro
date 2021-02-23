@@ -47,7 +47,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.connect('mongodb://localhost/barobranding',
 
 // Server
-// mongoose.connect('mongodb://127.0.0.1:27017',
+mongoose.connect('mongodb://127.0.0.1:27017',
 
     { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, (err) => {
 
