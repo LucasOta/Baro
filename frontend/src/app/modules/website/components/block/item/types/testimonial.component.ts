@@ -9,9 +9,9 @@ import { Item } from 'src/app/shared/models/item';
           <div class="col-lg-9">
               <div class="dk-reviews  text-center">
                   <div class="dk-reviews-text">
-                      <p class="mb-0">{{item.testimonial.quote[0].quote}}</p>
+                      <p class="mb-0 pt30" style="font-style:  italic;">{{item.testimonial.quote[0].quote}}</p>
                   </div>
-                  <div class="dk-reviews-name">- {{item.testimonial.name}}, {{item.testimonial.jobTitle[0].quote}}</div>
+                  <div class="pt30">- <strong>{{item.testimonial.name}}</strong>, {{item.testimonial.jobTitle[0].quote}}</div>
               </div>
           </div>
       </div>

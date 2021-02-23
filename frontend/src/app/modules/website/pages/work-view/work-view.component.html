@@ -10,30 +10,48 @@
     <div class="dk-box-5">
         <div class="container mnt-10 mnb-10">
             <div class="row project_header">
-                <div class="col-12">
-                    <h4 class="clients" *ngFor="let c of project.clients">{{c.name}}</h4>                    
+                <div class="col-12 project_header">
+                    <h4 class="clients ft_black pt50" *ngFor="let c of project.clients">{{c.name}}</h4>                    
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-6">
-                    <h1>{{project.title[0].quote}}</h1>
+                <div class="col-12 col-lg-6">
+                    <h1 class="ft_black pt100" style="margin-bottom: 0.5em;">{{project.title[0].quote}}</h1>
                 </div>
 
-                <div class="col-auto">
-                    <ul class="dk-list">
-                        <li class="bold">{{'Services' | translate}}</li>
-                        <li class="hair" *ngFor="let d of project.disciplines">{{d.name[0].quote}}</li>
-                    </ul>
+                <div class="col-12 col-lg-6 only_desktop">
+                    <div class="row">
+                        <div class="col-auto">
+                            <ul class="dk-list">
+                                <li class="ft_black pt30 bold">{{'Services' | translate}}</li>
+                                <li class="ft_grey100 pt30" *ngFor="let d of project.disciplines">{{d.name[0].quote}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-auto">
+                            <ul class="dk-list">
+                                <li class="ft_black pt30 bold">{{'Industries' | translate}}</li>
+                                <li class="ft_grey100 pt30" *ngFor="let i of project.industries">{{i.name[0].quote}}</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-auto">
-                    <ul class="dk-list">
-                        <li class="bold">{{'Industries' | translate}}</li>
-                        <li class="hair" *ngFor="let i of project.industries">{{i.name[0].quote}}</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-12">
-                    <p class="desc">{{project.description[0].quote}}</p>
+                    <p class="ft_black pt50">{{project.description[0].quote}}</p>
+                </div>
+                <div class="col-12 col-lg-6 only_mobile">
+                    <div class="row">
+                        <div class="col-auto">
+                            <ul class="dk-list">
+                                <li class="ft_black pt30 bold">{{'Services' | translate}}</li>
+                                <li class="ft_grey100 pt30" *ngFor="let d of project.disciplines">{{d.name[0].quote}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-auto">
+                            <ul class="dk-list">
+                                <li class="ft_black pt30 bold">{{'Industries' | translate}}</li>
+                                <li class="ft_grey100 pt30" *ngFor="let i of project.industries">{{i.name[0].quote}}</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,14 +67,14 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-7">
-                            <p class="mb-2">{{'Like what you see?' | translate}} <a [routerLink]="'../../contact'">{{'Let\'s talk' | translate}}</a>.</p>
+                            <p class="mb-2 call_to_action">{{'Like what you see?' | translate}} <a [routerLink]="'../../contact'">{{'Let\'s talk' | translate}}</a>.</p>
                             
                         </div>
                     </div>
 
                     <div class="row vertical-gap dk-isotope-grid text-center" style="margin-top: 2em;">
                         <div class="col-12">
-                            <span>{{'Other Projects' | translate}}</span>
+                            <span class="pt50 ft_black">{{'Other Projects' | translate}}</span>
                         </div>
                         <div class="col-12 col-md-4 dk-isotope-grid-item mockups" *ngFor="let p of otherProjects">
                             <app-work-preview [project]="p"></app-work-preview>
