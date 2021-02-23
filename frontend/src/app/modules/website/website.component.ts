@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { timeout } from 'rxjs/operators';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-website',
@@ -18,8 +17,15 @@ import { timeout } from 'rxjs/operators';
 })
 export class WebsiteComponent implements OnInit {
 
-  constructor() {}
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+    });
+  }
 
 }

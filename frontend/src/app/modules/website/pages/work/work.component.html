@@ -18,7 +18,7 @@
                 </mat-select>
             </mat-form-field>
             
-            <div class="spacing" [ngStyle]="{'height.px': disciplines.length * 22}" *ngIf="panelOpen.disc"></div>
+            <div class="spacing" [ngStyle]="{'height.px': disciplines.length * 50}" *ngIf="panelOpen.disc"></div>
             
             <mat-form-field appearance="fill">
                 <mat-select (selectionChange)="selectIndFilter($event)" disableOptionCentering (openedChange)="panelToggled($event, false)" [(value)]="filters.industry">
@@ -35,7 +35,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <div class="spacing" [ngStyle]="{'height.px': industries.length * 22}" *ngIf="panelOpen.ind"></div>
+            <div class="spacing" [ngStyle]="{'height.px': industries.length * 40}" *ngIf="panelOpen.ind"></div>
         </div>
 
     </div>
@@ -57,7 +57,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7">
-                    <p class="mb-2 call_to_action">{{'Interested?' | translate}} <a [routerLink]="'../../contact'">{{'Let\'s talk' | translate}}</a>.</p>                    
+                    <p class="mb-2 call_to_action">{{'Interested?' | translate}} <a [routerLink]="'../contact'">{{'Let\'s talk' | translate}}</a>.</p>                    
                 </div>
             </div> 
         </div>
