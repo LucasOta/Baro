@@ -1,6 +1,6 @@
 input{
     border: none !important;
-    border-bottom: 1px solid var(--primary) !important;
+    border-bottom: 2px solid var(--primary) !important;
 }
 
 input:invalid:required, textarea:invalid:required {
@@ -12,7 +12,7 @@ input:invalid:required, textarea:invalid:required {
 }
 
 textarea{
-    border: 1px solid var(--primary) !important;
+    border: 2px solid var(--primary) !important;
 }
 
 input, textarea{

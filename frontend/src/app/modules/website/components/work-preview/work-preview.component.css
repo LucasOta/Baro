@@ -34,3 +34,7 @@
 .dk-portfolio-item{
     cursor: pointer;
 }
+
+.dk-portfolio-item-info{
+    padding-top: 10px;
+}

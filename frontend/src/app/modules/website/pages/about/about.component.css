@@ -64,6 +64,11 @@
     height: 60vh;
 }
 
+
+.red_title h1{
+    line-height: 65px;
+}
+
 @media (max-width: 1024px) {
     .dk-box-fullscreen {
         min-height: 55vh;
@@ -76,6 +81,9 @@
     }
     .baro{
         margin-left: -5em;
+    }
+    .red_title h1{
+        line-height: 50px;
     }
 }
 @media (max-width: 480px) {
