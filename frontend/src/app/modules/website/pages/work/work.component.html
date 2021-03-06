@@ -1,11 +1,11 @@
-<div class="black_font">
+<div class="dk-box-1 black_font">
 
-    <div class="dk-box-5">
+    <div class="dk-box-5 pt-0">
 
         <div class="container">
             <mat-form-field appearance="fill" style="margin-right: 3em;">
                 <mat-select (selectionChange)="selectDiscFilter($event)" disableOptionCentering (openedChange)="panelToggled($event, true)" [(value)]="filters.discipline">
-                  <mat-option value="" [hidden]="filters.discipline === ''">All Services</mat-option>
+                  <mat-option value="" [hidden]="filters.discipline === ''">{{'All Services' | translate}}</mat-option>
                   <ng-container *ngFor="let d of disciplines">
                       <mat-option                     
                         [hidden]="filters.discipline === d.name[0].quote"
@@ -22,7 +22,7 @@
             
             <mat-form-field appearance="fill">
                 <mat-select (selectionChange)="selectIndFilter($event)" disableOptionCentering (openedChange)="panelToggled($event, false)" [(value)]="filters.industry">
-                    <mat-option value="" [hidden]="filters.industry === ''">All Industries</mat-option>
+                    <mat-option value="" [hidden]="filters.industry === ''">{{'All Industries' | translate}}</mat-option>
                     <ng-container *ngFor="let i of industries" >
                         <mat-option
                         [hidden]="filters.industry === i.name[0].quote"
@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="dk-box-2 text-center" style="padding-top: 0;">
+    <div class="dk-box-2 text-center pt-0">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7">

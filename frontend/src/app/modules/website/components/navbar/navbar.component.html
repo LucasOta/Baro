@@ -2,7 +2,7 @@
     <div class="container">
         <div class="dk-nav-content">
             
-            <a [routerLink]="'home'">
+            <a [routerLink]="''">
                 <img src="/assets/website/img/logo-baro.svg" alt="" class="custom_logo">
             </a> 
 
@@ -10,7 +10,7 @@
             <ul class="dk-nav dk-nav-align-right">
                 
                 <li class="dk-drop-item">
-                    <a [routerLink]="'home'" routerLinkActive="active" class="pt40">{{'Home' | translate}}</a>                        
+                    <a [routerLink]=" ['']" [routerLinkActiveOptions]= "{exact: true}" routerLinkActive="active" class="pt40">{{'Home' | translate}}</a>                        
                 <li>
                 
                 <li class="dk-drop-item">
@@ -42,7 +42,7 @@
             <ul class="dk-nav dk-nav-align-right fullscreen_list" >
 
                 <li>
-                    <a [routerLink]="'home'" (click)="turnOffFullScreen()" routerLinkActive="active" class="pt50">{{'Home' | translate}}</a>                        
+                    <a [routerLink]="['']" [routerLinkActiveOptions]= "{exact: true}" (click)="turnOffFullScreen()" routerLinkActive="active" class="pt50">{{'Home' | translate}}</a>                        
                 <li>
                 
                 <li>
