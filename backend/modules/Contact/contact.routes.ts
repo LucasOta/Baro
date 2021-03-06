@@ -41,6 +41,10 @@ contactRoutes.get ('/', [verifyToken], async (req: any, res: Response) => {
 // Get ById
 contactRoutes.get ('/:contactid', [verifyToken], async (req: any, res: Response) => {
     const id = req.params.contactid;
+    var ObjectId = require('mongoose').Types.ObjectId;
+    if (!ObjectId.isValid(id)){
+        return res.json({ok:false, desc: 'No contact found'})
+    }
 
     let contact = await Contact
         .findById(id)

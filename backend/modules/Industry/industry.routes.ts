@@ -103,6 +103,10 @@ industryRoutes.get ('/', async (req: any, res: Response) => {
 industryRoutes.get ('/:industryid', async (req: any, res: Response) => {
     const id = req.params.industryid;
     const lang = req.get('Accept-Language');
+    var ObjectId = require('mongoose').Types.ObjectId;
+    if (!ObjectId.isValid(id)){
+        return res.json({ok:false, desc: 'No industry found'})
+    }
 
     let industries = await Industry
         .findById(id)

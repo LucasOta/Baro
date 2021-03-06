@@ -4,13 +4,11 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload';
 
-import categoryRoutes from './modules/Category/category.routes';
 import clientRoutes from './modules/Client/client.routes';
 import contactRoutes from './modules/Contact/contact.routes';
 import disciplineRoutes from './modules/Discipline/discipline.routes';
 import fileRoutes from './modules/File/file.routes';
 import industryRoutes from './modules/Industry/industry.routes';
-import postRoutes from './modules/Post/post.routes';
 import projectRoutes from './modules/Project/project.routes';
 import userRoutes from './modules/User/user.routes';
 
@@ -30,13 +28,11 @@ server.app.use(fileUpload({ useTempFiles: true }));
 server.app.use(cors({ origin: true, credentials: true }));
 
 // Endpoints
-server.app.use('/category', categoryRoutes);
 server.app.use('/client', clientRoutes);
 server.app.use('/contact', contactRoutes);
 server.app.use('/discipline', disciplineRoutes);
 server.app.use('/file', fileRoutes);
 server.app.use('/industry', industryRoutes);
-server.app.use('/posts', postRoutes);
 server.app.use('/project', projectRoutes);
 server.app.use('/user', userRoutes);
 
@@ -60,3 +56,4 @@ mongoose.connect('mongodb://127.0.0.1:27017',
 server.start(() => {
     console.log(`Server running on port ${server.port}`);
 });
+ 

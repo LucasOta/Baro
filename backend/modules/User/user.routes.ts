@@ -175,6 +175,10 @@ userRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
 // Get ById
 userRoutes.get ('/:userid', async (req: any, res: Response) => {
     const id = req.params.userid;
+    var ObjectId = require('mongoose').Types.ObjectId;
+    if (!ObjectId.isValid(id)){
+        return res.json({ok:false, desc: 'No user found'})
+    }
 
     let users = await User
         .findById(id)
