@@ -32,6 +32,9 @@
 body, p, a, h1, h2, h3, h4, h5, span{
     font-family: 'Baro', sans-serif !important;
 }
+p {
+    hyphens: auto;
+}
 p a{
     border-bottom: 4px solid var(--primary);
 }
