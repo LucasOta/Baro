@@ -38,7 +38,7 @@
 <div class="dk-navbar dk-navbar-fullscreen" [ngClass]="{'dk-open-fullscreen': fullscreen}">
     <div class="container">
         <div class="d-block"></div>
-        <div class="dk-nav-content">
+        <div class="dk-nav-content mobile_menu">
             <ul class="dk-nav dk-nav-align-right fullscreen_list" >
 
                 <li>
@@ -62,6 +62,6 @@
             </ul>
         </div>
         
-        <div class="dk-navbar-burger" [ngClass]="{'dk-open-fullscreen': fullscreen}" (click)="toggleFullScreen()"><span></span><span></span><span></span></div>
+        <div class="dk-navbar-burger" [ngClass]="{'dk-open-fullscreen  cross': fullscreen}" (click)="toggleFullScreen()"><span></span><span></span><span></span></div>
     </div>
 </div>

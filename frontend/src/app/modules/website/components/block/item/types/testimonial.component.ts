@@ -8,6 +8,7 @@ import { Item } from 'src/app/shared/models/item';
       <div class="row justify-content-center">
           <div class="col-lg-9">
               <div class="dk-reviews  text-center">
+                <h2 class="pt50" style="font-weight: 400;">{{'Client Testimonial' | translate}}</h2>
                   <div class="dk-reviews-text">
                       <p class="mb-0 pt30" style="font-style:  italic;">{{item.testimonial.quote[0].quote}}</p>
                   </div>

@@ -7,11 +7,12 @@ import { Item } from 'src/app/shared/models/item';
 @Component({
   selector: 'app-image',
   styles: [
-    'img {width: 100%; padding: 20px 0;}'
+    'img {width: 100%; padding: 20px 0;}',
+    '.full_width img {padding: 0; transform: translateY(90px); margin-top: -90px;}',
   ],
   template: `
     <div class="dk-box">
-        <div [ngClass]="{'container': !item.fullWidth}">
+        <div [ngClass]="item.fullWidth ? 'full_width' : 'container'">
             <img class="dk-img" [src]="(item.img[0] | image : (moduleName$ | async) : (elementId$ | async))" alt="">
         </div>
     </div>
