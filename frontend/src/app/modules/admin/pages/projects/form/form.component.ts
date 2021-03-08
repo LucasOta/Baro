@@ -25,6 +25,7 @@ import { AppState } from 'src/app/app.state';
 import { set, reset } from "src/app/shared/actions/formSubmitted.actions";
 import { set as setModuleName } from "src/app/shared/actions/moduleName.actions";
 import { set as setElementId } from "src/app/shared/actions/elementId.actions";
+import { TextInputConfig } from '../../../components/form/text-input/text-input.component';
 
 @Component({
   selector: 'app-form',
@@ -41,6 +42,7 @@ export class FormComponent implements OnInit {
   state: any;
   id: any;
 
+  orderInputConfig = new TextInputConfig();
   titleMultilanguageInputConfig = new MultilanguageTextInputConfig();
   descMultilanguageAreaConfig = new MultilanguageTextAreaConfig();
   languageSelectorConfig = new LanguageSelectorConfig();
@@ -76,6 +78,7 @@ export class FormComponent implements OnInit {
     
     this.createForm = this.formBuilder.group({
       _id: [''],
+      order: [null, Validators.required],
       title: createTranslationForm(),
       description: createTranslationForm(),
       playground: [false],
@@ -93,6 +96,7 @@ export class FormComponent implements OnInit {
     this.industriesDropDownListInputConfig.formControl = this.createForm.get('industries') as FormControl;
     this.disciplinesDropDownListInputConfig.formControl = this.createForm.get('disciplines') as FormControl;
     
+    this.orderInputConfig.formControl = this.createForm.get('order') as FormControl;
     this.titleMultilanguageInputConfig.formArray = this.createForm.get('title') as FormArray;
     this.descMultilanguageAreaConfig.formArray = this.createForm.get('description') as FormArray;
     
@@ -110,6 +114,7 @@ export class FormComponent implements OnInit {
       this.project = res.projects;
 
       this.f._id.setValue(this.project._id);  
+      this.f.order.setValue(this.project.order);  
       this.f.title.setValue(this.project.title);  
       this.f.description.setValue(this.project.description);  
       
@@ -160,8 +165,8 @@ export class FormComponent implements OnInit {
     if (this.createForm.invalid) {       
       return;
     }
-
-    this.project = this.createForm.value;    
+    
+    this.project = this.createForm.value;
     
     if (! this.id) { 
       this.projectService.create(this.project)
@@ -194,6 +199,9 @@ export class FormComponent implements OnInit {
   private initializeComponents(){
     let scope = this;
 
+    this.orderInputConfig.fieldName = 'Order';
+    this.orderInputConfig.required = true;
+    
     this.titleMultilanguageInputConfig.fieldName = 'Title';
     this.titleMultilanguageInputConfig.required = true;
     

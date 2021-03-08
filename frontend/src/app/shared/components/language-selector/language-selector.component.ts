@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from "../../../app.state";
@@ -28,6 +28,20 @@ export class LanguageSelectorComponent implements OnInit {
       this.language$ = this.store.select(store => store.generalLanguage)
       this.store.dispatch(change({lang: this.languageService.getLanguage()}));
     }
+  }
+
+  formLang = 'en';
+  @HostListener('document:keydown.control.i') toggleLang(event: KeyboardEvent) {
+      if (this.languageSelectorConfig.form){
+        console.log('Change language', event);
+        if (this.formLang === 'en') {
+          this.store.dispatch(formLangChange({lang: defaultLanguages[1]}));
+          this.formLang = 'es';
+        } else {
+          this.formLang = 'en';
+          this.store.dispatch(formLangChange({lang: defaultLanguages[0]}));
+        }
+      }
   }
 
   setSelectedLanguage(lang: Language){

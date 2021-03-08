@@ -113,6 +113,9 @@ const projectSchema = new Schema({
         type: String,
         default: 'project_def.jpg'
     },
+    order: {
+        type: Number
+    },
     featured: {
         type: Boolean,
         default: false
@@ -155,6 +158,7 @@ projectSchema.pre<IProject>('save', function (next) {
 });
 
 export interface IProject extends Document {
+    order: number;
     title: Translation[];
     description: Translation[];
     coverImg: string;

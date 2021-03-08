@@ -114,7 +114,7 @@ export function createItemForm(fa: FormArray, i: number, item?: Item){
                 description: createTranslationForm(false),
               });
             if (item){
-                // todo: IMG
+                fg.controls.img.push( new FormControl(item.img[0]));
                 fg.controls.title.setValue(item.title);            
                 fg.controls.subtitle.setValue(item.subtitle);            
                 fg.controls.description.setValue(item.description);           
