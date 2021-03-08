@@ -10,6 +10,7 @@
             <form class="form-horizontal" [formGroup]="createForm" (ngSubmit)="onSubmit()">
                 <div class="card-body">
 
+                    <app-text-input [textInputConfig]="orderInputConfig"></app-text-input>
                     <app-multilanguage-text-input [multilanguageTextInputConfig]="titleMultilanguageInputConfig"></app-multilanguage-text-input>
                     <app-multilanguage-text-area [multilanguageTextAreaConfig]="descMultilanguageAreaConfig"></app-multilanguage-text-area>
                     <app-checkbox [checkboxConfig]="playgroundCheckboxConfig"></app-checkbox>

@@ -13,7 +13,8 @@ const fileSystem = new FileSystem();
 
 // Create an Project
 projectRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
-    let errors:string[] = [];
+    let errors:string[] = [];    
+    if (!req.body.order)        errors.push('order');
     if (!req.body.title)        errors.push('title');
     if (!req.body.description)  errors.push('description');
     if (!req.body.clients)      errors.push('clients');
@@ -38,6 +39,7 @@ projectRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
             });
         } else {
             let project = new Project();
+            project.order = req.body.order;
             project.title = req.body.title;
             project.description = req.body.description;
             project.clients = req.body.clients;
@@ -81,6 +83,7 @@ projectRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
     let project = <IProject>{ _id: req.body._id, modified: new Date() }
 
 
+    if (req.body.order)         project.order = req.body.order;
     if (req.body.title)         project.title = req.body.title;
     if (req.body.description)   project.description = req.body.description;
     if (req.body.clients)       project.clients = req.body.clients;
@@ -189,7 +192,7 @@ projectRoutes.get('/', async (req: any, res: Response) => {
 
     let projects = await Project
         .find()
-        .sort({ _id: -1 })
+        .sort({ order: 1 })
         .exists('deleted', false)
         .populate('clients')
         .populate('industries')

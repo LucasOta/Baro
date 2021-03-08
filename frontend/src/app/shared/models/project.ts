@@ -6,6 +6,7 @@ import { Item } from './item';
 
 export class Project {
     _id?: number;
+    order: number;
     title: Translation[];
     description: Translation[];
 
