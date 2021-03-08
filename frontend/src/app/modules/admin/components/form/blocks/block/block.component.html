@@ -20,7 +20,7 @@
         </button>
     </div>
 
-    <div cdkDropList (cdkDropListDropped)="drop($event)" class="items-list" *ngIf="block">
+    <div cdkDropList (cdkDropListDropped)="drop($event)" class="items-list" *ngIf="block" style="color: #000">
         <div cdkDrag *ngFor="let item of $any(block.controls.items).controls;let i=index;" class="item-box">
             <div cdkDragHandle ><i class="fas fa-bars"></i></div>
             
