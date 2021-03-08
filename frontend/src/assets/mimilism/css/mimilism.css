@@ -5400,17 +5400,6 @@ div.dk-navbar-fullscreen.dk-navbar-fullscreen.dk-open-fullscreen .dk-navbar-burg
     transition: visibility .3s ease, opacity .3s ease;
 }
 
-.dk-gallery .dk-gallery-item:hover > img {
-    -webkit-transform: scale(1.05);
-        -ms-transform: scale(1.05);
-            transform: scale(1.05);
-}
-
-.dk-gallery .dk-gallery-item:hover::after {
-    visibility: visible;
-    opacity: 1;
-}
-
 /*---------------------------
   Element Forms
  ----------------------------*/

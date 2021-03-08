@@ -16,6 +16,14 @@
     color: var(--black) !important;
 }
 
+.mobile_menu {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
 .dk-drop-item a.active, .fullscreen_list li .active{
     color: var(--black);
 }
@@ -27,15 +35,21 @@
 .fullscreen_list li a{
     font-size: 2.5em;
 }
+
+/* .cross{
+    top: -0.5em !important;
+    right: 1em !important;
+} */
+
 .dk-navbar-burger.dk-open-fullscreen span{
     background-color: var(--black) !important;
 }
 
 .dk-navbar .dk-navbar-burger{
     color: var(--black) !important;
-    position: absolute;
+    /* position: absolute;
     bottom: 0;
-    right: 20px;
+    right: 20px; */
 }
 .dk-navbar .dk-navbar-burger:hover > span {
     background-color: var(--grey-100) !important;
@@ -59,6 +73,6 @@
 
 @media (max-width: 574px) {
     .dk-navbar .dk-navbar-burger{
-        right: 10px;
+        /* right: 10px; */
     }
 }

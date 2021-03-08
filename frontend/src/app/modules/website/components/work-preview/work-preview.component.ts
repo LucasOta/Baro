@@ -16,7 +16,7 @@ export class WorkPreviewComponent implements OnInit {
   }
 
   view(){
-    this.router.navigate(['site/view', this.project._id]); 
+    this.router.navigate(['/view', this.project._id]); 
   }
 
 }

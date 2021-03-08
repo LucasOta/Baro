@@ -34,3 +34,11 @@
 .dk-portfolio-item{
     cursor: pointer;
 }
+
+.dk-portfolio-item-info{
+    padding-top: 10px;
+}
+
+.dk-portfolio-item-category span{
+    letter-spacing: normal;
+}

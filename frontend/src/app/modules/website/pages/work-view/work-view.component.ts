@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { ProjectService } from 'src/app/core/http/project/project.service';
@@ -21,7 +21,8 @@ export class WorkViewComponent implements OnInit {
   constructor( 
     private projectService: ProjectService, 
     private route: ActivatedRoute,
-    private store: Store<AppState> ) {
+    private store: Store<AppState>,
+    private router: Router ) {
       
     this.store.dispatch(setModuleName({moduleName: this.moduleName}));
 
@@ -36,7 +37,7 @@ export class WorkViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectService.get(false, this.id).subscribe((res)=>{
-      this.project = res.projects;
+      res.ok ? this.project = res.projects : this.router.navigate(['/work']); 
     });
     this.projectService.getAllWebsite(false, true).subscribe((res)=>{
       this.otherProjects = res.projects.filter(p => p._id != this.id);

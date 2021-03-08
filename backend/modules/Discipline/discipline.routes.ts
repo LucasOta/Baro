@@ -102,6 +102,10 @@ disciplineRoutes.get ('/', async (req: any, res: Response) => {
 disciplineRoutes.get ('/:disciplineid', async (req: any, res: Response) => {
     const id = req.params.disciplineid;
     const lang = req.get('Accept-Language');
+    var ObjectId = require('mongoose').Types.ObjectId;
+    if (!ObjectId.isValid(id)){
+        return res.json({ok:false, desc: 'No discipline found'})
+    }
 
     let disciplines = await Discipline
         .findById(id)

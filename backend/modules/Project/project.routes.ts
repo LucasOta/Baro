@@ -122,6 +122,10 @@ projectRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
 projectRoutes.get ('/:projectid', async (req: any, res: Response) => {
     const id = req.params.projectid;
     const lang = req.get('Accept-Language');
+    var ObjectId = require('mongoose').Types.ObjectId;
+    if (!ObjectId.isValid(id)){
+        return res.json({ok:false, desc: 'No project found'})
+    }
 
     let projects = await Project
         .findById(id)
@@ -130,9 +134,9 @@ projectRoutes.get ('/:projectid', async (req: any, res: Response) => {
         .populate('industries')
         .populate('disciplines')
         .exec()
-        .catch(err => Methods.sendErr(res, err) );
+        .catch(err => console.log(err));
     
-    if (!projects) return res.json({ok:true, desc: 'No project found'});
+    if (!projects) return res.json({ok:false, desc: 'No project found'});
 
     if (lang != '' && projects) {
         // @ts-ignore
