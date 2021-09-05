@@ -5,16 +5,24 @@ import { Project } from 'src/app/shared/models/project';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   projects: Project[] = [];
+  brandingForOptions = [
+    'getting the right customers',
+    'outperforming your competition',
+    'growing in the right direction',
+    'making your future clearer',
+    'finding your company’s voice',
+    'getting results',
+    'inspiring your team',
+  ];
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService) {}
   ngOnInit(): void {
-    this.projectService.getAllWebsite(true).subscribe((res)=>{
+    this.projectService.getAllWebsite(true).subscribe((res) => {
       this.projects = res.projects;
     });
   }
-
 }
