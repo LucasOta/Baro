@@ -15,11 +15,21 @@
             >
           </li>
           <li class="pt30">
-            <a href="https://wa.me/5493492672555" class="ft_grey-100">
-              (+54) 3492-672555</a
+            <a
+              href="https://wa.me/+17863436136"
+              class="ft_grey-100"
+              *ngIf="isEnglish"
+            >
+              +1 (786) 343-6136</a
+            >
+            <a
+              href="https://wa.me/5493492672555"
+              class="ft_grey-100"
+              *ngIf="!isEnglish"
+            >
+              +54 9 (3492) 67-2555</a
             >
           </li>
-          <!-- <li><strong>{{'Address' | translate}}:</strong> J.P. López, Rafaela</li> -->
         </ul>
       </div>
       <div class="col-lg-6" style="padding-bottom: 110px">

@@ -1,22 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Project } from 'src/app/shared/models/project';
-import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-work-preview',
   templateUrl: './work-preview.component.html',
-  styleUrls: ['./work-preview.component.css']
+  styleUrls: ['./work-preview.component.css'],
 })
-export class WorkPreviewComponent implements OnInit {
+export class WorkPreviewComponent {
   @Input() project: Project;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {
+  view() {
+    this.router.navigate(['/view', this.project._id]);
   }
-
-  view(){
-    this.router.navigate(['/view', this.project._id]); 
-  }
-
 }

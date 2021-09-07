@@ -1,75 +1,96 @@
-<footer class="dk-footer ">
-    <div class="dk-box-2">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-2 col-lg-4">
-
-                    <div class="dk-widget-footer">
-                        <div class="dk-widget-list navigation_list">
-                            <a [routerLink]="'home'">{{'Home' | translate}}</a>
-                            <a [routerLink]="'work'">{{'Work' | translate}}</a>
-                            <a [routerLink]="'about'">{{'About' | translate}}</a>
-                            <a [routerLink]="'contact'">{{'Contact' | translate}}</a>
-                        </div>
-                    </div>
-
-                    <div class="space"></div>
-                    <div class="space_mobile only_mobile"></div>
-
-                    <div class="dk-widget-footer only_desktop">
-                        <div class="dk-widget-list">
-                            <a class="ft_grey-100">&copy; Baro {{year}}</a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-sm-12 col-md-5 col-lg-4">
-                    <div class="dk-widget-footer">
-                        <div class="dk-widget-list">
-                            <a href="mailto:hello@barobranding.com" target="_blank">hello@barobranding.com</a>
-                            <a href="https://wa.me/5493492672555" target="_blank">+54 9 (3492) 67-2555</a>
-                        </div>
-                    </div>
-                    <div class="space"></div>
-                    <div class="dk-widget-footer only_desktop">
-                        <div class="dk-widget-list">
-                            <a>235 Juan Pablo López,</a>
-                            <a>Rafaela, Argentina (CP2300)</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-5 col-lg-4">
- 
-                    <div class="dk-widget-footer">
-                        <div class="dk-widget-list">
-                            <a href="https://www.behance.net/barobranding" target="_blank">Behance</a>
-                            <a href="https://www.instagram.com/barobranding/" target="_blank">Instagram</a>
-                            <a href="https://www.linkedin.com/company/barobranding" target="_blank">Linked In</a>
-                        </div>
-                    </div>
-
-                    <div class="space"></div>
-
-                    <div class="dk-widget-footer">
-                        <div class="dk-widget-list">
-                            <a href="https://barobranding.us17.list-manage.com/subscribe?u=a7506a8af652d8314eb5f8890&id=0e6c2538a7" target="_blank">{{'Subscribe to our newsletter' | translate}}</a>
-                        </div>
-                    </div>
-
-                    <div class="space_mobile only_mobile"></div>
-
-                    <div class="dk-widget-footer only_mobile">
-                        <div class="dk-widget-list">
-                            <a class="ft_grey-100">&copy; Baro {{year}}</a>
-                        </div>
-                    </div>
-
-                </div>
-
+<footer class="dk-footer">
+  <div class="dk-box-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-2 col-lg-4">
+          <div class="dk-widget-footer">
+            <div class="dk-widget-list navigation_list">
+              <a [routerLink]="'home'">{{ "Home" | translate }}</a>
+              <a [routerLink]="'work'">{{ "Work" | translate }}</a>
+              <a [routerLink]="'about'">{{ "About" | translate }}</a>
+              <a [routerLink]="'contact'">{{ "Contact" | translate }}</a>
             </div>
-        </div>
-    </div>
+          </div>
 
+          <div class="space"></div>
+          <div class="space_mobile only_mobile"></div>
+
+          <div class="dk-widget-footer only_desktop">
+            <div class="dk-widget-list">
+              <a class="ft_grey-100">&copy; Baro {{ year }}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-5 col-lg-4">
+          <div class="dk-widget-footer">
+            <div class="dk-widget-list">
+              <a href="mailto:hello@barobranding.com" target="_blank"
+                >hello@barobranding.com</a
+              >
+              <a
+                href="https://wa.me/+17863436136"
+                target="_blank"
+                *ngIf="isEnglish"
+              >
+                +1 (786) 343-6136</a
+              >
+              <a
+                href="https://wa.me/5493492672555"
+                target="_blank"
+                *ngIf="!isEnglish"
+              >
+                +54 9 (3492) 67-2555</a
+              >
+            </div>
+          </div>
+          <div class="space"></div>
+          <div class="dk-widget-footer only_desktop">
+            <div class="dk-widget-list">
+              <a>235 Juan Pablo López,</a>
+              <a>Rafaela, Argentina (CP2300)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-5 col-lg-4">
+          <div class="dk-widget-footer">
+            <div class="dk-widget-list">
+              <a href="https://www.behance.net/barobranding" target="_blank"
+                >Behance</a
+              >
+              <a href="https://www.instagram.com/barobranding/" target="_blank"
+                >Instagram</a
+              >
+              <a
+                href="https://www.linkedin.com/company/barobranding"
+                target="_blank"
+                >Linked In</a
+              >
+            </div>
+          </div>
+
+          <div class="space"></div>
+
+          <div class="dk-widget-footer">
+            <div class="dk-widget-list">
+              <a
+                href="https://barobranding.us17.list-manage.com/subscribe?u=a7506a8af652d8314eb5f8890&id=0e6c2538a7"
+                target="_blank"
+                >{{ "Subscribe to our newsletter" | translate }}</a
+              >
+            </div>
+          </div>
+
+          <div class="space_mobile only_mobile"></div>
+
+          <div class="dk-widget-footer only_mobile">
+            <div class="dk-widget-list">
+              <a class="ft_grey-100">&copy; Baro {{ year }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>

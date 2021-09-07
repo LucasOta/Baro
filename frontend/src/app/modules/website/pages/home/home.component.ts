@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ProjectService } from 'src/app/core/http/project/project.service';
 import { Project } from 'src/app/shared/models/project';
 
@@ -19,7 +20,15 @@ export class HomeComponent implements OnInit {
     'inspiring your team',
   ];
 
-  constructor(private projectService: ProjectService) {}
+  constructor(
+    private projectService: ProjectService,
+    private translate: TranslateService
+  ) {}
+
+  get isEnglish(): boolean {
+    return this.translate.currentLang === 'en';
+  }
+
   ngOnInit(): void {
     this.projectService.getAllWebsite(true).subscribe((res) => {
       this.projects = res.projects;

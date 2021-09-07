@@ -22,7 +22,8 @@
       <div class="col-lg-6">
         <p class="pt50 ft_black">
           {{
-            "We are a graphic design studio specialized in branding. Through strategy and visual identity, we help businesses find and communicate their core value proposition to stand out from their competitors."
+            "We are a graphic design studio specialized in branding. Through strategy and visual identity, we help
+          businesses find and communicate their core value proposition to stand out from their competitors."
               | translate
           }}
         </p>
@@ -42,13 +43,19 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-7">
-            <p class="mb-2 call_to_action">
-              <a [routerLink]="'../work'">{{ "See more" | translate }}</a>
-              {{ "projects, get to" | translate }}
-              <a [routerLink]="'../about'">{{ "know us" | translate }}</a
-              >{{ ", or" | translate }}
-              <a [routerLink]="'../contact'">{{ "let's talk" | translate }}</a>
-              {{ "about your project." | translate }}
+            <p class="mb-2 call_to_action" *ngIf="isEnglish">
+              <a [routerLink]="'../work'">See more</a>
+              projects, get to
+              <a [routerLink]="'../about'">know us</a>, or
+              <a [routerLink]="'../contact'">let's talk</a>
+              about your project.
+            </p>
+            <p class="mb-2 call_to_action" *ngIf="!isEnglish">
+              <a [routerLink]="'../work'"> Mirá más</a>
+              proyectos,
+              <a [routerLink]="'../contact'">contanos</a>
+              sobre el tuyo o
+              <a [routerLink]="'../about'">conocenos</a>.
             </p>
           </div>
         </div>
