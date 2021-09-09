@@ -74,7 +74,12 @@
           <div class="col-lg-6 pt50 ft_black">
             <p>
               {{
-                "We don’t do everything. We do branding and we do it right. For each project, we build a special team of professionals to create a unique and specific solution, according to each business needs."
+                "We don’t do everything. We do branding and we do it right."
+                  | translate
+              }}
+              <br />
+              {{
+                "For each project, we build a special team of professionals to create a unique and specific solution, according to each business needs."
                   | translate
               }}
             </p>
@@ -92,10 +97,9 @@
               - {{ "UX/UI Design" | translate }}<br />
             </p>
             <p class="call_to_action">
-              <a [routerLink]="'../work'">{{
-                "Read testimonials" | translate
-              }}</a>
-              {{ "from our projects or" | translate }}
+              {{ "Read testimonials from" | translate }}
+              <a [routerLink]="'../work'">{{ "our projects" | translate }}</a>
+              {{ "or" | translate }}
               <a [routerLink]="'../contact'">{{ "let's talk" | translate }}</a>
               {{ "about yours." | translate }}
             </p>
