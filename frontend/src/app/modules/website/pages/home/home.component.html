@@ -1,44 +1,65 @@
 <div class="dk-box-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 pt100" style="height: 4em;">
-                <h1 class="mb-0 ft_black branding">{{'Branding for' | translate}}</h1>
-                <div id="carouselPhrases" class="carousel slide carousel-fade" data-ride="carousel">
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <h1 class="ft_grey-100">{{'businesses with purpose' | translate}}</h1>                          
-                      </div>
-                      <div class="carousel-item">
-                        <h1 class="ft_grey-100">{{'competitive startups' | translate}}</h1>                          
-                      </div>
-                      <div class="carousel-item">
-                        <h1 class="ft_grey-100">{{'thriving business' | translate}}</h1>                          
-                      </div>
-                      <div class="carousel-item">
-                        <h1 class="ft_grey-100">{{'industry leaders' | translate}}</h1>                          
-                      </div>
-                    </div>
-                  </div>
-                
-            </div>
-            <div class="col-lg-6">
-                <p class="pt50 ft_black">{{'We are an independent desing firm specialized in branding. From Brand Strategy to Visual Identity, we help business that are ready to stand out.' | translate}}</p>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 pt100" style="height: 4em">
+        <h1 class="mb-0 ft_black branding">{{ "Branding for" | translate }}</h1>
+        <div
+          id="carouselPhrases"
+          class="carousel slide carousel-fade"
+          data-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <ng-container *ngFor="let phrase of brandingForOptions; index as i">
+              <div class="carousel-item" [ngClass]="{ active: i === 0 }">
+                <h1 class="ft_grey-100">
+                  {{ phrase | translate }}
+                </h1>
+              </div>
+            </ng-container>
+          </div>
         </div>
-        <div class="row" style="margin-top: 1.5em;">
-            <div class="col-12 col-md-6 dk-isotope-grid-item" *ngFor="let p of projects;" style="margin-top: 1.5em;">
-                <app-work-preview [project]="p"></app-work-preview>
-            </div>
-        </div>
-        
-        <div class="dk-box-2 text-center">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-7">
-                        <p class="mb-2 call_to_action"><a [routerLink]="'../work'">{{'See more' | translate}}</a> {{'projects, get to' | translate}} <a [routerLink]="'../about'">{{'know us' | translate}}</a>{{', or' | translate}} <a [routerLink]="'../contact'">{{'let\'s talk' | translate}}</a> {{'about that project.' | translate}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
+      <div class="col-lg-6">
+        <p class="pt50 ft_black">
+          {{
+            "We are a graphic design studio specialized in branding. Through strategy and visual identity, we help
+          businesses find and communicate their core value proposition to stand out from their competitors."
+              | translate
+          }}
+        </p>
+      </div>
     </div>
+    <div class="row" style="margin-top: 1.5em">
+      <div
+        class="col-12 col-md-6 dk-isotope-grid-item"
+        *ngFor="let p of projects"
+        style="margin-top: 1.5em"
+      >
+        <app-work-preview [project]="p"></app-work-preview>
+      </div>
+    </div>
+
+    <div class="dk-box-2 text-center">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <p class="mb-2 call_to_action" *ngIf="isEnglish">
+              <a [routerLink]="'../work'">See more</a>
+              projects, get to
+              <a [routerLink]="'../about'">know us</a>, or
+              <a [routerLink]="'../contact'">let's talk</a>
+              about your project.
+            </p>
+            <p class="mb-2 call_to_action" *ngIf="!isEnglish">
+              <a [routerLink]="'../work'"> Mirá más</a>
+              proyectos,
+              <a [routerLink]="'../contact'">contanos</a>
+              sobre el tuyo o
+              <a [routerLink]="'../about'">conocenos</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

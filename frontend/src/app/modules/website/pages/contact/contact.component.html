@@ -1,93 +1,141 @@
 <div class="dk-box-1">
-    <div class="container">
-        <div class="row vertical-gap justify-content-between">
-            <div class="col-lg-5">
-                <p class="pt50 ft_black">{{'Get in touch for a project, inquire about job opportunities, or simply say hello :)' | translate}}</p>
-                <ul class="dk-list mb-30 mt-50">
-                    <li class="pt30"><a href="mailto:hello@barobranding.com" class="ft_grey-100"> hello@barobranding.com</a></li>
-                    <li class="pt30"><a href="https://wa.me/5493492672555" class="ft_grey-100"> (+54) 3492-672555</a></li>
-                    <!-- <li><strong>{{'Address' | translate}}:</strong> J.P. López, Rafaela</li> -->
-                </ul>
+  <div class="container">
+    <div class="row vertical-gap justify-content-between">
+      <div class="col-lg-5">
+        <p class="pt50 ft_black">
+          {{
+            "Tell us about your project, inquire about job opportunities or simply say hello :)"
+              | translate
+          }}
+        </p>
+        <ul class="dk-list mb-30 mt-50">
+          <li class="pt30">
+            <a href="mailto:hello@barobranding.com" class="ft_grey-100">
+              hello@barobranding.com</a
+            >
+          </li>
+          <li class="pt30">
+            <a
+              href="https://wa.me/+17863436136"
+              class="ft_grey-100"
+              *ngIf="isEnglish"
+            >
+              +1 (786) 343-6136</a
+            >
+            <a
+              href="https://wa.me/5493492672555"
+              class="ft_grey-100"
+              *ngIf="!isEnglish"
+            >
+              +54 9 (3492) 67-2555</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-6" style="padding-bottom: 110px">
+        <form class="dk-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+          <div class="row vertical-gap">
+            <div class="col-md-6">
+              <input
+                class="form-control pt30 ft_black"
+                [ngClass]="{ 'no-invalid': !status.submitted }"
+                type="text"
+                name="name"
+                [placeholder]="'Name *' | translate"
+                [(ngModel)]="model.name"
+                required
+              />
             </div>
-            <div class="col-lg-6" style="padding-bottom: 110px;">
-                <form class="dk-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
-                    <div class="row vertical-gap">
-                        <div class="col-md-6">
-                            <input 
-                                class="form-control pt30 ft_black" 
-                                [ngClass]="{ 'no-invalid': (!status.submitted)}"
-                                type="text" 
-                                name="name" 
-                                [placeholder]="'Name *' | translate" 
-                                [(ngModel)]="model.name"
-                                required
-                            >
-                        </div>
-                        <div class="col-md-6">
-                            <input 
-                                class="form-control pt30 ft_black" 
-                                type="text" 
-                                name="company" 
-                                [placeholder]="'Company' | translate" 
-                                [(ngModel)]="model.company"
-                            >
-                        </div>
-                        <div class="col-md-12">
-                            <input 
-                                type="email" 
-                                name="email" 
-                                class="form-control pt30 ft_black"
-                                [ngClass]="{ 'no-invalid': (!status.submitted)}"
-                                aria-describedby="emailHelp" 
-                                [placeholder]="'Email *' | translate" 
-                                [(ngModel)]="model.email"
-                                required
-                            >
-                        </div>
-                        <div class="col-md-12">
-                            <input 
-                                type="tel" 
-                                name="phone" 
-                                class="form-control pt30 ft_black" 
-                                aria-describedby="telHelp" 
-                                [placeholder]="'Phone' | translate"                                 
-                                [(ngModel)]="model.phone"
-                            >
-                        </div>
-                        <div class="col-md-12">
-                            <input 
-                                class="form-control pt30 ft_black" 
-                                type="text" 
-                                name="country"
-                                [placeholder]="'Country' | translate" 
-                                [(ngModel)]="model.country"
-                            >
-                        </div>
-                        <div class="col-12">
-                            <textarea 
-                                class="form-control pt30 ft_black"
-                                [ngClass]="{ 'no-invalid': (!status.submitted)}"
-                                name="message" 
-                                rows="8" cols="80" 
-                                [placeholder]="'Message *' | translate" 
-                                [(ngModel)]="model.message"
-                                required
-                            ></textarea>
-                        </div>
-                        <div class="col-12">
-                            <input type="checkbox" name="subscribe" class="pt20" [(ngModel)]="model.newsletter" style="margin-right: 0.5em; border-bottom: none;"> {{'Subscribe to our newsletter' | translate}}
-                        </div>
-                        <div class="col-12">
-                            <div class="dk-result"></div>
-                        </div>
-                    </div>
-                    
-                    <button class="dk-btn dk-btn-md  pt30" *ngIf="!status.sent && !status.sending" type="submit" name="sumbit">{{'Submit' | translate}}</button>
-                    <button class="dk-btn dk-btn-md loading-btn pt30" *ngIf="status.submitted && status.sending"><i class="fas fa-circle-notch spinner"></i></button>
-                    <button class="dk-btn dk-btn-md sent-btn pt30" *ngIf="status.submitted && status.sent" disabled>{{'Thank you!' | translate}}</button>
-                    
-                </form>
+            <div class="col-md-6">
+              <input
+                class="form-control pt30 ft_black"
+                type="text"
+                name="company"
+                [placeholder]="'Company' | translate"
+                [(ngModel)]="model.company"
+              />
             </div>
-        </div>
+            <div class="col-md-12">
+              <input
+                type="email"
+                name="email"
+                class="form-control pt30 ft_black"
+                [ngClass]="{ 'no-invalid': !status.submitted }"
+                aria-describedby="emailHelp"
+                [placeholder]="'Email *' | translate"
+                [(ngModel)]="model.email"
+                required
+              />
+            </div>
+            <div class="col-md-12">
+              <input
+                type="tel"
+                name="phone"
+                class="form-control pt30 ft_black"
+                aria-describedby="telHelp"
+                [placeholder]="'Phone' | translate"
+                [(ngModel)]="model.phone"
+              />
+            </div>
+            <div class="col-md-12">
+              <input
+                class="form-control pt30 ft_black"
+                type="text"
+                name="country"
+                [placeholder]="'Country' | translate"
+                [(ngModel)]="model.country"
+              />
+            </div>
+            <div class="col-12">
+              <textarea
+                class="form-control pt30 ft_black"
+                [ngClass]="{ 'no-invalid': !status.submitted }"
+                name="message"
+                rows="8"
+                cols="80"
+                [placeholder]="'Message *' | translate"
+                [(ngModel)]="model.message"
+                required
+              ></textarea>
+            </div>
+            <div class="col-12">
+              <input
+                type="checkbox"
+                name="subscribe"
+                class="pt20"
+                [(ngModel)]="model.newsletter"
+                style="margin-right: 0.5em; border-bottom: none"
+              />
+              {{ "Subscribe to our newsletter" | translate }}
+            </div>
+            <div class="col-12">
+              <div class="dk-result"></div>
+            </div>
+          </div>
+
+          <button
+            class="dk-btn dk-btn-md pt30"
+            *ngIf="!status.sent && !status.sending"
+            type="submit"
+            name="sumbit"
+          >
+            {{ "Submit" | translate }}
+          </button>
+          <button
+            class="dk-btn dk-btn-md loading-btn pt30"
+            *ngIf="status.submitted && status.sending"
+          >
+            <i class="fas fa-circle-notch spinner"></i>
+          </button>
+          <button
+            class="dk-btn dk-btn-md sent-btn pt30"
+            *ngIf="status.submitted && status.sent"
+            disabled
+          >
+            {{ "Thank you!" | translate }}
+          </button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>

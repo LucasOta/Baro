@@ -1,43 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { ContactService } from 'src/app/core/http/contact/contact.service';
 import { Contact } from 'src/app/shared/models/contact';
 
 @Component({
-  selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  styleUrls: ['./contact.component.css'],
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent {
   model = new Contact();
   status = {
     submitted: false,
     sending: false,
-    sent: false
+    sent: false,
   };
-  
-  constructor(private contactService: ContactService) { }
 
-  ngOnInit(): void {}
+  constructor(
+    private contactService: ContactService,
+    private translate: TranslateService
+  ) {}
+
+  get isEnglish(): boolean {
+    return this.translate.currentLang === 'en';
+  }
 
   onSubmit() {
     this.status.submitted = true;
 
-    if(this.model.name && this.model.email && this.model.message){
+    if (this.model.name && this.model.email && this.model.message) {
       this.status.sending = true;
 
-      this.contactService.create(this.model)
+      this.contactService
+        .create(this.model)
         .pipe(first())
-        .subscribe(
-          data => { 
-            if (data.ok) {
-              setTimeout(() => {                
-                this.status.sending = false; 
-                this.status.sent = true; 
-              }, 750);
-            }
+        .subscribe((data) => {
+          if (data.ok) {
+            setTimeout(() => {
+              this.status.sending = false;
+              this.status.sent = true;
+            }, 750);
           }
-        );
-    }    
+        });
+    }
   }
 }

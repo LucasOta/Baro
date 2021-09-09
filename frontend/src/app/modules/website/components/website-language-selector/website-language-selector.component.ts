@@ -10,27 +10,38 @@ import { LanguageService } from 'src/app/shared/services/language.service';
   selector: 'app-website-language-selector',
   template: `
     <div class="website_lang_sel pt40">
-      <span *ngIf="(language$ | async).value === 'en'" (click)="switchLanguage('es')">En</span>
-      <span *ngIf="(language$ | async).value === 'es'" (click)="switchLanguage('en')">Es</span>
+      <span
+        *ngIf="(language$ | async).value === 'en'"
+        (click)="switchLanguage('es')"
+        >Es</span
+      >
+      <span
+        *ngIf="(language$ | async).value === 'es'"
+        (click)="switchLanguage('en')"
+        >En</span
+      >
     </div>
   `,
-  styleUrls: ['./website-language-selector.component.css']
+  styleUrls: ['./website-language-selector.component.css'],
 })
 export class WebsiteLanguageSelectorComponent implements OnInit {
   @Input() onChange: Function;
-  language$: Observable<Language>
+  language$: Observable<Language>;
 
-  constructor(private store: Store<AppState>, private languageService: LanguageService) {
-    this.language$ = store.select(store => store.formLanguage);
+  constructor(
+    private store: Store<AppState>,
+    private languageService: LanguageService
+  ) {
+    this.language$ = store.select((store) => store.formLanguage);
   }
 
   ngOnInit(): void {
-    this.language$ = this.store.select(store => store.generalLanguage)
+    this.language$ = this.store.select((store) => store.generalLanguage);
     this.store.dispatch(change({ lang: this.languageService.getLanguage() }));
   }
 
   switchLanguage(lang: string) {
-    let selectedlang = defaultLanguages.filter(l => l.value === lang)[0];
+    let selectedlang = defaultLanguages.filter((l) => l.value === lang)[0];
     this.store.dispatch(change({ lang: selectedlang }));
     this.onChange(selectedlang);
   }

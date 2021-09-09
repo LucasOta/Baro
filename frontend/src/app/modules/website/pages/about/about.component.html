@@ -1,92 +1,112 @@
-<div class="dk-box-1" style="padding-top: 0;">
-
-    <div class="dk-box-2 heading only_desktop">
-        <div class="container mnt-8 mnb-8">
-            <div class="row justify-content-between">
-                <div class="col-lg-6 text">
-                    <h1 class="pt50 ft_white white_title">{{'Baro is a multidisciplinary design studio based in Argentina, directed by Cristian Baronetti.' | translate}}</h1>
-                </div>
-                <div class="col-lg-6" style="text-align: center;">
-                    <img class="baro" src="/assets/website/img/foto_about_hires.jpg" alt="" style="width: auto;">
-                </div>
-            </div>
+<div class="dk-box-1" style="padding-top: 0">
+  <div class="dk-box-1 heading">
+    <div class="container mnt-8 mnb-8">
+      <div class="row justify-content-between">
+        <div class="col-12 text">
+          <h1 class="pt100 ft_white white_title">
+            {{
+              "Baro is a branding and graphic design studio based in Argentina, directed by Cristian Baronetti."
+                | translate
+            }}
+          </h1>
         </div>
+      </div>
     </div>
+  </div>
 
-    <div class="dk-box-2 heading only_mobile">
-        <div class="container mnt-8 mnb-8" style="display: flex;">
-            
-                <div class="text">
-                    <h1 class="pt50 ft_white white_title">{{'Baro is a' | translate}}<br> {{'multidisciplinary' | translate}}<br> {{'design studio' | translate}}<br> {{'based in' | translate}}<br> Argentina,<br> {{'directed by' | translate}}<br> Cristian<br> Baronetti.</h1>
-                </div>
-                <img class="baro" src="/assets/website/img/foto_about_hires.jpg" alt="" style="width: auto;">
-
+  <div class="dk-box question" style="margin-top: 2em">
+    <div class="container mnt-8 mnb-8" style="border-top: none">
+      <div class="row justify-content-between">
+        <div class="col-lg-6 title">
+          <h1>{{ "Who we are" | translate }}</h1>
         </div>
-    </div>
-
-    <!-- This could be a separate item -->
-    <div class="dk-box question" style="margin-top: 2em;">
-        <div class="container mnt-8 mnb-8" style="border-top: none;">
-            <div class="row justify-content-between">
-                <div class="col-lg-6 red_title">
-                    <h1>{{'Who we are' | translate}}</h1>
-                </div>
-                <div class="col-lg-6 pt50 ft_black">
-                    <p>{{'We are a team of ever-growing and talented specialists from all sorts of fields, including strategists, designers, artists, animators and developers, working remotely from all across the country.' | translate}}</p>
-                </div>
-            </div>
+        <div class="col-lg-6 pt50 ft_black">
+          <p>
+            {{
+              "We are a small, focused and agile studio, capable of responding to any kind of client and project, even when the creation of larger multidisciplinary teams are required."
+                | translate
+            }}
+            <br />
+            {{
+              "We work in partnership with developers, UX/UI designers, data analysts, copywriters and other experts."
+                | translate
+            }}
+            <br />
+            {{
+              "We believe in teamwork, client collaboration, continuous improvement and the success of purpose-driven businesses."
+                | translate
+            }}
+          </p>
         </div>
+      </div>
+      <div class="row justify-content-between">
+        <div class="col-lg-6 founder_photo">
+          <img src="/assets/website/img/cristianbaronetti.png" alt="founder" />
+        </div>
+        <div class="col-lg-6 pt50 ft_black">
+          <b>Cristian Baronetti</b><br />
+          <p>
+            {{
+              "Visual communications designer graduated from the Catholic University of Santiago del Estero (UCSE) and founder of Baro."
+                | translate
+            }}
+            <br />
+            {{
+              "Before discovering his passion for graphic design — and then working for almost 10 years for several studios and agencies — he first became an electronic technician and an airplane pilot."
+                | translate
+            }}
+            <br />
+            {{
+              "This mix of hard and soft skills enabled him to solve business problems through design with a unique approach."
+                | translate
+            }}
+          </p>
+        </div>
+      </div>
     </div>
 
     <div class="dk-box question">
-        <div class="container mnt-8 mnb-8 pb-0">
-            <div class="row justify-content-between">
-                <div class="col-lg-6 red_title">
-                    <h1>{{'What we do' | translate}}</h1>
-                </div>
-                <div class="col-lg-6 pt50 ft_black">
-                    <p>{{'We don’t do everything. We do branding and we do it right. For each project, we organize a special team of professionals to create a unique solution, specific to your business needs.' | translate}}<br>
-                    {{'Because of that, we can adapt to any project size and respond faster, delivering superior results worldwide.' | translate}}</p>
-                    <p>
-                        <b>{{'We do' | translate}}:</b><br>
-                        - {{'Brand Strategy' | translate}}<br> 
-                        - {{'Brand Architecture' | translate}}<br>
-                        - {{'Naming' | translate}}<br>
-                        - {{'Logo Design' | translate}}<br>
-                        - {{'Visual Identity & Guidelines' | translate}}<br>
-                        - {{'Brand Voice & Messaging' | translate}}<br>
-                        - {{'Web & Digital Design' | translate}}<br>
-                        - {{'Packaging' | translate}}<br>
-                        - {{'Brand Consulting' | translate}}<br>
-                        - {{'Things that doesn\'t have a name yet' | translate}}
-                    </p>
-                    <p><a class="call_to_action" [routerLink]="'../contact'">{{'Let\'s talk' | translate}}</a>.</p>
-                </div>
-            </div>
+      <div class="container mnt-8 mnb-8 pb-0">
+        <div class="row justify-content-between">
+          <div class="col-lg-6 title">
+            <h1>{{ "What we do" | translate }}</h1>
+          </div>
+          <div class="col-lg-6 pt50 ft_black">
+            <p>
+              {{
+                "We don’t do everything. We do branding and we do it right."
+                  | translate
+              }}
+              <br />
+              {{
+                "For each project, we build a special team of professionals to create a unique and specific solution, according to each business needs."
+                  | translate
+              }}
+            </p>
+            <p>
+              <b>{{ "We do" | translate }}:</b><br />
+              - {{ "Brand Strategy" | translate }}<br />
+              - {{ "Brand Architecture" | translate }}<br />
+              - {{ "Naming" | translate }}<br />
+              - {{ "Logo Design" | translate }}<br />
+              - {{ "Visual Identity & Guidelines" | translate }}<br />
+              - {{ "Brand Voice & Messaging" | translate }}<br />
+              - {{ "Web & Digital Design" | translate }}<br />
+              - {{ "Packaging" | translate }}<br />
+              - {{ "Brand Consulting" | translate }}<br />
+              - {{ "UX/UI Design" | translate }}<br />
+            </p>
+            <p class="call_to_action">
+              {{ "Read testimonials from" | translate }}
+              <a [routerLink]="'../work'">{{ "our projects" | translate }}</a>
+              {{ "or" | translate }}
+              <a [routerLink]="'../contact'">{{ "let's talk" | translate }}</a>
+              {{ "about yours." | translate }}
+            </p>
+          </div>
         </div>
+      </div>
     </div>
-
-    <!-- Testimonials -->
-    <!-- TODO: Take off the pb-0 class from line 42 when adding the testimonials -->
-    <!-- <div class="dk-box question">
-        <div class="container mnt-8 mnb-8 pb-0">
-            <div class="row justify-content-between">
-                <div class="col-lg-6 red_title">
-                    <h1>{{'What our' | translate}}<br>{{'clients say' | translate}}</h1>
-                </div>
-                <div class="col-lg-6 answer">
-                    <div class="testimonial">
-                        <div class="quote">
-                            <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia fringilla orci, sit amet elementum neque condimentum ac. Donec nunc metus, ultrices rutrum mauris iaculis, eleifend efficitur ligula.”</p>
-                        </div>
-                        <div class="client">
-                            <p>- Client Name | Job title | Brand name</p>
-                        </div>
-                    </div>
-                    <p>{{'Read more testimonials in our' | translate}} <a [routerLink]="'../work'">{{'case studies' | translate}}</a>.</p>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <div class="dk-box-2 pt-0"></div>
+  </div>
 </div>
