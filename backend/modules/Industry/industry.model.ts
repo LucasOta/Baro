@@ -1,39 +1,13 @@
-import { Schema, Document, model } from 'mongoose';
-import { Translation } from "../../classes/translation";
+import { model } from "mongoose";
+import { baseInterface, baseSchema } from "../../classes/base";
+import { Translation, translationSchema } from "../../classes/translation";
 
-const industrySchema = new Schema({
-
-    name: [
-        {
-            _id:false,
-            language: String,
-            quote: String,
-        }
-    ],
-
-    created: {
-        type: Date
-    },
-    modified: {
-        type: Date
-    },
-    deleted: {
-        type: Date
-    }
-
+const industrySchema = baseSchema({
+  name: [translationSchema],
 });
 
-industrySchema.pre<IIndustry>('save', function (next) {
-    this.created = new Date();
-    next();
-});
-
-export interface IIndustry extends Document {
-    name: Translation[];
-
-    created?: Date;
-    modified?: Date;
-    deleted?: Date;
+export interface IIndustry extends baseInterface {
+  name: Translation[];
 }
 
-export const Industry = model<IIndustry>('Industry', industrySchema);
+export const Industry = model<IIndustry>("Industry", industrySchema);

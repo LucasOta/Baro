@@ -1,144 +1,102 @@
-import { Router, Request, Response } from 'express';
-import { Industry, IIndustry } from './industry.model';
-import { verifyToken } from '../../middlewares/authentication';
-import Methods from '../../classes/methods';
-import FileSystem from '../../classes/file-system';
+import { Request, Response, Router } from "express";
+import Methods from "../../classes/methods";
+import { verifyToken } from "../../middlewares/authentication";
+import { IIndustry, Industry } from "./industry.model";
 
 const industryRoutes = Router();
-const fileSystem = new FileSystem();
 
-// TODO: verify Token by level
-industryRoutes.post('/create', [verifyToken], (req: Request, res: Response) => {
-    let errors:string[] = [];
-    if (!req.body.name) errors.push('name');
-    
-    if (errors.length){
-        return res.json({
-            ok: false,
-            desc: Methods.emptyFieldsMsg(errors)
-        });
-    }
-    
-    const industry = new Industry();
-    industry.name = req.body.name;
+industryRoutes.post("/create", [verifyToken], (req: Request, res: Response) => {
+  const industry = <IIndustry>{ ...req.body };
 
-    Industry.findOne({"name": industry.name[0]}, (err, industryDB) => {
+  Industry.findOne({ name: industry.name[0] })
+    .then((industryDB) => {
+      if (industryDB) {
+        return Methods.sendErr(
+          res,
+          "An industry with that name already exists."
+        );
+      }
 
-        if (err) Methods.sendErr(res, err);
-
-        if (industryDB) {
-            return res.json({
-                ok: false,
-                desc: 'A industry with that name already exists.'
-            });
-        } else {
-            Industry
-                .create(industry)
-                .then(industryDB => {
-                    res.status(201);
-                    return res.json({ ok: true, desc: 'Industry created', industry: industryDB });
-                })
-                .catch(err =>  Methods.sendErr(res, err) );
-        }
-
-    }).catch(err => Methods.sendErr(res, err) );
-
+      Industry.create(industry).then((industryDB) => {
+        return Methods.sendSuccess(res, "Industry created", industryDB, 201);
+      });
+    })
+    .catch((err) => {
+      Methods.sendErr(res, err);
+    });
 });
 
+industryRoutes.patch("/update", [verifyToken], (req: any, res: Response) => {
+  const industry = <IIndustry>{ ...req.body, modified: new Date() };
 
-// TODO: verify Token by level
-industryRoutes.patch('/update', [verifyToken], (req: any, res: Response) => {
-    let errors:string[] = [];
-    if (!req.body._id) errors.push('ID'); 
-    
-    if (errors.length){
-        return res.json({
-            ok: false,
-            desc: Methods.emptyFieldsMsg(errors)
-        });
-    }   
-
-    let industry = <IIndustry>{ modified: new Date() }
-
-    if (req.body.name) industry.name = req.body.name;
-
-    Industry
-        .findByIdAndUpdate(req.body._id, industry, { new: true }, (err, industryDB) => {
-
-            if (err) return Methods.sendErr(res, err);
-
-            if (!industryDB)  return res.json({ ok: false, desc: 'There is no industry with that ID' });
-
-            return res.json({ ok: true, desc:'Industry updated', industry: industryDB });
-
-        })
-        .catch(err => Methods.sendErr(res, err) );
-
+  Industry.findByIdAndUpdate(industry["_id"], industry, { new: true })
+    .then((industryDB) => {
+      return industryDB
+        ? Methods.sendSuccess(res, "Industry updated", industryDB)
+        : Methods.sendErr(res, "There is no industry with that ID");
+    })
+    .catch((err) => Methods.sendErr(res, err));
 });
 
 // Get All
-industryRoutes.get ('/', async (req: any, res: Response) => {    
-    const lang = req.get('Accept-Language');
+industryRoutes.get("/", async (req: any, res: Response) => {
+  const lang = req.get("Accept-Language");
 
-    let industries = await Industry
-        .find()
-        .sort({ _id: -1 })
-        .populate('parent')
-        .exec()
-        .catch(err => Methods.sendErr(res, err) );
+  const industries = await Industry.find()
+    .sort({ _id: -1 })
+    .exec()
+    .catch((err) => {
+      return Methods.sendErr(res, err);
+    });
 
-    if (lang != '' && industries) {
-        // @ts-ignore
-        industries.forEach(c => {
-            // @ts-ignore
-            c.name = [Methods.filterByLanguage(c.name, lang)];
-        });
-    }
-    
-    return res.json({ ok: true, industries });
+  // TODO: create Methods.translate(lang, data);
+  if (lang != "" && industries) {
+    industries.forEach((c) => {
+      c.name = [Methods.filterByLanguage(c.name, lang)];
+    });
+  }
 
+  Methods.sendSuccess(res, "", { industries });
 });
 
 // Get ById
-industryRoutes.get ('/:industryid', async (req: any, res: Response) => {
-    const id = req.params.industryid;
-    const lang = req.get('Accept-Language');
-    var ObjectId = require('mongoose').Types.ObjectId;
-    if (!ObjectId.isValid(id)){
-        return res.json({ok:false, desc: 'No industry found'})
-    }
+industryRoutes.get("/:industryId", async (req: any, res: Response) => {
+  const id = req.params.industryId;
+  const lang = req.get("Accept-Language");
+  const ObjectId = require("mongoose").Types.ObjectId;
+  if (!ObjectId.isValid(id)) {
+    return res.json({ ok: false, desc: "No industry found" });
+  }
 
-    let industries = await Industry
-        .findById(id)
-        .exists('deleted', false)
-        .sort({ _id: -1 })
-        .populate('parent', )
-        .exec()
-        .catch(err => Methods.sendErr(res, err) );
-    
-    if (!industries) return res.json({ok:true, desc: 'No industry found'});
+  const industries = await Industry.findById(id)
+    .exists("deleted", false)
+    .sort({ _id: -1 })
+    .exec()
+    .catch((err) => Methods.sendErr(res, err));
 
-    if (lang != '' && industries) {
-        // @ts-ignore
-        industries.name = [Methods.filterByLanguage(industries.name, lang)];
-    }    
+  if (!industries) return res.json({ ok: true, desc: "No industry found" });
 
-    return res.json({ ok: true, industries });
+  if (lang != "" && industries) {
+    // @ts-ignore
+    industries.name = [Methods.filterByLanguage(industries.name, lang)];
+  }
 
+  return res.json({ ok: true, industries });
 });
 
 // Delete
-industryRoutes.delete ('/:industryid', [verifyToken], async (req: any, res: Response) => {
-    const id = req.params.industryid;
-    await Industry
-        .findByIdAndDelete(id)
-        .catch(err => Methods.sendErr(res, err) );
+industryRoutes.delete(
+  "/:industryId",
+  [verifyToken],
+  async (req: any, res: Response) => {
+    const id = req.params.industryId;
+    await Industry.findByIdAndDelete(id).catch((err) =>
+      Methods.sendErr(res, err)
+    );
 
     // TODO: Erase industry references
-    res.json({ ok: true, desc: 'Industry deleted' });
-})
-
-
-
+    res.json({ ok: true, desc: "Industry deleted" });
+  }
+);
 
 export default industryRoutes;
